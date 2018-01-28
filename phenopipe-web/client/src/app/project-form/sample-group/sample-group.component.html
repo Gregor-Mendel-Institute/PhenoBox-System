@@ -1,0 +1,122 @@
+<div [formGroup]="parent">
+    <div formGroupName="{{ formGrName }}">
+        <div
+                class="form-group row"
+                [ngClass]="{'has-error': self.get('sampleGroupName').errors}">
+
+            <label for="sampleGroup" class="col-md-2 col-form-label" style="margin-top: 7px;">Sample Group *</label>
+            <div class="col-md-9">
+                <input
+                        type="text"
+                        class="form-control"
+                        id="sampleGroup"
+                        formControlName="sampleGroupName">
+                <span class="help-block"
+                      *ngIf="self.get('sampleGroupName').hasError('notUnique') &&
+                      self.get('sampleGroupName').hasError('required')">
+                            Name must be unique
+                    </span>
+                <span class="help-block"
+                      *ngIf="self.get('sampleGroupName').dirty && self.get('sampleGroupName').hasError('required')">
+                            This field is required
+                    </span>
+                <span class="help-block"
+                      *ngIf="self.get('sampleGroupName').dirty && self.get('sampleGroupName').hasError('maxlength')">
+                            The name is too long, please choose a name with {{ self.get('sampleGroupName').errors['maxlength'].requiredLength }} characters or less
+                    </span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="description" class="col-md-2 col-form-label" style="margin-top: 7px;">Description
+                <i
+                        class="fa fa-question-circle-o"
+                        tooltip="Enter additional information about this group here"
+                        triggers="click:mouseleave">
+                </i>
+            </label>
+            <div class="col-md-9">
+            <textarea textarea-autosize class="form-control" style="resize: none;" id="description"
+                      formControlName="sampleGroupDescription"></textarea>
+            </div>
+        </div>
+        <div class="form-group row"
+             [ngClass]="{'has-error': self.get('treatment').errors}">
+            <label for="treatment" class="col-md-2 col-form-label" style="margin-top: 7px;">Treatment *</label>
+            <div class="col-md-9">
+                <input
+                        type="text"
+                        class="form-control"
+                        id="treatment"
+                        formControlName="treatment">
+                <span class="help-block"
+                      *ngIf="self.get('treatment').dirty && self.get('treatment').hasError('required')">
+                            This field is required
+                    </span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="isControlGroup" class="col-md-2 col-form-label" style="margin-top: 7px;">Is Control Group </label>
+            <div class="col-md-9">
+                <input
+                        type="checkbox"
+                        class="form-check"
+                        style="margin-top: 10px;"
+                        id="isControlGroup"
+                        formControlName="isControl">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <label for="species" class="col-md-4 col-form-label" style="margin-top: 7px;">Species</label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" id="species" formControlName="species">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="variety" class="col-md-4 col-form-label" style="margin-top: 7px;">Variety</label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" id="variety" formControlName="variety">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <label for="genotype" class="col-md-4 col-form-label" style="margin-top: 7px;">Genotype</label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" id="genotype" formControlName="genotype">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="growthConditions" class="col-md-4 col-form-label" style="margin-top: 7px;">Growth
+                                                                                                           Conditions</label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" id="growthConditions"
+                               formControlName="growthConditions">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row" *ngIf="!restricted">
+            <label for="numberOfPlants" class="col-md-2 col-form-label" style="margin-top: 7px;">
+                Number of plants
+            </label>
+            <div class="col-md-2">
+                <input
+                        type="text"
+                        id="numberOfPlants"
+                        class="form-control"
+                        formControlName="plantCount">
+            </div>
+            <button
+                    type="button"
+                    class="col-md-2 btn btn-default"
+                    (click)="setPlantCount()">
+                Set number of plants
+            </button>
+        </div>
+        <plant-list
+                [parent]="self">
+        </plant-list>
+    </div>
+</div>

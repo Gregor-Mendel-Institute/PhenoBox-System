@@ -1,0 +1,25 @@
+<div class="row">
+    <div class="col-md-12">
+        <form novalidate [formGroup]="project" (ngSubmit)="onSubmit()">
+            <app-project-details [parent]="project"></app-project-details>
+            <fieldset>
+                <div class="form-group">
+                    <label for="numberOfPlants">Total # of plants: </label>
+                    <span>{{ numberOfPlants }}</span>
+                </div>
+            </fieldset>
+            <app-sample-group-input
+                    *ngIf="!restrictedEditing"
+                    [parent]="project"
+                    (added)="addSampleGroup($event)"></app-sample-group-input>
+            <app-sample-group-list
+                    [parent]="project"
+                    [restricted]="restrictedEditing"
+                    (plantCountChanged)="onPlantCountChanged($event)"
+                    (removeSampleGroup)="onRemoveSampleGroup($event)">
+            </app-sample-group-list>
+            <button type="submit" class="btn btn-default" [disabled]="project.invalid">Submit</button>
+        </form>
+    </div>
+</div>
+

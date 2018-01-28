@@ -1,0 +1,33 @@
+<div class="well"
+     [formGroup]="parent">
+    <div formGroupName="plants">
+        <h4>Plants <i class="fa fa-question-circle-o"
+                      tooltip="The plant names are optional but will show up in the file name and on the label. But be aware that the space on the label is limited to a total of 16 characters (groupname+index+[name]). e.g. 'Infected_1_name'"></i>
+        </h4>
+        <div *ngFor="let i of computeIndices();" class="form-group row">
+            <div class="col-md-6" *ngFor="let index of [i,i+1]">
+                <div class="form-group row" *ngIf="(index)<self.controls.length">
+                    <div class="col-md-12" [formGroup]="self.controls[index]">
+                        <div class="form-group row"
+                             [ngClass]="{'has-error': self.controls[index].get('name').dirty && self.controls[index].get('name').errors}">
+                            <div class="col-md-1">
+                                <span style="margin-top: 3px;">{{ index+1 }}</span>
+                            </div>
+                            <div class="col-md-10">
+                                <div class="input-group"><span
+                                        class="input-group-addon">{{ self.parent.get('sampleGroupName').value + '_'+(index+1)}}</span>
+                                    <input type="text" class="form-control" id="name" formControlName="name">
+                                    <span class="help-block"
+                                          *ngIf="self.controls[index].get('name').dirty && self.controls[index].get('name').hasError('maxlength')">
+                                        The name is too long, please choose a name with {{ self.controls[index].get('name').errors['maxlength'].requiredLength }} characters or less
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-md-1"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

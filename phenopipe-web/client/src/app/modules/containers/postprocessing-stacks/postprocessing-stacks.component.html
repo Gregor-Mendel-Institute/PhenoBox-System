@@ -1,0 +1,17 @@
+<a class="btn btn-default" [routerLink]="['upload']"><i
+        class="fa fa-upload"></i> Upload New Stack</a>
+
+<div class="form-group row has-error"
+     *ngIf="error?.code==503">
+    <div class="col-md-12 ">
+        <span class="help-block">
+            The Service is currently unavailable. Please try again later.
+        </span>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <app-postprocessing-stacks-table
+                [postprocessingStacks]="sortedPostprocessingStacks"></app-postprocessing-stacks-table>
+    </div>
+</div>

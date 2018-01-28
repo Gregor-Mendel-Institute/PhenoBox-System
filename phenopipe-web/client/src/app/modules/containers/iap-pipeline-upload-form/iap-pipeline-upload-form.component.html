@@ -1,0 +1,14 @@
+<div class="well">
+  <div class="row">
+    <label for="scriptName" class="col-md-2 col-form-label">Pipeline *</label>
+    <div class="col-md-8">
+      <input type="file" #fileInput accept=".ini" placeholder="Upload Pipeline..."
+             (change)="fileChanged($event)"/>
+    </div>
+    <div class="col-md-2">
+      <button type="button" #addScriptBtn class="btn btn-default" [disabled]="fileInput.files.length==0"
+              (click)="uploadPipeline($event)">Upload
+      </button>
+    </div>
+  </div>
+</div>

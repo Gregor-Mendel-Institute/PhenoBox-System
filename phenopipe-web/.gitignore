@@ -1,0 +1,21 @@
+build/
+dist/
+
+*.log
+*.log.1
+*.log.2
+*.log.3
+*.log.4
+*.pyc
+
+# Sphinx documentation
+docs/_build/
+
+/server/config/dev_config.py
+/server/config/production_config.py
+/server/config/dev_server_config.py
+/server/config/default_config.py
+/migrations/versions/
+/server/auth/gmi_authenticator.py
+/server/auth/box_authenticator.py
+

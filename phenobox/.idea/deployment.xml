@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" autoUpload="Always" serverName="deploy_dev_phenobox">
+    <serverData>
+      <paths name="GMI 'deploy_photobox'">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/photobox" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="deploy_dev_phenobox">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+          <excludedPaths>
+            <excludedPath local="true" path="$PROJECT_DIR$/docs" />
+          </excludedPaths>
+        </serverdata>
+      </paths>
+      <paths name="deploy_photobox">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/photobox" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+    <option name="myAutoUpload" value="ALWAYS" />
+  </component>
+</project>

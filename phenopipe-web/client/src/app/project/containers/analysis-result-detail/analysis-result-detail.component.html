@@ -1,0 +1,29 @@
+<div class="row">
+    <div class="col-md-12" *ngIf="analysis">
+        <h4>Experiment Name: {{ analysis.timestamp.experiment.name }}</h4>
+        <p>Timestamp: {{ templateUtils.formatTime(analysis.timestamp.createdAt,'YYYY-MM-DD HH:mm') }}</p>
+
+        <!--TODO provide a link to the status page for the current analysis to let the user check the progress-->
+        <div class="well">
+            <app-analysis-detail [analysis]="analysis"></app-analysis-detail>
+            <div *ngIf="analysis.finishedAt" style="margin-top: 10px;">
+                <button type="button" class="btn btn-primary" (click)="downloadResults(analysis, true)"><i
+                        class="fa fa-download"></i> Download Results
+                </button>
+                <button type="button" class="btn btn-primary" (click)="downloadResults(analysis, false)"><i
+                        class="fa fa-download"></i> Download Results without images
+                </button>
+                <a class="btn btn-default"
+                   [routerLink]="['/postprocessing', experimentId, analysis.id]"><i
+                        class="fa fa-bar-chart"></i> Apply postprocessing Stack
+                </a></div>
+        </div>
+        <div class="well" *ngIf="analysis.postprocessings?.edges.length>0">
+            <app-postprocessing-results-list
+                    [analysisId]="analysis.id"></app-postprocessing-results-list>
+        </div>
+        <h4>Analysed Plants</h4>
+        <app-samplegroup-list [viewOnly]="true" [allowSnapshotExclusion]="false"
+                              [sampleGroups]="analysis.sampleGroups.edges"></app-samplegroup-list>
+    </div>
+</div>

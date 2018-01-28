@@ -1,0 +1,109 @@
+<fieldset
+        class="well"
+        [formGroup]="parent">
+    <div formGroupName="details">
+        <div
+                class="form-group"
+                [ngClass]="{'has-error': parent.get('details.name').dirty && parent.get('details.name').errors}">
+            <label for="name">Project Name *</label>
+            <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Enter Project Name"
+                    id="name"
+                    formControlName="name">
+            <span class="help-block"
+                  *ngIf="parent.get('details.name').dirty && parent.get('details.name').hasError('required')">
+                            This field is required
+                    </span>
+            <span class="help-block"
+                  *ngIf="parent.get('details.name').dirty && parent.get('details.name').hasError('duplicateName')">
+                            This name already exists
+                    </span>
+        </div>
+        <div
+                class="form-group"
+                [ngClass]="{'has-error': parent.get('details.description').dirty && parent.get('details.description').errors}">
+            <label for="name">Project Description</label>
+            <textarea
+                    textarea-autosize
+                    class="form-control"
+                    style="resize: none;"
+                    placeholder="Enter Project Description"
+                    id="experiment_description"
+                    formControlName="description">
+                    </textarea>
+        </div>
+        <div
+                class="form-group"
+                [ngClass]="{'has-error': parent.get('details.groupName').dirty && parent.get('details.groupName').errors}">
+            <label for="groupName">Group Name</label>
+            <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Enter Group Name"
+                    id="groupName"
+                    formControlName="groupName">
+            <span class="help-block"
+                  *ngIf="parent.get('details.groupName').dirty && parent.get('details.groupName').hasError('required')">
+                            This field is required
+                    </span>
+        </div>
+        <div class="form-group"
+             [ngClass]="{'has-error': parent.get('details.scientistName').dirty && parent.get('details.scientistName').errors}">
+            <label for="scientistName">Scientist</label>
+            <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Enter Your Name"
+                    id="scientistName"
+                    formControlName="scientistName">
+            <span class="help-block"
+                  *ngIf="parent.get('details.scientistName').dirty && parent.get('details.scientistName').hasError('required')">
+                            This field is required
+                    </span>
+        </div>
+        <div formGroupName="dates">
+            <div class="form-group"
+                 [ngClass]="{'has-error': self.get('dates.startDate').dirty &&  self.get('dates.startDate').errors}">
+                <label for="startDate">Start Date *</label>
+                <input type="text" id="startDate" class="form-control" placeholder="Start Date e.g. Date of Seeding"
+                       bsDatepicker
+                       formControlName="startDate" [bsConfig]="{containerClass : 'theme-dark-blue'}"/>
+                <span class="help-block"
+                      *ngIf="self.get('dates.startDate').dirty && self.get('dates.startDate').hasError('required')">
+                            This field is required
+                    </span>
+            </div>
+            <fieldset
+                    [formGroup]="self.get('dates')">
+                <label for="additionalDate" class="form-check-label">
+                    <input type="checkbox" id="additionalDate" class="form-check-input"
+                           formControlName="additionalDate"/>
+                    Use another date for analysis timeline
+                </label>
+                <div class="form-group"
+                     [ngClass]="{'has-error': (self.get('dates.startDate').dirty || self.get('dates.startOfExperimentation').dirty)
+                      && self.get('dates').errors}">
+                    <!--TODO Enable/Disbale on ngx-datepicker not working, wait for fix and then use this instead of hiding-->
+                    <div [hidden]="!self.get('dates.additionalDate').value">
+                        <label for="startOfExperimentation">Start of Experimentation</label>
+                        <input type="text" id="startOfExperimentation" class="form-control"
+                               placeholder="Start of Experimentation"
+                               bsDatepicker
+                               formControlName="startOfExperimentation" #expDate
+                               [bsConfig]="{containerClass : 'theme-dark-blue'}"/>
+                    </div>
+
+                    <span class="help-block"
+                          *ngIf="(self.get('dates.startDate').dirty || self.get('dates.startOfExperimentation').dirty)
+                          && self.get('dates').hasError('invalidDate')">
+                            Start of Experimentation has to be after the start date.
+                    </span>
+                </div>
+            </fieldset>
+        </div>
+
+    </div>
+</fieldset>
+

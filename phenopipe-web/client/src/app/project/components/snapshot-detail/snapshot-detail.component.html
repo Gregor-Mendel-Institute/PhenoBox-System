@@ -1,0 +1,21 @@
+<div style="display: inline" [ngClass]="{'excluded': snapshot.node.excluded}">
+    <i *ngIf="snapshot.node.excluded" class="fa fa-eye-slash"></i>
+    <ng-content></ng-content>
+</div>
+<div *ngIf="allowExclusion" style="display: inline;">
+    <div style="display: inline;">
+        <a *ngIf="!snapshot.node.excluded"
+           (click)="excludeSnapshot($event)">
+            <i class="fa fa-toggle-on"></i>
+        </a>
+        <a *ngIf="snapshot.node.excluded"
+           (click)="includeSnapshot($event)">
+            <i class="fa fa-toggle-off"></i>
+        </a>
+    </div>
+    <div *ngIf="!viewOnly" style="display: inline;">
+        <button type="button" class="btn btn-default" (click)="deleteSnapshot($event)"><i
+                class="fa fa-trash-o"></i></button>
+    </div>
+</div>
+

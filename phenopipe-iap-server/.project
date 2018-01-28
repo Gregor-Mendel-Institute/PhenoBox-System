@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>phenopipe-iap-server</name>
+	<comment>Project phenopipe created by Buildship.</comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.jdt.core.javabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>org.eclipse.buildship.core.gradleprojectbuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>org.eclipse.xtext.ui.shared.xtextBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>de.walware.statet.r.builders.RSupport</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.jdt.core.javanature</nature>
+		<nature>org.eclipse.buildship.core.gradleprojectnature</nature>
+		<nature>de.walware.statet.base.StatetNature</nature>
+		<nature>de.walware.statet.r.RNature</nature>
+		<nature>org.eclipse.xtext.ui.shared.xtextNature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>grpc</name>
+			<type>2</type>
+			<location>/media/sf_linux_iap_share/phenopipe_workspace/phenopipe/build/generated/source/proto/main/grpc</location>
+		</link>
+		<link>
+			<name>java</name>
+			<type>2</type>
+			<location>/media/sf_linux_iap_share/phenopipe_workspace/phenopipe/build/generated/source/proto/main/java</location>
+		</link>
+	</linkedResources>
+</projectDescription>

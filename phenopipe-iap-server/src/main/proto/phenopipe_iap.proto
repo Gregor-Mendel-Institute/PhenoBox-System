@@ -1,0 +1,96 @@
+syntax = "proto3";
+
+import "phenopipe.proto";
+
+option java_multiple_files = true;
+option java_package = "at.gmi.djamei.phenopipe";
+option java_outer_classname = "PhenoPipeIapProto";
+
+package phenopipe;
+
+service PhenopipeIap {
+    rpc ImportExperiment(ImportRequest) returns(JobResponse){}
+    rpc FetchImportResult(FetchJobResultRequest) returns(ImportResponse){}
+    rpc AnalyzeExperiment(AnalyzeRequest) returns(JobResponse){}
+    rpc DeleteExperiment(DeleteRequest) returns(JobResponse){}
+    rpc FetchAnalyzeResult(FetchJobResultRequest) returns(AnalyzeResponse){}
+    rpc ExportExperiment(ExportRequest) returns(JobResponse){}
+    rpc FetchExportResult(FetchJobResultRequest) returns(ExportResponse){}
+    rpc FetchDeleteResult(FetchJobResultRequest) returns(DeleteResponse){}
+    rpc ImportAndAnalyze(ImportAndAnalyzeRequest) returns(stream ProgressResponse){}
+    rpc UploadPipeline(UploadPipelineRequest) returns(UploadPipelineResponse){}
+    rpc DeletePipeline(DeletePipelineRequest) returns(DeletePipelineResponse){}
+    rpc GetPipeline(GetPipelineRequest) returns(GetPipelineResponse){}
+    rpc GetPipelines(GetPipelinesRequest) returns(GetPipelinesResponse){}
+}
+
+message ImportAndAnalyzeRequest{
+    string path =1;
+    string experiment_name =2;
+    string coordinator_name =3;
+    string user_name=4;
+    string pipeline_id=5;
+}
+message UploadPipelineRequest{
+	string author =1;
+    bytes file = 2;
+}
+message UploadPipelineResponse{
+    bool success=1;
+}
+message DeletePipelineRequest{
+    string id = 1;
+}
+message DeletePipelineResponse{
+    bool success=1;
+}
+
+message ImportRequest {
+    string path =1;
+    string experiment_name =2;
+    string coordinator_name =3;
+    string user_name=4;
+}
+message ImportResponse {
+    string experiment_id = 1;
+}
+message AnalyzeRequest {
+	string experiment_id=1;
+	string pipeline_id = 2;
+}
+
+message AnalyzeResponse {
+    string result_id = 1;
+}
+message ExportRequest {
+	string experiment_id=1;
+	string destination_path=2;
+}
+message ExportResponse{
+	string path=1;
+	string image_path=2;
+}
+message DeleteRequest {
+	string experiment_id=1;
+}
+message DeleteResponse{
+	bool success=1;
+}
+message GetPipelineRequest{
+	string id =1;
+	string author=2;
+}
+message GetPipelineResponse{
+	Pipeline pipeline=1;
+}
+message GetPipelinesRequest{
+	string author=1;
+}
+message GetPipelinesResponse{
+	repeated Pipeline pipelines=1;
+}
+message Pipeline{
+	string id =1;
+	string name = 2;
+	string description = 3;
+}

@@ -1,0 +1,65 @@
+<ngx-datatable
+        #stacksTable
+        class="bootstrap expandable"
+        [columnMode]="'force'"
+
+        [rowHeight]="'auto'"
+        [rows]="postprocessingStacks"
+        [cssClasses]="{
+            sortAscending: 'fa fa-sort-asc',
+            sortDescending: 'fa fa-sort-desc',
+            pagerLeftArrow: 'fa fa-chevron-left',
+            pagerRightArrow: 'fa fa-chevron-right',
+            pagerPrevious: 'fa fa-step-backward',
+            pagerNext: 'fa fa-step-forward'
+
+        }">
+    <!-- Row Detail Template -->
+    <ngx-datatable-row-detail [rowHeight]="'auto'" #myDetailRow (toggle)="onDetailToggle($event)">
+        <ng-template let-row="row" let-expanded="expanded" ngx-datatable-row-detail-template>
+            <div style="padding-left:40px;">
+                <strong>Scripts:</strong>
+                <table class="table table-condensed table-hover">
+                    <tr>
+                        <th>Index</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr *ngFor="let script of row.node.scripts.edges; let i=index">
+                        <td>{{ i+1 }}</td>
+                        <td>{{ script.node.name }}</td>
+                        <td>{{ script.node.description }}</td>
+                    </tr>
+                </table>
+            </div>
+        </ng-template>
+    </ngx-datatable-row-detail>
+
+    <!-- Column Templates -->
+    <ngx-datatable-column
+            [width]="50"
+            [resizeable]="false"
+            [sortable]="false"
+            [draggable]="false"
+            [canAutoResize]="false">
+        <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
+            <a
+                    href="javascript:void(0)"
+                    class="fa"
+                    [ngClass]="{'fa-chevron-down': expanded, 'fa-chevron-right': !expanded}"
+                    title="Expand/Collapse Row"
+                    (click)="toggleExpandRow(row)">
+            </a>
+        </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Name" prop="node.name" [width]="'30%'">
+        <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+            <strong>{{ value }}</strong>
+        </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Description" prop="node.description" [width]="'70%'">
+        <ng-template let-value="value" ngx-datatable-cell-template>
+            <p>{{ value }}</p>
+        </ng-template>
+    </ngx-datatable-column>
+</ngx-datatable>

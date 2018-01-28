@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="phenotype_experiments@localhost" uuid="571cb476-c4d8-48dd-a518-1b386dd86550">
+      <database-info product="PostgreSQL" version="9.6.2" jdbc-version="4.0" driver-name="PostgreSQL Native Driver" driver-version="PostgreSQL 9.4 JDBC4 (build 1201)">
+        <identifier-quote-string>&quot;</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="lower" quoted-identifiers="exact" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>photobox</user-name>
+      <introspection-schemas>phenotype_experiments:information_schema,pg_catalog,pg_temp_1,pg_toast,pg_toast_temp_1,public</introspection-schemas>
+      <resolve-scope>phenotype_experiments:photobox,public</resolve-scope>
+      <unqualified-resolve-schemas>phenotype_experiments:photobox,public</unqualified-resolve-schemas>
+    </data-source>
+  </component>
+</project>

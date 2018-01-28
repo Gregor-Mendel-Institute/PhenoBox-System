@@ -1,0 +1,102 @@
+<div>
+  <h3>Analyse Experiment "{{ (experimentInfo |async)?.name }}"</h3>
+  <h4>Timestamp: {{ templateUtils.formatTime(timestampInfo?.createdAt,'YYYY-MM-DD HH:mm') }}</h4>
+  <form novalidate [formGroup]="analysis" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="col-md-6">
+        <h4 *ngIf="!analysis.get('useExisting').value">IAP Pipeline</h4>
+        <h4 *ngIf="analysis.get('useExisting').value">Existing Analysis</h4>
+        <fieldset class="well">
+          <div>
+            <div class="form-group row">
+              <div class="form-check">
+                <label class="form-check-label">
+                  <input class="form-check-input" type="checkbox" formControlName="useExisting">
+                  Use Existing Result
+                </label>
+              </div>
+            </div>
+            <div
+              *ngIf="analysis.get('useExisting').value; else selectPipeline"
+              class="form-group row"
+              formGroupName="existing">
+              <label for="existing">Select existing Analysis: </label>
+              <select formControlName="id" id="existing" class="form-control">
+                <option value="">Select an existing Analysis
+                </option>
+
+                <option *ngFor="let option of timestampInfo?.analyses.edges"
+                        [value]="option.node.id">
+                  {{ option.node.pipeline.name }}:{{ templateUtils.formatTime(option.node.finishedAt,'YYYY-MM-DD HH:mm') }}
+                </option>
+              </select>
+            </div>
+            <ng-template #selectPipeline>
+              <div class="form-group row" formGroupName="pipeline">
+                <label for="pipeline">Select Pipeline:</label>
+                <select formControlName="id" id="pipeline" class="form-control">
+                  <option value="">Select a Pipeline
+                  </option>
+                  <option *ngFor="let option of pipelines"
+                          [value]="option.node.id">
+                    {{ option.node.name }}
+                  </option>
+                </select>
+              </div>
+            </ng-template>
+          </div>
+        </fieldset>
+        <div *ngIf="!analysis.get('useExisting').value && currentPipeline "
+             class="well">
+          <p><strong>Selected Pipeline:</strong> '{{ currentPipeline.node.name }}'</p>
+          <p><strong>Description:</strong> {{ currentPipeline.node.description }}</p>
+        </div>
+        <div *ngIf="analysis.get('useExisting').value && analysis.get('existing')?.value?.id"
+             class="well">
+          <app-analysis-detail [analysis]="currentAnalysis"></app-analysis-detail>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <app-stack-selector #stackSelector
+                            [postprocessingStacks]="stacks"
+                            (onStackClicked)="stackClicked($event)"></app-stack-selector>
+        <label for="note">Enter a note to be able to identify this Postprocess later</label>
+        <input
+          id="note"
+          type="text"
+          class="form-control"
+          placeholder="Enter a note for your future self"
+          formControlName="postprocessNote">
+      </div>
+    </div>
+    <div class="well" style="margin-top: 10px;" *ngIf="currentStack">
+      <div class="row ">
+        <div class="col-md-12">
+          <!--TODO build a component for this-->
+          <h4>Details of stack '{{ currentStack.name }}'</h4>
+          <p>{{ currentStack.description }}</p>
+            <strong>Scripts:</strong>
+            <table class="table table-condensed table-hover">
+              <tr>
+                <th>Index</th>
+                <th>Name</th>
+                <th>Description</th>
+              </tr>
+              <tr *ngFor="let script of currentStack.scripts.edges; let i=index">
+                <td>{{ i+1 }}</td>
+                <td>{{ script.node.name }}</td>
+                <td>{{ script.node.description }}</td>
+              </tr>
+            </table>
+          </div>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-lg btn-primary"
+            [disabled]="analysis.invalid || (analysis.get('useExisting').value && stackSelector.selectedStacks.length==0)">
+      Submit
+    </button>
+  </form>
+
+</div>
+

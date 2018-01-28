@@ -1,0 +1,3 @@
+[submodule "phenopipe-iap-server/vendor/IAP"]
+	path = phenopipe-iap-server/vendor/IAP
+	url = git@github.com:Gregor-Mendel-Institute/IAP-Phenopipe.git

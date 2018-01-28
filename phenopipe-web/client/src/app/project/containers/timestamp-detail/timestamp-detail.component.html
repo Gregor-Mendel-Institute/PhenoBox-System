@@ -1,0 +1,61 @@
+<div>
+    <div *ngIf="!timestamp.completed">
+        <button type="button" class="btn btn-primary" (click)="finalizeModal.show()">Finalize</button>
+        <p>Total # of imaged plants: {{ totalImagedPlants }}</p>
+    </div>
+    <p *ngIf="timestamp.completed">This timestamp has already been finalized!</p>
+    <button type="button" class="btn btn-primary" style="margin-bottom: 10px;" (click)="downloadImages()"><i
+            class="fa fa-download"></i> Download original images
+    </button>
+
+    <div class="well" *ngIf="timestamp.analyses.edges?.length>0">
+        <app-analysis-list [experimentId]="experimentId"
+                           [timestampId]="timestamp.id"></app-analysis-list>
+    </div>
+    <div *ngIf="timestamp.completed">
+        <a class="btn btn-primary" style="margin-bottom: 10px;" [routerLink]="['/analysis', experimentId, timestamp.id]">Analyse</a>
+    </div>
+    <!--TODO think about moving this to the postprocessing/analysis View-->
+    <app-samplegroup-list
+            [viewOnly]="timestamp.completed"
+            [allowSnapshotExclusion]="true"
+            [sampleGroups]="sampleGroup$ | async"
+            (onDeleteSnapshot)="deleteSnapshot($event)"
+            (onChangeSnapshotExclusion)="changeSnapshotExclusion($event)"
+    ></app-samplegroup-list>
+
+</div>
+
+
+<div bsModal #finalizeModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="finalizeModal" aria-hidden="true"
+     [config]="{ignoreBackdropClick: false, backdrop: 'static'}">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Confirm Finalization</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <p>Are you sure you want to finalize this timestamp? This operation cannot be undone.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-default pull-right"
+                                (click)="finalizeModal.hide()">
+                            Cancel
+                        </button>
+                        <button type="button" class="btn btn-primary pull-right"
+                                (click)="confirmFinalize()">
+                            Confirm
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

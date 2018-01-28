@@ -1,0 +1,6 @@
+# Sphinx documentation
+/docs/_build/
+
+/phenobox/config/production_config.ini
+/phenobox/config/dev_config.ini
+*.pyc

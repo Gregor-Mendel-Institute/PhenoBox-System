@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "at.gmi.djamei.phenopipe";
+option java_outer_classname = "PhenoPipeProto";
+
+package phenopipe;
+
+service Phenopipe {
+     rpc WatchJob(WatchJobRequest) returns(stream ProgressResponse){}
+   }
+
+message JobResponse{
+	string job_id=1;
+}
+message WatchJobRequest{
+	string job_id=1;
+}
+message FetchJobResultRequest{
+	string job_id=1;
+}
+message ProgressResponse{
+    int32 progress=1;
+    string message=2;
+}

@@ -1,0 +1,6 @@
+.divider {
+  margin: 5px 10px;
+  height: 1px;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.2);
+}

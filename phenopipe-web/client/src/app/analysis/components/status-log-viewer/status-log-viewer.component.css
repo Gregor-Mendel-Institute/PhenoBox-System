@@ -1,0 +1,8 @@
+.ngx-table-scroll {
+  height: calc(100vh - 110px);
+}
+
+.ngx-table-scroll .progress-linear {
+  position: fixed !important;
+  bottom: 0px;
+}

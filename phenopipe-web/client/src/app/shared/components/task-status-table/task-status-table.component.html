@@ -1,0 +1,82 @@
+﻿<ng-content></ng-content>
+<ngx-datatable
+        #statusTable
+        class="bootstrap expandable"
+        [columnMode]="'force'"
+        [headerHeight]="50"
+        [rowHeight]="'auto'"
+        [rows]="taskStatus"
+        [cssClasses]="{
+            sortAscending: 'fa fa-sort-asc',
+            sortDescending: 'fa fa-sort-desc',
+            pagerLeftArrow: 'fa fa-chevron-left',
+            pagerRightArrow: 'fa fa-chevron-right',
+            pagerPrevious: 'fa fa-step-backward',
+            pagerNext: 'fa fa-step-forward'
+
+        }">
+    <!-- Row Detail Template -->
+    <ngx-datatable-row-detail [rowHeight]="'auto'" #myDetailRow (toggle)="onDetailToggle($event)">
+        <ng-template let-row="row" let-expanded="expanded" ngx-datatable-row-detail-template>
+            <div style="padding-left:40px;">
+                <p><strong>Description: </strong> {{ row.node.description }}</p>
+                <p><strong>Tasks:</strong></p>
+                <ngx-datatable
+                        class="bootstrap"
+                        [scrollbarH]="false"
+                        [rowHeight]="'auto'"
+                        [columnMode]="'force'"
+                        [rows]="row.node.jobs?.edges"
+                        [columns]="columns"
+                        [cssClasses]="{
+                            sortAscending: 'fa fa-sort-asc',
+                            sortDescending: 'fa fa-sort-desc',
+                            pagerLeftArrow: 'fa fa-chevron-left',
+                            pagerRightArrow: 'fa fa-chevron-right',
+                            pagerPrevious: 'fa fa-step-backward',
+                            pagerNext: 'fa fa-step-forward'
+
+                        }">
+                </ngx-datatable>
+            </div>
+        </ng-template>
+    </ngx-datatable-row-detail>
+
+    <!-- Column Templates -->
+    <ngx-datatable-column
+            [width]="50"
+            [resizeable]="false"
+            [sortable]="false"
+            [draggable]="false"
+            [canAutoResize]="false">
+        <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
+            <a
+                    href="javascript:void(0)"
+                    class="fa"
+                    [ngClass]="{'fa-chevron-down': expanded, 'fa-chevron-right': !expanded}"
+                    title="Expand/Collapse Row"
+                    (click)="toggleExpandRow(row)">
+            </a>
+        </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Name" prop="node.name" [width]="250">
+        <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+            <strong>{{ value }}</strong>
+        </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Status" prop="node.currentStatus" [width]="80">
+        <ng-template let-value="value" ngx-datatable-cell-template>
+            <strong>{{ value }}</strong>
+        </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Latest Message" prop="node.currentMessage" [width]="300">
+        <ng-template let-value="value" ngx-datatable-cell-template>
+            <strong>{{ value }}</strong>
+        </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="View Log" prop="node.id" [width]="80">
+        <ng-template let-value="value" ngx-datatable-cell-template>
+            <a class="btn btn-default" [routerLink]="['log', value]"><i class="fa fa-file-text-o"></i></a>
+        </ng-template>
+    </ngx-datatable-column>
+</ngx-datatable>

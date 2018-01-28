@@ -1,0 +1,20 @@
+<accordion [closeOthers]="true">
+    <accordion-group #agroup *ngFor="let group of sampleGroups; let i = index;"
+                     class="form-group"
+                     [isOpen]="accordionState[i]">
+        <div accordion-heading>
+            <span>{{ group.node.name }}</span>
+            <span class="small"># of plants: {{ group.node.plants.edges.length }}</span>
+            <i *ngIf="printable" class="pull-right float-md-right fa fa-print"
+               (click)="printGroupClicked(group.node, i)"></i>
+            <i class="pull-right float-md-right fa"
+               [ngClass]="{'fa-chevron-down': agroup?.isOpen, 'fa-chevron-right': !agroup?.isOpen}"></i>
+        </div>
+        <app-group-detail [group]="group.node" [viewOnly]=viewOnly
+                          [allowSnapshotExclusion]="allowSnapshotExclusion"
+                          (onDeleteSnapshot)="deleteSnapshot($event)"
+                          (onChangeSnapshotExclusion)="changeSnapshotExclusion($event)">
+
+        </app-group-detail>
+    </accordion-group>
+</accordion>

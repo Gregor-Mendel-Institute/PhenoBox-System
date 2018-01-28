@@ -1,0 +1,9 @@
+colorama
+PyJWT==1.4.2
+Pillow==3.4.2
+gphoto2==1.5.1
+jsonpickle==0.9.3
+requests==2.4.3
+six==1.10.0
+transitions==0.4.2
+zbar==0.10

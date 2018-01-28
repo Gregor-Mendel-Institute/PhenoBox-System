@@ -1,0 +1,64 @@
+<!--TODO Proper form validation-->
+<div class="row">
+  <div class="col-md-12">
+    <h3>Upload Postprocessing Stack</h3>
+    <form novalidate [formGroup]="stack" (ngSubmit)="onSubmit()">
+      <fieldset class="well">
+        <div formGroupName="details">
+          <div class="form-group row">
+            <label for="sampleGroup" class="col-md-2 col-form-label" style="margin-top: 7px;">Stack Name
+                                                                                              *</label>
+            <div class="col-md-9">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter a stack name"
+                formControlName="name"/>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="description" class="col-md-2 col-form-label" style="margin-top: 7px;">Description
+            </label>
+            <div class="col-md-9">
+                            <textarea textarea-autosize class="form-control" style="resize: none;" id="description"
+                                      formControlName="description">
+                            </textarea>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="sampleGroup" class="col-md-2 col-form-label"
+                   style="margin-top: 7px;">Author</label>
+            <div class="col-md-9">
+              <input
+                type="text"
+                class="form-control"
+                formControlName="author"/>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+      <fieldset class="well">
+        <label for="scriptName" class="col-md-2 col-form-label" style="margin-top: 7px;">Script *</label>
+        <div class="col-md-9">
+          <input type="file" #fileInput multiple accept=".r, .R" placeholder="Upload script..."
+                 (change)="fileChanged($event)"/>
+        </div>
+        <button type="button" #addScriptBtn class="btn btn-default" [disabled]="disableAddScripts"
+                (click)="addScripts($event)">ADD
+        </button>
+      </fieldset>
+
+      <fieldset class="col-md-5 well" *ngIf="stack.get('scripts')['controls'].length!=0">
+        <app-script-list [parent]="stack" (scriptSelected)=scriptSelected($event)></app-script-list>
+      </fieldset>
+      <fieldset class="col-md-7 well"
+                formArrayName="scripts"
+                *ngIf="selectedScriptIndex!=-1">
+        <app-script [parent]="stack.get('scripts')" [formGrName]="selectedScriptIndex"></app-script>
+      </fieldset>
+      <fieldset class="col-md-12">
+        <button type="submit" class="btn btn-default" [disabled]="stack.invalid">Submit</button>
+      </fieldset>
+    </form>
+  </div>
+</div>

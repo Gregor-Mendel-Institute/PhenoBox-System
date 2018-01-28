@@ -1,0 +1,8 @@
+
+.timestamp-completed{
+  background-color: lightblue;
+}
+
+.timestamp-incomplete {
+  background-color: lightyellow;
+}

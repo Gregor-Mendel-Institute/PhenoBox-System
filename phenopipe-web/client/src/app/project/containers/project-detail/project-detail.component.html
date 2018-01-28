@@ -1,0 +1,185 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="well">
+            <div class="form-group">
+                <label for="name">Project Name: </label>
+                <span id="name">{{ experiment.name }}</span>
+            </div>
+            <div class="form-group">
+                <label for="name">Project Description: </label>
+                <p id="experiment_description">{{ experiment.description }}</p>
+            </div>
+            <div class="form-group">
+                <label for="groupName">Group Name: </label>
+                <span
+                        id="groupName">{{ experiment.groupName }}</span>
+            </div>
+            <div class="form-group">
+                <label for="scientistName">Scientist: </label>
+                <span id="scientistName">
+                           {{ experiment.scientist }}
+                    </span>
+            </div>
+            <div class="form-group">
+                <label for="startDate">Start Date: </label>
+                <span id="startDate">{{ templateUtils.formatTime(experiment.startDate,'YYYY-MM-DD') }}</span>
+            </div>
+            <div class="form-group">
+                <label for="startOfExperimentation">Start of Experimentation: </label>
+                <span *ngIf="experiment.startOfExperimentation;else startAsStartOfExp"
+                      id="startOfExperimentation">{{ templateUtils.formatTime(experiment.startOfExperimentation,'YYYY-MM-DD') }}</span>
+                <ng-template #startAsStartOfExp>{{ templateUtils.formatTime(experiment.startDate,'YYYY-MM-DD') }}</ng-template>
+            </div>
+            <div class="form-group">
+                <label for="createdAt">Created at: </label>
+                <span id="createdAt">{{ templateUtils.formatTime(experiment.createdAt,'YYYY-MM-DD HH:mm') }}</span>
+            </div>
+            <div class="form-group">
+                <label for="updatedAt">Updated at: </label>
+                <span id="updatedAt">{{ templateUtils.formatTime(experiment.updatedAt,'YYYY-MM-DD HH:mm') }}</span>
+            </div>
+            <div class="form-group">
+                <label for="numberOfPlants">Total # of plants: </label>
+                <span id="numberOfPlants">{{ totalNumberOfPlants() }}</span>
+            </div>
+            <button type="button" class="btn btn-primary" (click)="printAllModal.show()">Print all Labels</button>
+            <button type="button" class="btn btn-primary" (click)="onEdit()">Edit</button>
+
+            <button type="button" class="pull-right btn btn-danger" [disabled]="!deleteable"
+                    (click)="deleteModal.show()"><i
+                    class="fa fa-trash-o"></i></button>
+        </div>
+        <div>
+            <div class="row" *ngIf="experiment.timestamps?.edges.length >0">
+                <div class="col-md-12">
+                    <nav class="navbar navbar-default">
+                        <ul class="nav navbar-nav">
+                            <!-- TODO get routerLinkActive to work here-->
+                            <li><a [routerLinkActive]="['active']" [routerLink]="['/projects', experiment.id]"
+                                   (click)="showInputInformation=true;">
+                                <i class="fa fa-file-text-o"></i> Input Information</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li *ngFor="let timestamp of experiment.timestamps.edges"><a
+                                    [routerLink]=[timestamp.node.id]
+                                    [routerLinkActive]="['active']"
+
+                                    (click)=" timestampClicked($event,timestamp.node.id)">
+                                <i class="fa"
+                                   [ngClass]="{'fa-calendar-check-o': timestamp.node.completed,'fa-calendar-o': !timestamp.node.completed}"></i>
+                                {{ templateUtils.formatTime(timestamp.node.createdAt,'YYYY-MM-DD HH:mm') }}</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <div *ngIf="showInputInformation">
+                <app-samplegroup-list [printable]="true" [sampleGroups]="experiment.sampleGroups.edges"
+                                      (printGroup)="printGroupEvent($event)"></app-samplegroup-list>
+            </div>
+            <!--outlet for timestamp details-->
+            <div>
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div bsModal #groupModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="printGroupModal" aria-hidden="true"
+     [config]="{ignoreBackdropClick: true, backdrop: 'static'}">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Confirm print job</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <p>Are you sure you want to print all labels for group '{{ groupToPrint?.name }}"? </p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-default pull-right"
+                                (click)="groupModal.hide()">
+                            Cancel
+                        </button>
+                        <button type="button" class="btn btn-primary pull-right"
+                                (click)="confirmPrintGroup(groupToPrint)">
+                            Print
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div bsModal #printAllModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="printAllModal" aria-hidden="true"
+     [config]="{ignoreBackdropClick: true, backdrop: 'static'}">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Confirm print job</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <p>Are you sure you want to print all labels?</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-default pull-right"
+                                (click)="printAllModal.hide()">
+                            Cancel
+                        </button>
+                        <button type="button" class="btn btn-primary pull-right"
+                                (click)="confirmPrintAll()">
+                            Print
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div bsModal #deleteModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="deleteModal" aria-hidden="true"
+     [config]="{ignoreBackdropClick: true, backdrop: 'static'}">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Confirm deletion</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <p>Are you sure you want to delete this project?</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-default pull-right"
+                                (click)="deleteModal.hide()">
+                            Cancel
+                        </button>
+                        <button type="button" class="btn btn-danger pull-right"
+                                (click)="confirmDelete()">
+                            Delete
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="a98eefad-396c-4a21-9563-50b8735b485c" name="deploy_dev_phenobox" url="http://10.60.33.216">
+        <fileTransfer host="10.60.33.216" port="22" rootFolder="/home/pi/dev" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

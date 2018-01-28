@@ -1,0 +1,1278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="4824022f-3d04-4e50-9490-b7ff3cef5dcc" name="Default" comment="">
+      <change beforePath="" afterPath="$PROJECT_DIR$/../phenopipe-web/client/src/app/interfaces/table-page.ts" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/../phenopipe-web/server/api/exceptions.py" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/../phenopipe-web/server/api/graphql/exceptions.py" />
+      <change beforePath="$PROJECT_DIR$/.idea/deployment.xml" afterPath="$PROJECT_DIR$/.idea/deployment.xml" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change beforePath="$PROJECT_DIR$/.idea/phenobox.iml" afterPath="$PROJECT_DIR$/.idea/phenobox.iml" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/phenobox/machine/phenobox_machine.py" afterPath="$PROJECT_DIR$/phenobox/machine/phenobox_machine.py" />
+      <change beforePath="$PROJECT_DIR$/phenobox/network/image_handler.py" afterPath="$PROJECT_DIR$/phenobox/network/image_handler.py" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-iap-server/build.gradle" afterPath="$PROJECT_DIR$/../phenopipe-iap-server/build.gradle" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-iap-server/src/main/java/at/gmi/djamei/config/Config.java" afterPath="$PROJECT_DIR$/../phenopipe-iap-server/src/main/java/at/gmi/djamei/config/Config.java" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-iap-server/src/main/java/at/gmi/djamei/iap/IAPAutomation.java" afterPath="$PROJECT_DIR$/../phenopipe-iap-server/src/main/java/at/gmi/djamei/iap/IAPAutomation.java" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-iap-server/src/main/java/at/gmi/djamei/iap/actions/ActionSetAnalysisPipeline.java" afterPath="$PROJECT_DIR$/../phenopipe-iap-server/src/main/java/at/gmi/djamei/iap/actions/ActionSetAnalysisPipeline.java" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-iap-server/src/main/java/at/gmi/djamei/phenopipe/Phenopipe.java" afterPath="$PROJECT_DIR$/../phenopipe-iap-server/src/main/java/at/gmi/djamei/phenopipe/Phenopipe.java" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-iap-server/src/main/java/at/gmi/djamei/phenopipe/PhenopipeIapService.java" afterPath="$PROJECT_DIR$/../phenopipe-iap-server/src/main/java/at/gmi/djamei/phenopipe/PhenopipeIapService.java" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-iap-server/src/main/proto/phenopipe_iap.proto" afterPath="$PROJECT_DIR$/../phenopipe-iap-server/src/main/proto/phenopipe_iap.proto" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-iap-server/src/main/resources/iap.properties" afterPath="$PROJECT_DIR$/../phenopipe-iap-server/src/main/resources/iap.properties" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-iap-server/src/main/resources/log4j2.xml" afterPath="$PROJECT_DIR$/../phenopipe-iap-server/src/main/resources/log4j2.xml" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-iap-server/vendor/IAP" afterPath="$PROJECT_DIR$/../phenopipe-iap-server/vendor/IAP" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-postprocess-server/src/main/java/at/gmi/djamei/PostprocessingServer.java" afterPath="$PROJECT_DIR$/../phenopipe-postprocess-server/src/main/java/at/gmi/djamei/PostprocessingServer.java" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-postprocess-server/src/main/java/at/gmi/djamei/mongo/PhenopipeMongoDb.java" afterPath="$PROJECT_DIR$/../phenopipe-postprocess-server/src/main/java/at/gmi/djamei/mongo/PhenopipeMongoDb.java" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-postprocess-server/src/main/java/at/gmi/djamei/phenopipe/PhenopipeRService.java" afterPath="$PROJECT_DIR$/../phenopipe-postprocess-server/src/main/java/at/gmi/djamei/phenopipe/PhenopipeRService.java" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-postprocess-server/src/main/java/at/gmi/djamei/phenopipe/PhenopipeService.java" afterPath="$PROJECT_DIR$/../phenopipe-postprocess-server/src/main/java/at/gmi/djamei/phenopipe/PhenopipeService.java" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-postprocess-server/src/main/resources/log4j2.xml" afterPath="$PROJECT_DIR$/../phenopipe-postprocess-server/src/main/resources/log4j2.xml" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/.idea/dataSources/571cb476-c4d8-48dd-a518-1b386dd86550.xml" afterPath="$PROJECT_DIR$/../phenopipe-web/.idea/dataSources/571cb476-c4d8-48dd-a518-1b386dd86550.xml" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/.idea/phenopipe-web.iml" afterPath="$PROJECT_DIR$/../phenopipe-web/.idea/phenopipe-web.iml" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../phenopipe-web/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/client/angular-cli.json" afterPath="$PROJECT_DIR$/../phenopipe-web/client/angular-cli.json" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/client/package.json" afterPath="$PROJECT_DIR$/../phenopipe-web/client/package.json" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/client/schema.json" afterPath="$PROJECT_DIR$/../phenopipe-web/client/schema.json" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/client/src/app/analysis/components/status-log-viewer/status-log-viewer.component.css" afterPath="$PROJECT_DIR$/../phenopipe-web/client/src/app/analysis/components/status-log-viewer/status-log-viewer.component.css" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/client/src/app/analysis/components/status-log-viewer/status-log-viewer.component.html" afterPath="$PROJECT_DIR$/../phenopipe-web/client/src/app/analysis/components/status-log-viewer/status-log-viewer.component.html" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/client/src/app/analysis/components/status-log-viewer/status-log-viewer.component.ts" afterPath="$PROJECT_DIR$/../phenopipe-web/client/src/app/analysis/components/status-log-viewer/status-log-viewer.component.ts" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/client/src/app/analysis/containers/analysis-dashboard/analysis-dashboard.component.ts" afterPath="$PROJECT_DIR$/../phenopipe-web/client/src/app/analysis/containers/analysis-dashboard/analysis-dashboard.component.ts" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/client/src/app/analysis/containers/analysis-log-view/analysis-log-view.component.html" afterPath="$PROJECT_DIR$/../phenopipe-web/client/src/app/analysis/containers/analysis-log-view/analysis-log-view.component.html" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/client/src/app/analysis/containers/analysis-log-view/analysis-log-view.component.ts" afterPath="$PROJECT_DIR$/../phenopipe-web/client/src/app/analysis/containers/analysis-log-view/analysis-log-view.component.ts" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/client/src/app/analysis/containers/analysis-postprocessing/analysis-postprocessing.component.html" afterPath="$PROJECT_DIR$/../phenopipe-web/client/src/app/analysis/containers/analysis-postprocessing/analysis-postprocessing.component.html" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/client/src/app/analysis/containers/analysis-postprocessing/analysis-postprocessing.component.ts" afterPath="$PROJECT_DIR$/../phenopipe-web/client/src/app/analysis/containers/analysis-postprocessing/analysis-postprocessing.component.ts" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/client/src/app/analysis/containers/postprocessing-dashboard/postprocessing-dashboard.component.ts" afterPath="$PROJECT_DIR$/../phenopipe-web/client/src/app/analysis/containers/postprocessing-dashboard/postprocessing-dashboard.component.ts" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/client/src/app/analysis/containers/postprocessing-log-view/postprocessing-log-view.component.html" afterPath="$PROJECT_DIR$/../phenopipe-web/client/src/app/analysis/containers/postprocessing-log-view/postprocessing-log-view.component.html" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/client/src/app/analysis/containers/postprocessing-log-view/postprocessing-log-view.component.ts" afterPath="$PROJECT_DIR$/../phenopipe-web/client/src/app/analysis/containers/postprocessing-log-view/postprocessing-log-view.component.ts" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/client/src/app/analysis/containers/timestamp-analysis/timestamp-analysis.component.html" afterPath="$PROJECT_DIR$/../phenopipe-web/client/src/app/analysis/containers/timestamp-analysis/timestamp-analysis.component.html" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/client/src/app/analysis/containers/timestamp-analysis/timestamp-analysis.component.ts" afterPath="$PROJECT_DIR$/../phenopipe-web/client/src/app/analysis/containers/timestamp-analysis/timestamp-analysis.component.ts" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/client/src/app/analysis/services/processingService/processing.service.ts" afterPath="$PROJECT_DIR$/../phenopipe-web/client/src/app/analysis/services/processingService/processing.service.ts" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/client/src/app/apollo.config.ts" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/client/src/app/app.module.ts" afterPath="$PROJECT_DIR$/../phenopipe-web/client/src/app/app.module.ts" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/client/src/app/auth.module.ts" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/client/src/app/interfaces/gql_schema.d.ts" afterPath="$PROJECT_DIR$/../phenopipe-web/client/src/app/interfaces/gql_schema.d.ts" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/client/src/app/login/auth.service.ts" afterPath="$PROJECT_DIR$/../phenopipe-web/client/src/app/login/auth.service.ts" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/client/src/app/project-form/project-form.component.ts" afterPath="$PROJECT_DIR$/../phenopipe-web/client/src/app/project-form/project-form.component.ts" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/client/src/app/project/components/postprocessing-result-detail/postprocessing-result-detail.component.html" afterPath="$PROJECT_DIR$/../phenopipe-web/client/src/app/project/components/postprocessing-result-detail/postprocessing-result-detail.component.html" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/client/src/app/project/components/postprocessing-result-detail/postprocessing-result-detail.component.ts" afterPath="$PROJECT_DIR$/../phenopipe-web/client/src/app/project/components/postprocessing-result-detail/postprocessing-result-detail.component.ts" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/client/src/app/project/containers/analysis-list/analysis-list.component.html" afterPath="$PROJECT_DIR$/../phenopipe-web/client/src/app/project/containers/analysis-list/analysis-list.component.html" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/client/src/app/project/containers/analysis-list/analysis-list.component.ts" afterPath="$PROJECT_DIR$/../phenopipe-web/client/src/app/project/containers/analysis-list/analysis-list.component.ts" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/client/src/app/project/containers/analysis-result-detail/analysis-result-detail.component.html" afterPath="$PROJECT_DIR$/../phenopipe-web/client/src/app/project/containers/analysis-result-detail/analysis-result-detail.component.html" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/client/src/app/project/containers/analysis-result-detail/analysis-result-detail.component.ts" afterPath="$PROJECT_DIR$/../phenopipe-web/client/src/app/project/containers/analysis-result-detail/analysis-result-detail.component.ts" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/client/src/app/project/containers/create-project/create-project.component.ts" afterPath="$PROJECT_DIR$/../phenopipe-web/client/src/app/project/containers/create-project/create-project.component.ts" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/client/src/app/project/containers/edit-project/edit-project.component.ts" afterPath="$PROJECT_DIR$/../phenopipe-web/client/src/app/project/containers/edit-project/edit-project.component.ts" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/client/src/app/project/containers/postprocessing-results-list/postprocessing-results-list.component.html" afterPath="$PROJECT_DIR$/../phenopipe-web/client/src/app/project/containers/postprocessing-results-list/postprocessing-results-list.component.html" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/client/src/app/project/containers/postprocessing-results-list/postprocessing-results-list.component.ts" afterPath="$PROJECT_DIR$/../phenopipe-web/client/src/app/project/containers/postprocessing-results-list/postprocessing-results-list.component.ts" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/client/src/app/project/containers/project-dashboard/experiments-resolve.ts" afterPath="$PROJECT_DIR$/../phenopipe-web/client/src/app/project/containers/project-dashboard/experiments-resolve.ts" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/client/src/app/project/containers/project-dashboard/project-dashboard.component.html" afterPath="$PROJECT_DIR$/../phenopipe-web/client/src/app/project/containers/project-dashboard/project-dashboard.component.html" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/client/src/app/project/containers/project-dashboard/project-dashboard.component.ts" afterPath="$PROJECT_DIR$/../phenopipe-web/client/src/app/project/containers/project-dashboard/project-dashboard.component.ts" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/client/src/app/project/containers/project-detail/project-detail.component.html" afterPath="$PROJECT_DIR$/../phenopipe-web/client/src/app/project/containers/project-detail/project-detail.component.html" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/client/src/app/project/containers/project-detail/project-detail.component.ts" afterPath="$PROJECT_DIR$/../phenopipe-web/client/src/app/project/containers/project-detail/project-detail.component.ts" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/client/src/app/project/containers/timestamp-detail/timestamp-detail-resolve.ts" afterPath="$PROJECT_DIR$/../phenopipe-web/client/src/app/project/containers/timestamp-detail/timestamp-detail-resolve.ts" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/client/src/app/project/containers/timestamp-detail/timestamp-detail.component.html" afterPath="$PROJECT_DIR$/../phenopipe-web/client/src/app/project/containers/timestamp-detail/timestamp-detail.component.html" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/client/src/app/project/containers/timestamp-detail/timestamp-detail.component.ts" afterPath="$PROJECT_DIR$/../phenopipe-web/client/src/app/project/containers/timestamp-detail/timestamp-detail.component.ts" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/client/src/app/settings/containers/iap-pipeline-upload-form/iap-pipeline-upload-form.component.html" afterPath="$PROJECT_DIR$/../phenopipe-web/client/src/app/settings/containers/iap-pipeline-upload-form/iap-pipeline-upload-form.component.html" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/client/src/app/settings/containers/iap-pipeline-upload-form/iap-pipeline-upload-form.component.ts" afterPath="$PROJECT_DIR$/../phenopipe-web/client/src/app/settings/containers/iap-pipeline-upload-form/iap-pipeline-upload-form.component.ts" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/client/src/app/settings/containers/iap-pipelines/iap-pipelines.component.ts" afterPath="$PROJECT_DIR$/../phenopipe-web/client/src/app/settings/containers/iap-pipelines/iap-pipelines.component.ts" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/client/src/app/settings/containers/postprocessing-stack-upload-form/postprocessing-stack-upload-form.component.html" afterPath="$PROJECT_DIR$/../phenopipe-web/client/src/app/settings/containers/postprocessing-stack-upload-form/postprocessing-stack-upload-form.component.html" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/client/src/app/settings/containers/postprocessing-stack-upload-form/postprocessing-stack-upload-form.component.ts" afterPath="$PROJECT_DIR$/../phenopipe-web/client/src/app/settings/containers/postprocessing-stack-upload-form/postprocessing-stack-upload-form.component.ts" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/client/src/app/settings/containers/postprocessing-stacks/postprocessing-stacks.component.ts" afterPath="$PROJECT_DIR$/../phenopipe-web/client/src/app/settings/containers/postprocessing-stacks/postprocessing-stacks.component.ts" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/client/src/app/settings/file-upload.service.ts" afterPath="$PROJECT_DIR$/../phenopipe-web/client/src/app/settings/file-upload.service.ts" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/client/src/app/shared/download-results-service/download-results.service.ts" afterPath="$PROJECT_DIR$/../phenopipe-web/client/src/app/shared/download-results-service/download-results.service.ts" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/client/src/app/shared/template-utils.service.ts" afterPath="$PROJECT_DIR$/../phenopipe-web/client/src/app/shared/template-utils.service.ts" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/client/src/app/view-blocks/analysis-detail/analysis-detail.component.html" afterPath="$PROJECT_DIR$/../phenopipe-web/client/src/app/view-blocks/analysis-detail/analysis-detail.component.html" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/client/src/app/view-blocks/postprocess-detail/postprocess-detail.component.html" afterPath="$PROJECT_DIR$/../phenopipe-web/client/src/app/view-blocks/postprocess-detail/postprocess-detail.component.html" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/client/src/tsconfig.app.json" afterPath="$PROJECT_DIR$/../phenopipe-web/client/src/tsconfig.app.json" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/server/api/analysis.py" afterPath="$PROJECT_DIR$/../phenopipe-web/server/api/analysis.py" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/server/api/downloads.py" afterPath="$PROJECT_DIR$/../phenopipe-web/server/api/downloads.py" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/server/api/graphql/analysis_schema.py" afterPath="$PROJECT_DIR$/../phenopipe-web/server/api/graphql/analysis_schema.py" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/server/api/graphql/custom_graphql_view.py" afterPath="$PROJECT_DIR$/../phenopipe-web/server/api/graphql/custom_graphql_view.py" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/server/api/graphql/experiment_schema.py" afterPath="$PROJECT_DIR$/../phenopipe-web/server/api/graphql/experiment_schema.py" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/server/api/graphql/image_schema.py" afterPath="$PROJECT_DIR$/../phenopipe-web/server/api/graphql/image_schema.py" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/server/api/graphql/pipeline_schema.py" afterPath="$PROJECT_DIR$/../phenopipe-web/server/api/graphql/pipeline_schema.py" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/server/api/graphql/plant_schema.py" afterPath="$PROJECT_DIR$/../phenopipe-web/server/api/graphql/plant_schema.py" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/server/api/graphql/postprocess_schema.py" afterPath="$PROJECT_DIR$/../phenopipe-web/server/api/graphql/postprocess_schema.py" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/server/api/graphql/sample_group_schema.py" afterPath="$PROJECT_DIR$/../phenopipe-web/server/api/graphql/sample_group_schema.py" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/server/api/graphql/schema.py" afterPath="$PROJECT_DIR$/../phenopipe-web/server/api/graphql/schema.py" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/server/api/graphql/snapshot_schema.py" afterPath="$PROJECT_DIR$/../phenopipe-web/server/api/graphql/snapshot_schema.py" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/server/api/graphql/status_log_entry_schema.py" afterPath="$PROJECT_DIR$/../phenopipe-web/server/api/graphql/status_log_entry_schema.py" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/server/api/graphql/task_status_schema.py" afterPath="$PROJECT_DIR$/../phenopipe-web/server/api/graphql/task_status_schema.py" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/server/api/graphql/timestamp_schema.py" afterPath="$PROJECT_DIR$/../phenopipe-web/server/api/graphql/timestamp_schema.py" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/server/app.py" afterPath="$PROJECT_DIR$/../phenopipe-web/server/app.py" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/server/auth/endpoints.py" afterPath="$PROJECT_DIR$/../phenopipe-web/server/auth/endpoints.py" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/server/gen/phenopipe_iap_pb2.py" afterPath="$PROJECT_DIR$/../phenopipe-web/server/gen/phenopipe_iap_pb2.py" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/server/gen/phenopipe_iap_pb2_grpc.py" afterPath="$PROJECT_DIR$/../phenopipe-web/server/gen/phenopipe_iap_pb2_grpc.py" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/server/models/analysis_model.py" afterPath="$PROJECT_DIR$/../phenopipe-web/server/models/analysis_model.py" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/server/models/experiment_model.py" afterPath="$PROJECT_DIR$/../phenopipe-web/server/models/experiment_model.py" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/server/models/image_model.py" afterPath="$PROJECT_DIR$/../phenopipe-web/server/models/image_model.py" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/server/models/postprocess_model.py" afterPath="$PROJECT_DIR$/../phenopipe-web/server/models/postprocess_model.py" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/server/models/snapshot_model.py" afterPath="$PROJECT_DIR$/../phenopipe-web/server/models/snapshot_model.py" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/server/modules/analysis/analysis.py" afterPath="$PROJECT_DIR$/../phenopipe-web/server/modules/analysis/analysis.py" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/server/modules/analysis/analysis_jobs/iap_analysis_jobs.py" afterPath="$PROJECT_DIR$/../phenopipe-web/server/modules/analysis/analysis_jobs/iap_analysis_jobs.py" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/server/modules/postprocessing/postprocessing.py" afterPath="$PROJECT_DIR$/../phenopipe-web/server/modules/postprocessing/postprocessing.py" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/server/modules/postprocessing/postprocessing_jobs/postprocessing_jobs.py" afterPath="$PROJECT_DIR$/../phenopipe-web/server/modules/postprocessing/postprocessing_jobs/postprocessing_jobs.py" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/server/modules/processing/remote_exceptions.py" afterPath="$PROJECT_DIR$/../phenopipe-web/server/modules/processing/remote_exceptions.py" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/server/proto/phenopipe_iap.proto" afterPath="$PROJECT_DIR$/../phenopipe-web/server/proto/phenopipe_iap.proto" />
+      <change beforePath="$PROJECT_DIR$/../phenopipe-web/server/utils/redis_status_cache/redis_status_cache.py" afterPath="$PROJECT_DIR$/../phenopipe-web/server/utils/redis_status_cache/redis_status_cache.py" />
+    </list>
+    <ignored path="app.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <ignored path=".idea/dataSources.local.xml" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/app$Unnamed.coverage" NAME="pi Coverage Results" MODIFIED="1480093655192" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/phenobox$pi.coverage" NAME="pi Coverage Results" MODIFIED="1513785787325" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/phenobox" />
+    <SUITE FILE_PATH="coverage/app$pi.coverage" NAME="pi Coverage Results" MODIFIED="1510740665903" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+  </component>
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_TABLE_DETAILS" value="true" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <expand />
+    <select />
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="app" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="image_handler.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/phenobox/network/image_handler.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="623">
+              <caret line="165" column="106" lean-forward="false" selection-start-line="165" selection-start-column="76" selection-end-line="165" selection-end-column="106" />
+              <folding>
+                <element signature="e#0#12#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="phenobox.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/phenobox/phenobox.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="144">
+              <caret line="9" column="35" lean-forward="false" selection-start-line="9" selection-start-column="35" selection-end-line="9" selection-end-column="35" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="phenobox_machine.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/phenobox/machine/phenobox_machine.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="3344">
+              <caret line="222" column="30" lean-forward="false" selection-start-line="211" selection-start-column="20" selection-end-line="222" selection-end-column="30" />
+              <folding>
+                <element signature="e#0#14#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="dev_config.ini" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/phenobox/config/dev_config.ini">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="192">
+              <caret line="12" column="46" lean-forward="false" selection-start-line="12" selection-start-column="46" selection-end-line="12" selection-end-column="46" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="token_auth.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/phenobox/network/token_auth.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1888">
+              <caret line="124" column="31" lean-forward="false" selection-start-line="123" selection-start-column="8" selection-end-line="124" selection-end-column="31" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="photobox_machine.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../../photobox/backup/20122017/photobox/machine/photobox_machine.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="camera_controller.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/phenobox/camera/camera_controller.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2336">
+              <caret line="152" column="30" lean-forward="false" selection-start-line="152" selection-start-column="30" selection-end-line="152" selection-end-column="30" />
+              <folding>
+                <element signature="e#0#13#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="code_scanner.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/phenobox/image_processing/code_scanner.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="352">
+              <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>getattr(config,'config')</find>
+      <find>10.60.64</find>
+      <find>snaps</find>
+      <find>241</find>
+      <find>target dire</find>
+      <find>_logger</find>
+      <find>Connect</find>
+      <find>Conne</find>
+      <find>now</find>
+      <find>auth</find>
+      <find>/home/pi/share</find>
+      <find>snapshot</find>
+      <find>func</find>
+      <find>getattr</find>
+      <find>Photobox</find>
+      <find>enpoin</find>
+      <find>enpoint</find>
+      <find>Idle</find>
+      <find>returni</find>
+      <find>Origin</find>
+      <find>save to</find>
+      <find>Tak</find>
+      <find>decode</find>
+      <find>plant</find>
+      <find>Unab</find>
+      <find>Unable</find>
+      <find>to camer</find>
+      <find>Connection</find>
+      <find>save</find>
+      <find>ok</find>
+    </findStrings>
+    <replaceStrings>
+      <replace />
+      <replace>10.60.64.251</replace>
+      <replace>getattr(config,'cfg')</replace>
+    </replaceStrings>
+    <dirStrings>
+      <dir>$PROJECT_DIR$</dir>
+      <dir>$PROJECT_DIR$/phenobox</dir>
+    </dirStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="master" />
+      </map>
+    </option>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/autostart.py" />
+        <option value="$PROJECT_DIR$/config/production_config.ini" />
+        <option value="$PROJECT_DIR$/config/dev_config.ini" />
+        <option value="$PROJECT_DIR$/config/config.py" />
+        <option value="$PROJECT_DIR$/camera/camera_controller.py" />
+        <option value="$PROJECT_DIR$/gpio_controllers/input_controller.py" />
+        <option value="$PROJECT_DIR$/gpio_controllers/blinker.py" />
+        <option value="$PROJECT_DIR$/gpio_controllers/led_controller.py" />
+        <option value="$PROJECT_DIR$/gpio_controllers/motor_controller.py" />
+        <option value="$PROJECT_DIR$/network/image_handler.py" />
+        <option value="$PROJECT_DIR$/plant.py" />
+        <option value="$PROJECT_DIR$/network/token_auth.py" />
+        <option value="$PROJECT_DIR$/src/__init__.py" />
+        <option value="$PROJECT_DIR$/src/camera/connection_error.py" />
+        <option value="$PROJECT_DIR$/src/camera/camera_controller.py" />
+        <option value="$PROJECT_DIR$/src/machine/photobox_machine.py" />
+        <option value="$PROJECT_DIR$/machine/photobox_machine.py" />
+        <option value="$PROJECT_DIR$/phenobox/config/config.py" />
+        <option value="$PROJECT_DIR$/phenobox/network/exceptions.py" />
+        <option value="$PROJECT_DIR$/phenobox/image_processing/__init__.py" />
+        <option value="$PROJECT_DIR$/phenobox/photobox.py" />
+        <option value="$PROJECT_DIR$/docs/source/conf.py" />
+        <option value="$PROJECT_DIR$/docs/index.rst" />
+        <option value="$PROJECT_DIR$/docs/source/index.rst" />
+        <option value="$PROJECT_DIR$/phenobox/machine/photobox_machine.py" />
+        <option value="$PROJECT_DIR$/autorun.sh" />
+        <option value="$PROJECT_DIR$/phenobox/config/__init__.py" />
+        <option value="$PROJECT_DIR$/docs/conf.py" />
+        <option value="$PROJECT_DIR$/phenobox/machine/__init__.py" />
+        <option value="$PROJECT_DIR$/phenobox/gpio_controllers/blinker.py" />
+        <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/phenobox/config/production_config.ini" />
+        <option value="$PROJECT_DIR$/phenobox/config/example_config.ini" />
+        <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/phenobox/camera/capture_error.py" />
+        <option value="$PROJECT_DIR$/phenobox/camera/connection_error.py" />
+        <option value="$PROJECT_DIR$/phenobox/camera/camera_error.py" />
+        <option value="$PROJECT_DIR$/phenobox/camera/__init__.py" />
+        <option value="$PROJECT_DIR$/phenobox/gpio_controllers/led_controller.py" />
+        <option value="$PROJECT_DIR$/phenobox/config/dev_config.ini" />
+        <option value="$PROJECT_DIR$/phenobox/gpio_controllers/__init__.py" />
+        <option value="$PROJECT_DIR$/phenobox/network/__init__.py" />
+        <option value="$PROJECT_DIR$/phenobox/network/token_auth.py" />
+        <option value="$PROJECT_DIR$/phenobox/events.py" />
+        <option value="$PROJECT_DIR$/phenobox/gpio_controllers/input_controller.py" />
+        <option value="$PROJECT_DIR$/phenobox/image_processing/code_scanner.py" />
+        <option value="$PROJECT_DIR$/phenobox/camera/camera_controller.py" />
+        <option value="$PROJECT_DIR$/phenobox/plant.py" />
+        <option value="$PROJECT_DIR$/phenobox/phenobox.py" />
+        <option value="$PROJECT_DIR$/phenobox/machine/phenobox_machine.py" />
+        <option value="$PROJECT_DIR$/phenobox/network/image_handler.py" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="y" value="23" />
+    <option name="width" value="1200" />
+    <option name="height" value="1893" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource ProjectPane="true" />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="Scratches" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="phenobox" type="b2602c69:ProjectViewProjectNode" />
+              <item name="phenobox" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="phenobox" type="b2602c69:ProjectViewProjectNode" />
+              <item name="phenobox" type="462c0819:PsiDirectoryNode" />
+              <item name="phenobox" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="phenobox" type="b2602c69:ProjectViewProjectNode" />
+              <item name="phenobox" type="462c0819:PsiDirectoryNode" />
+              <item name="phenobox" type="462c0819:PsiDirectoryNode" />
+              <item name="camera" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="phenobox" type="b2602c69:ProjectViewProjectNode" />
+              <item name="phenobox" type="462c0819:PsiDirectoryNode" />
+              <item name="phenobox" type="462c0819:PsiDirectoryNode" />
+              <item name="config" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="phenobox" type="b2602c69:ProjectViewProjectNode" />
+              <item name="phenobox" type="462c0819:PsiDirectoryNode" />
+              <item name="phenobox" type="462c0819:PsiDirectoryNode" />
+              <item name="gpio_controllers" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="phenobox" type="b2602c69:ProjectViewProjectNode" />
+              <item name="phenobox" type="462c0819:PsiDirectoryNode" />
+              <item name="phenobox" type="462c0819:PsiDirectoryNode" />
+              <item name="image_processing" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="phenobox" type="b2602c69:ProjectViewProjectNode" />
+              <item name="phenobox" type="462c0819:PsiDirectoryNode" />
+              <item name="phenobox" type="462c0819:PsiDirectoryNode" />
+              <item name="machine" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="phenobox" type="b2602c69:ProjectViewProjectNode" />
+              <item name="phenobox" type="462c0819:PsiDirectoryNode" />
+              <item name="phenobox" type="462c0819:PsiDirectoryNode" />
+              <item name="network" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="phenobox" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="WebServerToolWindowFactoryState" value="true" />
+    <property name="js-jscs-nodeInterpreter" value="/usr/local/bin/node" />
+    <property name="js-jscs-package" value="/usr/local/lib/node_modules/jscs" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PythonContentEntriesConfigurable" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.symlinks" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.mappings" value="true" />
+    <property name="nodejs_interpreter_path" value="/usr/local/bin/node" />
+    <property name="js.eslint.eslintPackage" value="" />
+    <property name="add_unversioned_files" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/phenobox/config" />
+      <recent name="$PROJECT_DIR$/docs" />
+      <recent name="$PROJECT_DIR$/config" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/phenobox" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/src/image_processing" />
+      <recent name="$PROJECT_DIR$/src" />
+      <recent name="$PROJECT_DIR$/config" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="DjangoTestsConfigurationType" factoryName="Django tests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="app" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="TARGET" value="" />
+      <option name="SETTINGS_FILE" value="" />
+      <option name="CUSTOM_SETTINGS" value="false" />
+      <option name="USE_OPTIONS" value="false" />
+      <option name="OPTIONS" value="" />
+    </configuration>
+    <configuration default="true" type="PyBehaveRunConfigurationType" factoryName="Behave">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="app" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="ADDITIONAL_ARGS" value="" />
+    </configuration>
+    <configuration default="true" type="PyLettuceRunConfigurationType" factoryName="Lettuce">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="app" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="ADDITIONAL_ARGS" value="" />
+    </configuration>
+    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="app" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
+    <configuration name="pi" type="PythonConfigurationType" factoryName="Python" singleton="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/phenobox" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="phenobox" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/phenobox/phenobox.py" />
+      <option name="PARAMETERS" value="dev_config.ini" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
+    <configuration default="true" type="Tox" factoryName="Tox">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <module name="app" />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerJest" factoryName="Jest">
+      <node-interpreter value="project" />
+      <working-dir value="" />
+      <envs />
+      <scope-kind value="ALL" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerProtractor" factoryName="Protractor">
+      <config-file value="" />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="project" working-dir="">
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.npm" factoryName="npm">
+      <command value="run" />
+      <scripts />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="mocha-javascript-test-runner" factoryName="Mocha">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <working-directory />
+      <pass-parent-env>true</pass-parent-env>
+      <envs />
+      <ui />
+      <extra-mocha-options />
+      <test-kind>DIRECTORY</test-kind>
+      <test-directory />
+      <recursive>false</recursive>
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Attests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="app" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Nosetests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="app" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="_new_regexPattern" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;.&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Unittests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="app" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;.&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="py.test">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="app" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="_new_keywords" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;.&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <envs />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Doctests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="app" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Nosetests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="app" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="_new_regexPattern" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Unittests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="app" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="py.test">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="app" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="_new_keywords" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+    </configuration>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4824022f-3d04-4e50-9490-b7ff3cef5dcc" name="Default" comment="" />
+      <created>1479935494506</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1479935494506</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Initial Commit">
+      <created>1479936500702</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1479936500702</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Finished Basic structure and state transistions (without conditions and not all necessary checks implemented)&#10;&#10;Finished Photo capture and download&#10;Finished Code scan&#10;Implemented move_to_position for the motor (needs to be tested with correct motor settings, for now it is not working correctly due to missing settings of the motor itself)">
+      <created>1480094695578</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1480094695578</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Created a controller class for the status leds&#10;Moved the motor_controller and led_controller code into a common package gpio_controller which initializes the Board numbering in its __init__.py file.&#10;Moved the GPIO.cleanup() to the package root.">
+      <created>1480587094429</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1480587094429</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Deployed version&#10;&#10;Should commit more often">
+      <created>1489506184508</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1489506184508</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Deployed version&#10;Added Snapshot creation and image reporting.&#10;Added Config file">
+      <created>1508779192195</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1508779192195</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Deployed version&#10;Added Snapshot creation and image reporting.&#10;Added Config file">
+      <created>1512341872028</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1512341872028</updated>
+    </task>
+    <task id="LOCAL-00007" summary="[phenobox] Fixed a typo in the config values">
+      <created>1512342036987</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1512342036987</updated>
+    </task>
+    <task id="LOCAL-00008" summary="[phenobox] Added timestamp ID to plant information. Add timestamp ID to target folder name on NFS to prevent files being overwritten when creating multiple timestamps on a single day. (WIP, untested)">
+      <created>1512575046039</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1512575046039</updated>
+    </task>
+    <task id="LOCAL-00009" summary="[phenobox] Fixed import paths. Refactored error files.">
+      <created>1513759601972</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1513759601972</updated>
+    </task>
+    <task id="LOCAL-00010" summary="[phenobox] Fixed door open/close glitch">
+      <created>1513761088861</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1513761088861</updated>
+    </task>
+    <task id="LOCAL-00011" summary="[phenobox] Refactored input controller and startup code. Now the input controller isn't aware of the phenoboxMachine instance anymore.">
+      <created>1513764500552</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1513764500552</updated>
+    </task>
+    <task id="LOCAL-00012" summary="[phenobox] Cleaned up console output. Added Color coding to console output">
+      <created>1513779831633</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1513779831633</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
+    <servers />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="23" width="1200" height="1893" extended-state="6" />
+    <layout>
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32904884" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290653" sideWeight="0.5103627" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35190344" sideWeight="0.49654576" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32961932" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3286908" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.49210772" sideWeight="0.48791018" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297568" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15630397" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" x="657" y="439" width="125" height="40" />
+      <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.0686901" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="SciView" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3955432" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="GraphQL" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3290653" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="File Transfer" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28253615" sideWeight="0.48963732" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28783658" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$" />
+    </ignored-roots>
+    <MESSAGE value="Initial Commit" />
+    <MESSAGE value="Finished Basic structure and state transistions (without conditions and not all necessary checks implemented)&#10;&#10;Finished Photo capture and download&#10;Finished Code scan&#10;Implemented move_to_position for the motor (needs to be tested with correct motor settings, for now it is not working correctly due to missing settings of the motor itself)" />
+    <MESSAGE value="Created a controller class for the status leds&#10;Moved the motor_controller and led_controller code into a common package gpio_controller which initializes the Board numbering in its __init__.py file.&#10;Moved the GPIO.cleanup() to the package root." />
+    <MESSAGE value="Deployed version&#10;&#10;Should commit more often" />
+    <MESSAGE value="Deployed version&#10;Added Snapshot creation and image reporting.&#10;Added Config file" />
+    <MESSAGE value="[phenobox] Fixed a typo in the config values" />
+    <MESSAGE value="[phenobox] Added timestamp ID to plant information. Add timestamp ID to target folder name on NFS to prevent files being overwritten when creating multiple timestamps on a single day. (WIP, untested)" />
+    <MESSAGE value="[phenobox] Fixed import paths. Refactored error files." />
+    <MESSAGE value="[phenobox] Fixed door open/close glitch" />
+    <MESSAGE value="[phenobox] Refactored input controller and startup code. Now the input controller isn't aware of the phenoboxMachine instance anymore." />
+    <MESSAGE value="[phenobox] Cleaned up console output. Added Color coding to console output" />
+    <option name="LAST_COMMIT_MESSAGE" value="[phenobox] Cleaned up console output. Added Color coding to console output" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <default-breakpoints>
+        <breakpoint type="python-exception">
+          <properties notifyOnTerminate="true" exception="BaseException">
+            <option name="notifyOnTerminate" value="true" />
+          </properties>
+        </breakpoint>
+      </default-breakpoints>
+      <option name="time" value="69" />
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="PythonConfigurationType">
+        <watch expression="r.json()" language="Python" />
+        <watch expression="cfg_parser.get('box', 'log_file')" language="Python" />
+        <watch expression="self.queue.empty()" language="Python" />
+        <watch expression="self.queue.not_empty" language="Python" />
+        <watch expression="u'VGltZXN0YW1wOjY='.__hash__()" language="Python" />
+        <watch expression="hash(u'VGltZXN0YW1wOjY=')" language="Python" />
+        <watch expression="-422675164 % ((sys.maxsize + 1) * 2)" language="Python" />
+      </configuration>
+    </watches-manager>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$USER_HOME$/Library/Caches/PyCharm2016.3/remote_sources/-315134426/-1227933812/transitions/core.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="576" column="0" lean-forward="false" selection-start-line="576" selection-start-column="0" selection-end-line="576" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/dev_config" />
+    <entry file="file://$USER_HOME$/Library/Caches/PyCharm2016.3/remote_sources/-315134426/-1227933812/PIL/Image.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="472">
+          <caret line="1643" column="43" lean-forward="true" selection-start-line="1642" selection-start-column="11" selection-end-line="1643" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Library/Caches/PyCharm2016.3/remote_sources/-756299585/-1227933812/PIL/Image.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="244">
+          <caret line="2246" column="4" lean-forward="false" selection-start-line="2246" selection-start-column="4" selection-end-line="2246" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Library/Caches/PyCharm2017.2/python_stubs/1268860441/datetime.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="191" column="54" lean-forward="false" selection-start-line="191" selection-start-column="51" selection-end-line="191" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/phenobox/machine/work_handler.py" />
+    <entry file="file://$USER_HOME$/Library/Caches/PyCharm2016.3/remote_sources/-756299585/201544331/Queue.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="417">
+          <caret line="106" column="8" lean-forward="false" selection-start-line="106" selection-start-column="8" selection-end-line="106" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Library/Caches/PyCharm2017.2/python_stubs/1268860441/time.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="417">
+          <caret line="149" column="4" lean-forward="false" selection-start-line="149" selection-start-column="4" selection-end-line="149" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/requirements.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/__init__.py" />
+    <entry file="file://$PROJECT_DIR$/autostart.py" />
+    <entry file="file://$PROJECT_DIR$/docs/source/camera.rst" />
+    <entry file="file://$PROJECT_DIR$/phenobox/network/errors.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/docs/source/modules.rst">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/docs/source/conf.py" />
+    <entry file="file://$PROJECT_DIR$/docs/index.rst" />
+    <entry file="file://$PROJECT_DIR$/docs/source/index.rst" />
+    <entry file="file://$PROJECT_DIR$/phenobox/image_processing/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="36" lean-forward="false" selection-start-line="0" selection-start-column="36" selection-end-line="0" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/autorun.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/phenobox/config/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="16">
+          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/phenobox/config/config.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="32">
+          <caret line="2" column="20" lean-forward="false" selection-start-line="2" selection-start-column="20" selection-end-line="2" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///Volumes/BootClone/Users/SyT/Documents/GMI/photobox/phenobox/docs/source/conf.py" />
+    <entry file="file://$PROJECT_DIR$/docs/conf.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="20" column="39" lean-forward="false" selection-start-line="20" selection-start-column="39" selection-end-line="20" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="96">
+          <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SECOND">
+          <first_editor relative-caret-position="976">
+            <caret line="61" column="19" lean-forward="false" selection-start-line="61" selection-start-column="19" selection-end-line="61" selection-end-column="19" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/phenobox/camera/connection_error.py" />
+    <entry file="file://$PROJECT_DIR$/phenobox/camera/errors.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="368">
+          <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/phenobox/camera/capture_error.py" />
+    <entry file="file://$PROJECT_DIR$/phenobox/camera/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="32">
+          <caret line="2" column="0" lean-forward="true" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/phenobox/machine/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/phenobox/network/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="20" lean-forward="false" selection-start-line="0" selection-start-column="20" selection-end-line="0" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/phenobox/gpio_controllers/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="32">
+          <caret line="2" column="68" lean-forward="false" selection-start-line="2" selection-start-column="68" selection-end-line="2" selection-end-column="68" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/phenobox/event.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="96">
+          <caret line="6" column="16" lean-forward="false" selection-start-line="6" selection-start-column="16" selection-end-line="6" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/phenobox/gpio_controllers/blinker.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="110">
+          <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/phenobox/gpio_controllers/led_controller.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3">
+          <caret line="2" column="5" lean-forward="false" selection-start-line="2" selection-start-column="5" selection-end-line="2" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/phenobox/gpio_controllers/motor_controller.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1776">
+          <caret line="113" column="34" lean-forward="false" selection-start-line="113" selection-start-column="34" selection-end-line="113" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/phenobox/gpio_controllers/input_controller.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="36" column="41" lean-forward="false" selection-start-line="36" selection-start-column="41" selection-end-line="36" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/phenobox/image_processing/code_scanner.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="352">
+          <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/phenobox/config/production_config.ini">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="48">
+          <caret line="3" column="10" lean-forward="false" selection-start-line="3" selection-start-column="10" selection-end-line="3" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/phenobox/config/example_config.ini">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="48">
+          <caret line="3" column="10" lean-forward="false" selection-start-line="3" selection-start-column="10" selection-end-line="3" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/phenobox/camera/camera_controller.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2336">
+          <caret line="152" column="30" lean-forward="false" selection-start-line="152" selection-start-column="30" selection-end-line="152" selection-end-column="30" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Library/Caches/PyCharm2017.2/remote_sources/-1364125641/201544331/threading.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="422">
+          <caret line="809" column="0" lean-forward="false" selection-start-line="809" selection-start-column="0" selection-end-line="809" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Library/Caches/PyCharm2017.2/remote_sources/-1364125641/201544331/logging/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="201">
+          <caret line="1159" column="0" lean-forward="false" selection-start-line="1159" selection-start-column="0" selection-end-line="1159" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/phenobox/plant.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="685">
+          <caret line="110" column="45" lean-forward="true" selection-start-line="110" selection-start-column="45" selection-end-line="110" selection-end-column="45" />
+          <folding>
+            <element signature="e#0#15#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../photobox/backup/20122017/photobox/machine/photobox_machine.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../phenopipe-postprocess-server/src/main/java/at/gmi/djamei/phenopipe/PhenopipeRService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-664">
+          <caret line="6" column="26" lean-forward="true" selection-start-line="6" selection-start-column="26" selection-end-line="6" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/phenobox/network/token_auth.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1888">
+          <caret line="124" column="31" lean-forward="false" selection-start-line="123" selection-start-column="8" selection-end-line="124" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/phenobox/config/dev_config.ini">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="12" column="46" lean-forward="false" selection-start-line="12" selection-start-column="46" selection-end-line="12" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/phenobox/phenobox.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="9" column="35" lean-forward="false" selection-start-line="9" selection-start-column="35" selection-end-line="9" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/phenobox/machine/phenobox_machine.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3344">
+          <caret line="222" column="30" lean-forward="false" selection-start-line="211" selection-start-column="20" selection-end-line="222" selection-end-column="30" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/phenobox/network/image_handler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="623">
+          <caret line="165" column="106" lean-forward="false" selection-start-line="165" selection-start-column="76" selection-end-line="165" selection-end-column="106" />
+          <folding>
+            <element signature="e#0#12#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

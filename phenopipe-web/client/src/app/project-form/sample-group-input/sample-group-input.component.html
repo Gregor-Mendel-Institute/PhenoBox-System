@@ -1,0 +1,65 @@
+<fieldset
+        class="well"
+        [formGroup]="parent">
+    <div formGroupName="sampleGroupDetails">
+        <div
+                class="form-group row"
+                [ngClass]="{'has-error': parent.get('sampleGroupDetails.sampleGroupNameInput').errors || parent.get('sampleGroupDetails.sampleGroupNameInput').errors}">
+            <div class="col-md-3">
+                <label class="col-form-label">
+                    Treatment *</label>
+                <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Enter a treatment"
+                        formControlName="treatmentInput">
+            </div>
+            <div class="col-md-4 ">
+                <label class="col-form-label">
+                    Sample Group Name *</label>
+                <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Enter a sample group name"
+                        formControlName="sampleGroupNameInput">
+                <span class="help-block"
+                      *ngIf="parent.get('sampleGroupDetails.sampleGroupNameInput').hasError('notUnique') && parent.get('sampleGroupDetails.sampleGroupNameInput').touched">
+                            Name must be unique
+                        </span>
+                <span class="help-block"
+                      *ngIf="parent.get('sampleGroupDetails.sampleGroupNameInput').dirty && parent.get('sampleGroupDetails.sampleGroupNameInput').hasError('maxlength')">
+                            The name is too long, please choose a name with {{ parent.get('sampleGroupDetails.sampleGroupNameInput').errors['maxlength'].requiredLength }} characters or less
+                        </span>
+            </div>
+            <div class="col-md-1">
+                <label class="form-check-label">
+                    Control
+                    <input
+                            type="checkbox"
+                            class="form-check-input"
+                            formControlName="isControlGroupInput"/>
+                </label>
+            </div>
+            <div class="col-md-2 ">
+                <label class="col-form-label">
+                    Sample Count * <i class="fa fa-question-circle-o"
+                                      tooltip="Define the number of samples which are automatically generated for the group"></i></label>
+                <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Enter the amount of samples"
+                        formControlName="sampleCount">
+            </div>
+            <div class="col-md-1" style="margin-top: 24px">
+                <button
+                        type="button"
+                        class="btn btn-info"
+                        (click)="onAdd()"
+                        [disabled]="
+                                    (parent.get('sampleGroupDetails.sampleGroupNameInput').value.trim() === '') ||
+                                    (parent.get('sampleGroupDetails.treatmentInput').value.trim() === '') ||
+                                    parent.get('sampleGroupDetails.sampleGroupNameInput').hasError('notUnique') ">ADD</button>
+            </div>
+        </div>
+    </div>
+</fieldset>

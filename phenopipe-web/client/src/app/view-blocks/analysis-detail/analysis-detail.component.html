@@ -1,0 +1,10 @@
+<div class="row">
+    <div class="col-md-12">
+        <p><strong>Analysed with pipeline:</strong> {{ analysis.pipeline.name }}</p>
+        <p><strong>Started at: </strong>{{ templateUtils.formatTime(analysis.startedAt,'YYYY-MM-DD HH:mm') }}</p>
+        <p><strong>Finished at:</strong>
+          <span *ngIf="analysis.finishedAt">{{ templateUtils.formatTime(analysis.finishedAt,'YYYY-MM-DD HH:mm') }}</span>
+          <span *ngIf="!analysis.finishedAt">This Analysis is not finished yet!</span>
+        </p>
+    </div>
+</div>

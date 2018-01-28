@@ -1,0 +1,6 @@
+# Created by .ignore support plugin (hsz.mobi)
+/build/
+/bin/
+/.gradle/
+/src/main/resources/shared_folder_map.properties
+/src/main/java/at/gmi/djamei/r/viz/charts/gral/Test.java

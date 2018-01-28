@@ -1,0 +1,31 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
+        <value>
+          <list size="10">
+            <item index="0" class="java.lang.String" itemvalue="PIL" />
+            <item index="1" class="java.lang.String" itemvalue="jwt" />
+            <item index="2" class="java.lang.String" itemvalue="PyJWT" />
+            <item index="3" class="java.lang.String" itemvalue="zbar" />
+            <item index="4" class="java.lang.String" itemvalue="six" />
+            <item index="5" class="java.lang.String" itemvalue="gphoto2" />
+            <item index="6" class="java.lang.String" itemvalue="jsonpickle" />
+            <item index="7" class="java.lang.String" itemvalue="requests" />
+            <item index="8" class="java.lang.String" itemvalue="transitions" />
+            <item index="9" class="java.lang.String" itemvalue="Pillow" />
+          </list>
+        </value>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyUnresolvedReferencesInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredIdentifiers">
+        <list>
+          <option value="zbar" />
+          <option value="motor.motor_controller.*" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>

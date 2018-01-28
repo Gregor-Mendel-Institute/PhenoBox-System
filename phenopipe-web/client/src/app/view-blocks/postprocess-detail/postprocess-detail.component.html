@@ -1,0 +1,9 @@
+<div class="row">
+    <div class="col-md-12">
+        <p><strong>Stack Name:</strong> {{ postprocess.postprocessingStack.name }}</p>
+        <p><strong>Stack Description:</strong> {{ postprocess.postprocessingStack.description }}</p>
+        <p><strong>Note:</strong> {{ postprocess.note }}</p>
+        <p><strong>Started at: </strong>{{ templateUtils.formatTime(postprocess.startedAt,'YYYY-MM-DD HH:mm') }}</p>
+        <p><strong>Finished at:</strong> {{ templateUtils.formatTime(postprocess.finishedAt,'YYYY-MM-DD HH:mm') }}</p>
+    </div>
+</div>

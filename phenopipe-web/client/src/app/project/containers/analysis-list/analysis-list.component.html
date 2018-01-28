@@ -1,0 +1,66 @@
+<div class="row">
+    <div class="col-md-12">
+        <h4>Applied Analyses/Pipelines</h4>
+        <ngx-datatable
+                #projectsTable
+                class="bootstrap"
+                style="cursor:pointer;"
+                [rowHeight]="'auto'"
+                [columnMode]="'force'"
+                [rows]="analyses"
+                [cssClasses]="{
+                            sortAscending: 'fa fa-sort-asc',
+                            sortDescending: 'fa fa-sort-desc',
+                            pagerLeftArrow: 'fa fa-chevron-left',
+                            pagerRightArrow: 'fa fa-chevron-right',
+                            pagerPrevious: 'fa fa-step-backward',
+                            pagerNext: 'fa fa-step-forward'
+                        }"
+                (activate)="onActivate($event)">
+
+            <ngx-datatable-column name="Pipeline Name" prop="node.pipeline.name" [width]="250">
+                <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                    <strong>{{ value }}</strong>
+                </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Started At" prop="node.startedAt" [width]="80">
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                    <strong>{{ templateUtils.formatTime(value,'YYYY-MM-DD HH:mm') }}</strong>
+                </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Finished At" prop="node.finishedAt" [width]="80">
+                <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                    <strong *ngIf="row.node.finishedAt">{{ templateUtils.formatTime(value,'YYYY-MM-DD HH:mm') }}</strong>
+                    <p *ngIf="!row.node.finishedAt">Not finished yet</p>
+                </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Apply Postprocess" [width]="70">
+                <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                    <a class="btn btn-default"  style="width:50px;"
+                       *ngIf="row.node.finishedAt"
+                       [routerLink]="['/postprocessing', experimentId, row.node.id]"><i
+                            class="fa fa-bar-chart"></i>
+                    </a>
+                </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="With Pictures" [width]="50">
+                <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                    <button type="button" class="btn btn-primary" style="width:50px;"
+                            *ngIf="row.node.finishedAt"
+                            (click)="downloadResults(row, true)"><i
+                            class="fa fa-download"></i>
+                    </button>
+                </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Without Pictures" [width]="50">
+                <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                    <button type="button" class="btn btn-primary" style="width:50px;"
+                            *ngIf="row.node.finishedAt"
+                            (click)="downloadResults(row, false)"><i
+                            class="fa fa-download"></i>
+                    </button>
+                </ng-template>
+            </ngx-datatable-column>
+        </ngx-datatable>
+    </div>
+</div>

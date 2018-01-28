@@ -1,0 +1,73 @@
+<ng-content></ng-content>
+<ngx-datatable
+  #statusLogTable
+  class="bootstrap ngx-table-scroll"
+  [columnMode]="'force'"
+  [headerHeight]="headerHeight"
+  [rowHeight]="rowHeight"
+  [rows]="statusLogEntries"
+  [loadingIndicator]="isLoading"
+  [scrollbarV]="true"
+  (scroll)='onScroll($event.offsetY)'
+  [cssClasses]="{
+            sortAscending: 'fa fa-sort-asc',
+            sortDescending: 'fa fa-sort-desc',
+            pagerLeftArrow: 'fa fa-chevron-left',
+            pagerRightArrow: 'fa fa-chevron-right',
+            pagerPrevious: 'fa fa-step-backward',
+            pagerNext: 'fa fa-step-forward'
+
+        }">
+
+  <!-- Column Templates -->
+  <ngx-datatable-column name="Progress" prop="node.progress" [maxWidth]="80" width="80">
+    <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+      <strong>{{ value }}</strong>
+    </ng-template>
+  </ngx-datatable-column>
+  <ngx-datatable-column name="Message" prop="node.message" width="80">
+    <ng-template let-value="value" ngx-datatable-cell-template>
+      {{ value }}
+    </ng-template>
+  </ngx-datatable-column>
+  <ngx-datatable-column name="Time" prop="node.timestamp" [maxWidth]="150" width="120">
+    <ng-template let-value="value" ngx-datatable-cell-template>
+      <strong>{{ templateUtils.formatTime(value,'YYYY-MM-DD HH:mm:ss.SS') }}</strong>
+    </ng-template>
+  </ngx-datatable-column>
+</ngx-datatable>
+<!--
+<ngx-datatable
+        #statusLogTable
+        class="bootstrap expandable"
+        [columnMode]="'force'"
+        [headerHeight]="50"
+        [rowHeight]="'auto'"
+        [rows]="statusLogEntries"
+
+        [cssClasses]="{
+            sortAscending: 'fa fa-sort-asc',
+            sortDescending: 'fa fa-sort-desc',
+            pagerLeftArrow: 'fa fa-chevron-left',
+            pagerRightArrow: 'fa fa-chevron-right',
+            pagerPrevious: 'fa fa-step-backward',
+            pagerNext: 'fa fa-step-forward'
+
+        }">
+
+    <ngx-datatable-column name="Progress" prop="node.progress" [maxWidth]="80" width="80">
+        <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+            <strong>{{ value }}</strong>
+        </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Message" prop="node.message" width="80">
+        <ng-template let-value="value" ngx-datatable-cell-template>
+            {{ value }}
+        </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Time" prop="node.timestamp" [maxWidth]="120" width="80">
+        <ng-template let-value="value" ngx-datatable-cell-template>
+            <strong>{{ templateUtils.formatTime(value,'YYYY-MM-DD HH:mm') }}</strong>
+        </ng-template>
+    </ngx-datatable-column>
+</ngx-datatable>-->

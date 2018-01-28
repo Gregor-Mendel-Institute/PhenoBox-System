@@ -1,0 +1,43 @@
+<h4>R Postprocessing Stacks</h4>
+<fieldset class="well">
+    <div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="panel panel-warning">
+                    <div class="panel-heading">
+                        Available Stacks
+                    </div>
+                    <div class="panel-body" dnd-sortable-container [dropZones]="['stacks-zone']"
+                         [sortableData]="availableStacks">
+                        <ul class="list-group">
+                            <li *ngFor="let stack of availableStacks; let i = index"
+                                class="list-group-item" dnd-sortable
+                                (onDropSuccess)="transferToAvailable($event)" [dragData]="stack"
+                                [sortableIndex]="i"
+                                (click)="stackClicked($event, stack)">{{ stack.node.name }}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        Selected Stacks
+                    </div>
+                    <div class="panel-body" dnd-sortable-container [dropZones]="['stacks-zone']"
+                         [sortableData]="selectedStacks">
+                        <ul class="list-group">
+                            <li *ngFor="let stack of selectedStacks; let i = index"
+                                class="list-group-item" dnd-sortable
+                                (onDropSuccess)="transferToSelected($event)" [dragData]="stack"
+                                [sortableIndex]="i"
+                                (click)="stackClicked($event, stack)"
+                            >{{ stack.node.name }}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</fieldset>

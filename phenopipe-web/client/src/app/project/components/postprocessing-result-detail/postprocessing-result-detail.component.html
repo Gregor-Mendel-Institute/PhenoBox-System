@@ -1,0 +1,23 @@
+<div class="form-group row has-error"
+     *ngIf="error?.code==503">
+    <div class="col-md-12 ">
+        <span class="help-block">
+            The Service is currently unavailable. Please try again later.
+        </span>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <h4>Experiment Name: {{ postprocess?.analysis.timestamp.experiment.name }}</h4>
+        <h4>Analysed with Pipeline "{{ postprocess?.analysis.pipeline.name }}"</h4>
+        <p><strong>Timestamp: </strong> {{ templateUtils.formatTime(postprocess?.analysis.timestamp.createdAt,'YYYY-MM-DD HH:mm') }}</p>
+        <p *ngIf="!postprocess?.finishedAt">This Postprocess is not finished yet!</p>
+        <!--TODO provide a link to the status page for the current analysis to let the user check the progress-->
+        <div class="well">
+            <app-postprocess-detail *ngIf="postprocess" [postprocess]="postprocess"></app-postprocess-detail>
+        </div>
+        <h4>Processed Snapshots</h4>
+        <app-samplegroup-list [sampleGroups]="postprocess?.sampleGroups.edges" [viewOnly]="true"
+                              [allowSnapshotExclusion]="false"></app-samplegroup-list>
+    </div>
+</div>

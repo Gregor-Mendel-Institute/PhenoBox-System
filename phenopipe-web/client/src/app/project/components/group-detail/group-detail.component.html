@@ -1,0 +1,99 @@
+<div>
+    <div class="form-group">
+        <label for="sampleGroup">
+            Sample Group:
+        </label>
+        <span id="sampleGroup">
+                                {{ _group.name }}
+                            </span>
+    </div>
+    <div class="form-group">
+        <label for="description">
+            Description:
+        </label>
+        <p id="description">
+            {{ _group.description }}
+        </p>
+    </div>
+    <div class="form-group">
+        <label for="isControlGroup">
+            Is Control Group:
+        </label>
+        <span id="isControlGroup">
+            {{ _group.isControl ? "Yes" : "No" }}
+        </span>
+    </div>
+    <div class="form-group">
+        <label for="sampleGroup">
+            Treatment:
+        </label>
+        <span id="sampleGroup" *ngIf="_group.treatment!=null; else missing_treatment">
+                                {{ _group.treatment }}
+                            </span>
+        <ng-template #missing_treatment>
+            <span id="sampleGroup">
+                                No Info present. Please provide Information
+                            </span>
+        </ng-template>
+    </div>
+    <div class="form-group">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="species">Species: </label>
+                <span id="species">{{ _group.species }}</span>
+            </div>
+            <div class="form-group">
+                <label for="variety">Variety: </label>
+                <span id="variety">{{ _group.variety }}</span>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="genotype">Genotype: </label>
+                <span id="genotype">{{ _group.genotype }}</span>
+            </div>
+            <div class="form-group">
+                <label for="growthConditions">Growth
+                                              Conditions: </label>
+                <span id="growthConditions">{{ _group.growthConditions }}</span>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="numberOfPlants">
+            Number of plants:
+        </label>
+        <span id="numberOfPlants">{{ _group.plants.edges.length }}</span>
+    </div>
+
+
+    <div class="row well">
+        <h4 *ngIf="!(sortedPlants[0]?.node.snapshots && sortedPlants[0]?.node.snapshots.edges.length>0); else snapshotHeader">
+            Plants</h4>
+        <ng-template #snapshotHeader>
+            <h4>Snapshots</h4>
+        </ng-template>
+        <div class="row" *ngFor="let i of indices">
+            <div class="col-md-6" *ngFor="let index of [i,i+1]">
+                <div *ngIf="(index) < sortedPlants.length">
+                    <div *ngIf="!(sortedPlants[index].node.snapshots && sortedPlants[index].node.snapshots.edges.length>0); else snapshotDetail">
+                        <label for="name">{{ index+1 }}: </label>
+                        <span id="name">{{ sortedPlants[index].node.fullName }}</span>
+                    </div>
+                    <ng-template #snapshotDetail>
+                        <app-snapshot-detail
+                                [snapshot]="sortedPlants[index].node.snapshots.edges[0]"
+                                [viewOnly]="viewOnly"
+                                [allowExclusion]="allowSnapshotExclusion"
+                                (onDeleteSnapshot)="deleteSnapshot($event, sortedPlants[index].node)"
+                                (onChangeSnapshotExclusion)="changeSnapshotExclusion($event, sortedPlants[index].node)"
+                        >
+                            <label for="name">{{ index+1 }}: </label>
+                            <span id="name">{{ sortedPlants[index].node.fullName }}</span>
+                        </app-snapshot-detail>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

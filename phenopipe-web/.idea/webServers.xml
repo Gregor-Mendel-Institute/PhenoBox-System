@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="18199062-dc38-4f26-a6d2-6c1d3ddf0768" name="phenobox_server" url="http://10.60.64.241">
+        <fileTransfer host="10.60.64.241" port="22" rootFolder="/var/www/phenobox" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+      <webServer id="2d5ee2f8-5878-400a-bf12-8fa147d85db3" name="phenobox_dev_server" url="http://10.60.64.251">
+        <fileTransfer host="10.60.64.251" port="22" privateKey="$PROJECT_DIR$/../ssh_keys/phenobox_dev_user" rootFolder="/var/www/phenobox" accessType="SFTP" keyPair="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

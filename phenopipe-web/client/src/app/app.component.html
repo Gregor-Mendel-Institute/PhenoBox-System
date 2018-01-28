@@ -1,0 +1,38 @@
+<nav *ngIf="auth.loggedIn()" class="navbar navbar-default navbar-static-top">
+    <div class="container-fluid">
+        <ul class="nav navbar-nav navbar-right">
+            <li><p class="navbar-text">{{ auth.getFullName() }}</p></li>
+            <li>
+                <button class="btn btn-default navbar-btn" style="margin-right: 10px;"
+                        (click)="logout()"
+                ><i class="fa fa-sign-out"></i></button>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="row">
+    <div class="col-md-2">
+        <ul class="nav nav-sidebar">
+            <li><a routerLink="/create" routerLinkActive="active"><i class="fa fa-circle-o fa-fw"></i>Create Project</a>
+            </li>
+            <li class="divider"></li>
+            <li><a routerLink="/projects" routerLinkActive="active"><i class="fa fa-circle-o fa-fw"></i>View
+                                                                                                        Projects</a>
+            </li>
+            <li class="divider"></li>
+            <li><h5 style="padding-left: 10px">Tasks: </h5></li>
+            <li><a routerLink="/analysis" routerLinkActive="active"><i class="fa fa-circle-o fa-fw"></i>Analysis</a>
+            </li>
+            <li><a routerLink="/postprocessing" routerLinkActive="active"><i class="fa fa-circle-o fa-fw"></i>Postprocessing</a>
+            </li>
+            <li class="divider"></li>
+            <li><a routerLink="/modules" routerLinkActive="active"><i class="fa fa-circle-o fa-fw"></i>Modules</a>
+            </li>
+
+        </ul>
+    </div>
+
+    <div class="col-md-10">
+        <router-outlet></router-outlet>
+    </div>
+</div>

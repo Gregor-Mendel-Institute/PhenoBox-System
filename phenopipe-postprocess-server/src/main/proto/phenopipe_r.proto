@@ -1,0 +1,75 @@
+syntax = "proto3";
+
+import "phenopipe.proto";
+
+option java_multiple_files = true;
+option java_package = "at.gmi.djamei.phenopipe";
+option java_outer_classname = "PhenoPipeRProto";
+
+package phenopipe;
+
+service PhenopipeR {
+    rpc PostprocessAnalysis(PostprocessRequest) returns(JobResponse){}
+    rpc FetchPostprocessingResult(FetchJobResultRequest) returns(PostprocessResponse){}
+    rpc UploadPostprocessingStack(UploadPostprocessingStackRequest) returns(UploadPostprocessingStackResponse){}
+    rpc DeletePostprocessingStack(DeletePostprocessingStackRequest) returns(DeletePostprocessingStackResponse){}
+    rpc GetPostprocessingStack (GetPostprocessingStackRequest) returns (GetPostprocessingStackResponse) {}
+    rpc GetPostprocessingStacks(GetPostprocessingStacksRequest) returns(GetPostprocessingStacksResponse){}
+}
+
+message PostprocessRequest{
+    string path_to_report =1;
+    string postprocess_stack_id=2;
+    int64 snapshot_hash=3;
+    PostprocessingMetadata meta= 4;
+    repeated string excluded_plant_identifiers =5;
+}
+message PostprocessResponse{
+    string path_to_results =1;
+    string postprocess_stack_id=2;
+}
+message UploadPostprocessingStackRequest{
+	PostprocessingStack stack =1;
+}
+message UploadPostprocessingStackResponse{
+    bool success=1;
+    string stack_id=2;
+}
+message DeletePostprocessingStackRequest{
+    string postprocessing_stack_id = 1;
+}
+message DeletePostprocessingStackResponse{
+    bool success=1;
+}
+message GetPostprocessingStackRequest {
+    string stack_id = 1;
+    string author=2;
+}
+message GetPostprocessingStackResponse {
+    PostprocessingStack stack = 1;
+}
+message GetPostprocessingStacksRequest{
+	string author = 1;
+}
+message GetPostprocessingStacksResponse{
+	repeated PostprocessingStack stacks=1;
+}
+message PostprocessingStack{
+	string id=1;
+	string name = 2;
+	string description = 3;
+	string author = 4;
+	repeated PostprocessingScript scripts=5;
+
+}
+message PostprocessingScript{
+	string id=1;
+	string name=2;
+	string description =3;
+	int32 index =4;
+	bytes file = 5;
+}
+message PostprocessingMetadata {
+	string experiment_name =1;
+    string control_treatment_name = 2;
+}

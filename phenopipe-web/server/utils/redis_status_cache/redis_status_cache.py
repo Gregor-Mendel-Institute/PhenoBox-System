@@ -35,14 +35,12 @@ class StatusCache():
         self._lock = RLock()
         self._ttl = ttl
         if ttl != -1:
-            pass
-            #TODO reenable scheduler
-            #self._eviction_scheduler = BackgroundScheduler()
-            # self._eviction_scheduler.add_job(self._evict, trigger=IntervalTrigger(minutes=ttl))
+            self._eviction_scheduler = BackgroundScheduler()
+            self._eviction_scheduler.add_job(self._evict, trigger=IntervalTrigger(minutes=ttl))
             # TODO remove
             #self._eviction_scheduler.add_job(self._evict, trigger=IntervalTrigger(minutes=2))
             # self._ttl = 2
-            # self._eviction_scheduler.start()
+            self._eviction_scheduler.start()
 
     @staticmethod
     def generate_id(*args):

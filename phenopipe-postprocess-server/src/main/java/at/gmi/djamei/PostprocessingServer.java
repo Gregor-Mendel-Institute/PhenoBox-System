@@ -56,7 +56,6 @@ public class PostprocessingServer {
 	}
 	public static void main(String[] args) {
 		Config.INSTANCE.load();
-		System.out.println(PathUtil.getSmbUrlFromLocalPath("/media/sf_linux_iap_share/pictures/test"));
 		try {
 			//TODO use config file
 			PhenopipeMongoDb.INSTANCE.init("localhost", 27017,Config.INSTANCE.getMongoProperty("database_name"));

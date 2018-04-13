@@ -1,4 +1,4 @@
-# Phenopipe Server + Web Interface
+# PhenoPipe Server + Web Interface
 
 This folder contains the code for the main phenopipe server with the main database and the corresponding web interface. 
 
@@ -20,7 +20,6 @@ The client side is written in Typescript using Angular and the Angular-CLI
  ## Installation
  
  In the following the installation procedure is explained briefly.
- For a more in depth description consult the wiki.
  
 
  1. Fill the server config file with the correct values for your environment.

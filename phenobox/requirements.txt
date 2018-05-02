@@ -6,4 +6,4 @@ jsonpickle==0.9.3
 requests==2.4.3
 six==1.10.0
 transitions==0.4.2
-zbar==0.10
+pyzbar==0.1.5

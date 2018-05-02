@@ -1,20 +1,18 @@
 import logging
 import os
-import zbar
 
 from PIL import Image
+from pyzbar import pyzbar
+from pyzbar.wrapper import ZBarSymbol
 
 
 class CodeScanner:
-    scanner = None
 
     def __init__(self):
         self._logger = logging.getLogger(__name__)
         self._logger.setLevel(logging.INFO)
 
-    def initialize(self):
-        self.scanner = zbar.ImageScanner()
-        self.scanner.parse_config('enable')
+        self.approximate_area = None
 
     def scan_image(self, path):
         """
@@ -26,23 +24,35 @@ class CodeScanner:
         """
         if not os.path.isfile(path):
             return None
-        # obtain image data
-        pil = Image.open(path).convert('L')
-        width, height = pil.size
-        raw = pil.tobytes()
+        im = Image.open(path)
 
-        # wrap image data
-        image = zbar.Image(width, height, 'Y800', raw)
+        width, height = im.size
 
-        self.scanner.scan(image)
+        w_s = width * 0.4
+        h_s = height * 0.4
 
-        # Retrieve result( There should be only one qrcode so just take the first one)
-        try:
-            symbol = next(iter(image.symbols))
-        except StopIteration:
-            symbol = None  # No code found
+        reduced_size = int(w_s), int(h_s)
+        im = im.resize(reduced_size)
 
-        # clean up
-        del image
+        if self.approximate_area:
+            im_c = im.crop(self.approximate_area)
+            res = pyzbar.decode(im_c, symbols=[ZBarSymbol.QRCODE])
+            if len(res) == 0:
+                self.approximate_area = None
+            else:
+                return res[0].data
 
-        return symbol
+        res = pyzbar.decode(im, symbols=[ZBarSymbol.QRCODE])
+
+        if len(res) > 0:
+            rect = res[0].rect
+            offset_width = rect.width * 1.5
+            offset_height = rect.height * 1.5
+            self.approximate_area = (
+                rect.left - offset_width,
+                rect.top - offset_height,
+                rect.left + offset_width,
+                rect.top + offset_height
+            )
+            return res[0].data
+        return None

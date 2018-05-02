@@ -78,7 +78,6 @@ class Phenobox():
         led_controller.blink_green(1)
         led_controller.blink_blue(1)
         scanner = CodeScanner()
-        scanner.initialize()
         camera_controller = CameraController()
         camera_controller.initialize()
         motor_controller = MotorController()

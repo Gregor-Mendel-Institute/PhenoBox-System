@@ -174,11 +174,11 @@ class PhenoboxMachine(Machine):
 
     def after_analyze(self, event):
         if self.code_information is not None:
-            print(Fore.CYAN + 'Decoded ' + str(self.code_information.type) + ' symbol "%s"' % str(
-                self.code_information.data))
+            print(Fore.CYAN + 'Decoded symbol "%s"' % str(
+                self.code_information))
             self._logger.info(
-                'decoded {}, symbol {}'.format(self.code_information.type, str(self.code_information.data)))
-            plant_id = self.code_information.data
+                'decoded symbol {}'.format(self.code_information))
+            plant_id = self.code_information
             try:
                 s = Session()
                 graphql_address = '{}{}'.format(getattr(config, 'cfg').get('server', 'base_address'),
@@ -192,7 +192,7 @@ class PhenoboxMachine(Machine):
                     return
                 else:
                     # Create Snapshot
-                    param_string = 'plantId:"{}", cameraPosition:"{}", measurementTool:"{}",phenoboxId:"{}"' \
+                    param_string = 'plantId:"{}", cameraPosition:"{}", measurementTool:"{}", phenoboxId:"{}"' \
                         .format(plant['id'],
                                 getattr(config, 'cfg').get('box', 'camera_position'),
                                 getattr(config, 'cfg').get('box', 'measurement_tool'),

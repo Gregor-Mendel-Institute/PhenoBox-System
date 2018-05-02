@@ -2,8 +2,6 @@
 
 This folder contains the code which powers the phenobox itself. 
 
-The phenobox is a box in which a rotary table and a camera are installed to automatically take pictures of plants from various angles.
-
 The code is intended to be deployed to a Raspberry Pi installed inside the box. 
 Currently the only tested Pi is the Raspberry Pi 3 with the Raspbian distribution.
 
@@ -64,8 +62,11 @@ Currently the only tested Pi is the Raspberry Pi 3 with the Raspbian distributio
        ```bash
        sudo crontab -e -u pi
        ```
-   * Enter the following to run the autorun.sh script contained in the repository on ever reboot
+   * Enter the following to run the autorun python script contained in the repository on ever reboot
        ```
        @reboot cd /home/pi/photobox; /usr/bin/python autostart.py >> /home/pi/phenobox_cron.log 2>&1
        ```
 
+# Further Information
+
+Please refer to the corresponding wiki page: https://github.com/Gregor-Mendel-Institute/PhenoBox-System/wiki/phenobox-home

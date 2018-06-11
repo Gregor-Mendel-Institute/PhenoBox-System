@@ -4,15 +4,13 @@ from datetime import datetime
 import grpc
 from openpyxl import Workbook
 from rq import get_current_job
-from rq.decorators import job
 
-from server.extensions import redis_db
 from server.gen import phenopipe_pb2_grpc, phenopipe_pb2, phenopipe_iap_pb2_grpc, phenopipe_iap_pb2
-from server.models import AnalysisModel, ImageModel, TimestampModel, SnapshotModel
-from server.modules.analysis.analysis_jobs.job_type import JobType
-from server.modules.analysis.analysis_jobs.worker_extensions import get_grpc_channel, get_session, get_status_cache
-from server.modules.postprocessing.postprocessing import submit_postprocesses
-from server.utils.redis_status_cache.status import Status
+from server.models import AnalysisModel, ImageModel, TimestampModel
+from server.modules.processing.analysis.analysis_jobs.job_type import JobType
+from server.modules.processing.analysis.analysis_jobs.worker_extensions import get_session, get_log_store, \
+    get_redis_connection, get_grpc_channel
+from server.modules.processing.analysis.analysis_task import AnalysisTask
 from server.utils.util import get_local_path_from_smb
 
 _iap_meta_cols = [
@@ -34,6 +32,7 @@ _iap_meta_cols = [
 
 
 # TODO use a class for this?
+# TODO Add proper application logging
 def create_return_object(type, timestamp_id, response):
     """
        Convenience method to create a proper return object for the RQ Job function
@@ -49,36 +48,6 @@ def create_return_object(type, timestamp_id, response):
     ret['timestamp_id'] = timestamp_id
     ret['response'] = response
     return ret
-
-
-def update_status_object(username, status_id, current_status=None, current_message=None, jobs=None):
-    """
-    Fetches the status object with the given ID from the analysis
-    :class:`~server.utils.redis_status_cache.redis_status_cache.StatusCache` and applies the given changes
-
-    :param username: The username to which the :class:`~server.utils.redis_status_cache.status_object.StatusObject` belongs
-    :param status_id: The ID of the :class:`~server.utils.redis_status_cache.status_object.StatusObject`
-    :param current_status: The new status to be set. If None the old value will remain.
-    :param current_message: The new message to be set. If None the old value will remain.
-    :param jobs: The new job list to be set. If None the old value will remain.
-
-    :return: None
-    """
-    analysis_status_cache = get_status_cache()
-    status = analysis_status_cache.get(username, status_id)
-    if current_status is not None:
-        status.current_status = current_status
-    if current_message is not None:
-        status.current_message = current_message
-    if jobs is not None:
-        for name, job_id in jobs.items():
-            status.add_job(name, job_id)
-
-    try:
-        analysis_status_cache.update(username, status)
-    except KeyError:
-        # Can happen if the cache eviction is triggered before the job tries to update the status
-        pass
 
 
 def create_iap_import_sheet(timestamp_id, path):
@@ -136,7 +105,7 @@ def create_iap_import_sheet(timestamp_id, path):
 
 # @job('analysis', connection=redis_db)
 def invoke_iap_import(timestamp_id, experiment_name, coordinator, scientist, local_path, path, username,
-                      analysis_status_id):
+                      task_key):
     """
     This Methods represents an RQ Job workload. It should be enqueued into the RQ Analysis Queue and processed by an according worker
 
@@ -150,43 +119,55 @@ def invoke_iap_import(timestamp_id, experiment_name, coordinator, scientist, loc
     :param local_path: The path to the data on the local system
     :param path: The SMB url representing the location of the data
     :param username: The username of the user invoking this job
-    :param analysis_status_id: The ID of the :class:`~server.utils.redis_status_cache.status_object.StatusObject` to which this job belongs
+    :param task_key: The redis key of the :class:`~server.modules.analysis.analysis_task.AnalysisTask` to which this job belongs
 
     :return: A dict containing the 'experiment_id' (nested in the 'response' key) returned by IAP
     """
     print('EXECUTE IMPORT')
+    job = get_current_job()
+    log_store = get_log_store()
+    task = AnalysisTask.from_key(get_redis_connection(), task_key)
     channel = get_grpc_channel()
     iap_stub = phenopipe_iap_pb2_grpc.PhenopipeIapStub(channel)
     pipe_stub = phenopipe_pb2_grpc.PhenopipeStub(channel)
-    update_status_object(username, analysis_status_id, Status.running, 'Started Import Job')
-    update_status_object(username, analysis_status_id, current_message='Create Metadata File')
+    log_store.put(job.id, 'Started Import Job', 0)
+    task.update_message('Started Import Job')
+    log_store.put(job.id, 'Create Metadata File')
+    task.update_message('Create Metadata File')
     create_iap_import_sheet(timestamp_id, local_path)
-    update_status_object(username, analysis_status_id, current_message='Metadata File Created')
+    log_store.put(job.id, 'Metadata File Created')
+    task.update_message('Metadata File Created')
     try:
-        update_status_object(username, analysis_status_id, current_message='Import data into IAP')
+        log_store.put(job.id, 'Import data into IAP')
+        task.update_message('Import data into IAP')
+        import time
+        time.sleep(30)
         response = iap_stub.ImportExperiment(
             phenopipe_iap_pb2.ImportRequest(path=path, experiment_name=experiment_name,
                                             coordinator_name=coordinator,
                                             user_name=scientist)
         )
-        job_id = response.job_id
-        print(job_id)
+
+        remote_job_id = response.job_id
+        print(remote_job_id)
         request = phenopipe_pb2.WatchJobRequest(
-            job_id=job_id
+            job_id=remote_job_id
         )
         status = pipe_stub.WatchJob(request)
-        analysis_status_cache = get_status_cache()
+
         for msg in status:
-            analysis_status_cache.log(analysis_status_id, msg.message.decode('string-escape'), msg.progress)
+            print(msg.message.decode('string-escape'))
+            log_store.put(job.id, msg.message.decode('string-escape'), msg.progress)
 
         response = iap_stub.FetchImportResult(
-            phenopipe_pb2.FetchJobResultRequest(job_id=job_id)
+            phenopipe_pb2.FetchJobResultRequest(job_id=remote_job_id)
         )
         session = get_session()
         timestamp = session.query(TimestampModel).get(timestamp_id)
         timestamp.iap_exp_id = response.experiment_id
         session.commit()
-        update_status_object(username, analysis_status_id, current_message='Finished Import Job')
+        log_store.put(job.id, 'Finished Import Job', 100)
+        task.update_message('Finished Import Job')
         return create_return_object(JobType.iap_import, timestamp_id, {'experiment_id': response.experiment_id})
     except grpc.RpcError as e:
         if e.code() == grpc.StatusCode.ALREADY_EXISTS:
@@ -196,14 +177,14 @@ def invoke_iap_import(timestamp_id, experiment_name, coordinator, scientist, loc
             session.commit()
             return create_return_object(JobType.iap_import, timestamp_id, {'experiment_id': timestamp.iap_exp_id})
         else:
-            update_status_object(username, analysis_status_id, current_status=Status.error,
-                                 current_message=e.details())
+            task.update_message('Import Job Failed')
+            log_store.put(job.id, e.details(), 0)
             print(e.details())
             raise
 
 
 # @job('analysis', connection=redis_db)
-def invoke_iap_analysis(analysis_id, timestamp_id, username, analysis_status_id,
+def invoke_iap_analysis(analysis_id, timestamp_id, username, task_key,
                         experiment_id=None):
     """
     This Methods represents an RQ Job workload. It should be enqueued into the RQ Analysis Queue and processed by an according worker
@@ -222,16 +203,19 @@ def invoke_iap_analysis(analysis_id, timestamp_id, username, analysis_status_id,
         (All nested inside the 'response' key)
     """
     print('EXECUTE ANALYSIS')
+    job = get_current_job()
+    log_store = get_log_store()
+    task = AnalysisTask.from_key(get_redis_connection(), task_key)
     channel = get_grpc_channel()
     iap_stub = phenopipe_iap_pb2_grpc.PhenopipeIapStub(channel)
     pipe_stub = phenopipe_pb2_grpc.PhenopipeStub(channel)
-    job = get_current_job(redis_db)
     if experiment_id is None:
-        experiment_iap_id = job.dependency.result['response']['experiment_id']
+        experiment_iap_id = job.dependency.result['response'][
+            'experiment_id']  # TODO rename experiment_id to experiment_iap_id
     else:
         experiment_iap_id = experiment_id
-
-    update_status_object(username, analysis_status_id, Status.running, 'Started Analysis Job')
+    log_store.put(job.id, 'Started Analysis Job', 0)
+    task.update_message('Started Analysis Job')
     session = get_session()
     # TODO Consider DB errors
     analysis = session.query(AnalysisModel).get(analysis_id)
@@ -242,38 +226,39 @@ def invoke_iap_analysis(analysis_id, timestamp_id, username, analysis_status_id,
         response = iap_stub.AnalyzeExperiment(
             phenopipe_iap_pb2.AnalyzeRequest(experiment_id=experiment_iap_id, pipeline_id=analysis.pipeline_id)
         )
-        job_id = response.job_id
+        remote_job_id = response.job_id
         request = phenopipe_pb2.WatchJobRequest(
-            job_id=job_id
+            job_id=remote_job_id
         )
         status = pipe_stub.WatchJob(request)
-        analysis_status_cache = get_status_cache()
         for msg in status:
-            analysis_status_cache.log(analysis_status_id, msg.message.decode('string-escape'), msg.progress)
+            print(msg.message.decode('string-escape'))
+            log_store.put(job.id, msg.message.decode('string-escape'), msg.progress)
 
         response = iap_stub.FetchAnalyzeResult(
-            phenopipe_pb2.FetchJobResultRequest(job_id=job_id)
+            phenopipe_pb2.FetchJobResultRequest(job_id=remote_job_id)
         )
         finished_at = datetime.utcnow()
 
         analysis.iap_id = response.result_id
         analysis.finished_at = finished_at
         session.commit()
-        update_status_object(username, analysis_status_id, current_message='Finished Analysis Job')
+        log_store.put(job.id, 'Finished Analysis Job', 100)
+        task.update_message('Finished Analysis Job')
         return create_return_object(JobType.iap_analysis, timestamp_id,
                                     {'result_id': response.result_id, 'started_at': started_at,
                                      'finished_at': finished_at, 'pipeline_id': analysis.pipeline_id})
     except grpc.RpcError as e:
         session.delete(session.query(AnalysisModel).get(analysis.id))
         session.commit()
-        update_status_object(username, analysis_status_id, current_status=Status.error,
-                             current_message=e.details())
+        log_store.put(job.id, e.details(), 0)
+        task.update_message('Analysis Job Failed')
         print(e.details())
         raise
 
 
 # @job('analysis', connection=redis_db)
-def invoke_iap_export(timestamp_id, output_path, username, analysis_status_id, shared_folder_map, analysis_iap_id=None):
+def invoke_iap_export(timestamp_id, output_path, username, shared_folder_map, task_key, analysis_iap_id=None):
     """
     This Methods represents an RQ Job workload. It should be enqueued into the RQ Analysis Queue and processed by an according worker
 
@@ -291,43 +276,43 @@ def invoke_iap_export(timestamp_id, output_path, username, analysis_status_id, s
         and the 'path' to which the results have been exported. (All nested inside the 'response' key)
     """
     print('EXECUTE EXPORT')
+    job = get_current_job()
+    log_store = get_log_store()
+    task = AnalysisTask.from_key(get_redis_connection(), task_key)
     channel = get_grpc_channel()
     iap_stub = phenopipe_iap_pb2_grpc.PhenopipeIapStub(channel)
     pipe_stub = phenopipe_pb2_grpc.PhenopipeStub(channel)
-    job = get_current_job(redis_db)
 
     if analysis_iap_id is None:
         analysis_iap_id = job.dependency.result['response']['result_id']
     else:
         analysis_iap_id = analysis_iap_id
-
-    update_status_object(username, analysis_status_id, Status.running, 'Started Export Job')
-
+    log_store.put(job.id, 'Started Export Job', 0)
+    task.update_message('Started Export Job')
     try:
         response = iap_stub.ExportExperiment(
             phenopipe_iap_pb2.ExportRequest(experiment_id=analysis_iap_id, destination_path=output_path)
         )
-        job_id = response.job_id
+        remote_job_id = response.job_id
         request = phenopipe_pb2.WatchJobRequest(
-            job_id=job_id
+            job_id=remote_job_id
         )
         status = pipe_stub.WatchJob(request)
-        analysis_status_cache = get_status_cache()
         for msg in status:
-            analysis_status_cache.log(analysis_status_id, msg.message.decode('string-escape'), msg.progress)
+            print(msg.message.decode('string-escape'))
+            log_store.put(job.id, msg.message.decode('string-escape'), msg.progress)
 
         response = iap_stub.FetchExportResult(
-            phenopipe_pb2.FetchJobResultRequest(job_id=job_id)
+            phenopipe_pb2.FetchJobResultRequest(job_id=remote_job_id)
         )
         session = get_session()
         analysis = session.query(AnalysisModel) \
             .filter(AnalysisModel.timestamp_id == timestamp_id) \
             .filter(AnalysisModel.iap_id == analysis_iap_id) \
             .one()
-        analysis.export_path = response.path
-        session.commit()
-        update_status_object(username, analysis_status_id,
-                             current_message='Received Results. Started to parse and add information')
+
+        log_store.put(job.id, 'Received Results. Started to parse and add information', 90)
+        task.update_message('Received Results. Started to parse and add information')
         image_path = get_local_path_from_smb(response.image_path, shared_folder_map)
         print('Image Path: {}'.format(image_path))
         # TODO handle DB errors
@@ -341,34 +326,30 @@ def invoke_iap_export(timestamp_id, output_path, username, analysis_status_id, s
             session.add(img)
             # rename file and remove the snapshot id
             os.rename(os.path.join(image_path, image_name), os.path.join(image_path, new_filename))
+        analysis.export_path = response.path
+        analysis.exported_at = datetime.utcnow()
         session.commit()
-        update_status_object(username, analysis_status_id, current_status=Status.finished,
-                             current_message='Finished Export Job')
+        log_store.put(job.id, 'Finished Export Job', 100)
+        task.update_message('Finished Export Job')
         return create_return_object(JobType.iap_export, timestamp_id,
                                     {'analysis_id': analysis.id, 'path': response.path})
     except grpc.RpcError as e:
-        update_status_object(username, analysis_status_id, current_status=Status.error,
-                             current_message=e.details())
+        log_store.put(job.id, e.details(), 0)
+        task.update_message('Export Job Failed')
         print(e.details())
         raise
 
 
-@job('analysis', connection=redis_db)
-def invoke_postprocesses_after_export(postprocessing_stack_ids, note, username):
-    """
-    This Method represents an RQ Job workload. It should be enqueued into the RQ Analysis Queue and processed by an according worker
-
-    Invokes the postprocesses represented by the given IDs on the just finished analysis.
-    Used to automatically start postrprocessing after an analysis has been successfully analyzed an exported.
-
-    :param postprocessing_stack_ids: A list of postprocessing stack ids which should be applied.
-    :param note: A note from the user to make it easier to identify postprocesses
-    :param username: The username of the user invoking this job
-
-    :return: The result of :meth:`~server.modules.postprocessing.postprocessing.submit_postprocesses`
-    """
-    job = get_current_job(redis_db)
-    analysis_id = job.dependency.result['response']['analysis_id']
-    session = get_session()
-    analysis = session.query(AnalysisModel).get(analysis_id)
-    return submit_postprocesses(analysis, postprocessing_stack_ids, note, username, from_worker=True)
+def dummy_job(name, task_key):
+    print('EXECUTE DUMMY')
+    job = get_current_job()
+    log_store = get_log_store()
+    task = AnalysisTask.from_key(get_redis_connection(), task_key)
+    log_store.put(job.id, 'Started Dummy Job ({})'.format(name), 0)
+    task.update_message('Started Dummy Job ({})'.format(name))
+    status = [('{} {}'.format('Status', str(i)), i) for i in range(0, 10)]
+    for msg, progress in status:
+        log_store.put(job.id, msg, progress)
+    log_store.put(job.id, 'Finished Dummy Job ({})'.format(name), 100)
+    task.update_message('Finished Dummy Job ({})'.format(name))
+    return 'whuiii'

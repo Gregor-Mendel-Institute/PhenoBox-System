@@ -16,7 +16,7 @@ class PostprocessModel(BaseModel):
     snapshot_hash = db.Column(db.BIGINT, nullable=False)
     #:Path, as SMB URL, to the results of this postprocess
     result_path = db.Column(db.String, nullable=True)
-    #:The ID of the postprocess that was applied
+    #:The ID of the postprocessing stack that was applied
     postprocessing_stack_id = db.Column(db.String, nullable=False)
     #:The ID of the sample group used as control group
     control_group_id = db.Column(db.Integer, db.ForeignKey("sample_group.id"), nullable=False)
@@ -72,6 +72,7 @@ class PostprocessModel(BaseModel):
         self.postprocessing_stack_id = postprocessing_stack_id
         self.control_group_id = control_group_id
         self.snapshots = snapshots
+        # TODO always calculate snapshot hash to prevent incorrect hashes?
         if snapshot_hash is not None:
             self.snapshot_hash = snapshot_hash
         else:

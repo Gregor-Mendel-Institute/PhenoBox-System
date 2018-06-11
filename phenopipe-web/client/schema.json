@@ -258,7 +258,7 @@
               "deprecationReason": null
             },
             {
-              "name": "postprocessingTaskStatus",
+              "name": "postprocessingTask",
               "description": null,
               "args": [
                 {
@@ -278,14 +278,14 @@
               ],
               "type": {
                 "kind": "OBJECT",
-                "name": "TaskStatus",
+                "name": "Task",
                 "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "analysisTaskStatus",
+              "name": "analysisTask",
               "description": null,
               "args": [
                 {
@@ -305,7 +305,61 @@
               ],
               "type": {
                 "kind": "OBJECT",
-                "name": "TaskStatus",
+                "name": "Task",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "analysisJob",
+              "description": null,
+              "args": [
+                {
+                  "name": "id",
+                  "description": null,
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "ID",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Job",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "postprocessingJob",
+              "description": null,
+              "args": [
+                {
+                  "name": "id",
+                  "description": null,
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "ID",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Job",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -1012,7 +1066,7 @@
               "deprecationReason": null
             },
             {
-              "name": "analysisTaskStatuses",
+              "name": "analysisTasks",
               "description": null,
               "args": [
                 {
@@ -1058,14 +1112,14 @@
               ],
               "type": {
                 "kind": "OBJECT",
-                "name": "TaskStatusConnection",
+                "name": "TaskConnection",
                 "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "postprocessingTaskStatuses",
+              "name": "postprocessingTasks",
               "description": null,
               "args": [
                 {
@@ -1111,7 +1165,7 @@
               ],
               "type": {
                 "kind": "OBJECT",
-                "name": "TaskStatusConnection",
+                "name": "TaskConnection",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -2375,59 +2429,6 @@
               "deprecationReason": null
             },
             {
-              "name": "analyses",
-              "description": null,
-              "args": [
-                {
-                  "name": "before",
-                  "description": null,
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "after",
-                  "description": null,
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "first",
-                  "description": null,
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Int",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "last",
-                  "description": null,
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Int",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                }
-              ],
-              "type": {
-                "kind": "OBJECT",
-                "name": "AnalysisConnection",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "postprocesses",
               "description": null,
               "args": [
@@ -2538,6 +2539,59 @@
               "type": {
                 "kind": "OBJECT",
                 "name": "ImageConnection",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "analyses",
+              "description": null,
+              "args": [
+                {
+                  "name": "before",
+                  "description": null,
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "after",
+                  "description": null,
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "first",
+                  "description": null,
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "last",
+                  "description": null,
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "AnalysisConnection",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -3051,59 +3105,6 @@
               "deprecationReason": null
             },
             {
-              "name": "snapshots",
-              "description": null,
-              "args": [
-                {
-                  "name": "before",
-                  "description": null,
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "after",
-                  "description": null,
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "first",
-                  "description": null,
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Int",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "last",
-                  "description": null,
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Int",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                }
-              ],
-              "type": {
-                "kind": "OBJECT",
-                "name": "SnapshotConnection",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "sampleGroups",
               "description": null,
               "args": [
@@ -3163,6 +3164,59 @@
               "type": {
                 "kind": "OBJECT",
                 "name": "Pipeline",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "snapshots",
+              "description": null,
+              "args": [
+                {
+                  "name": "before",
+                  "description": null,
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "after",
+                  "description": null,
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "first",
+                  "description": null,
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "last",
+                  "description": null,
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "SnapshotConnection",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -4202,7 +4256,7 @@
         },
         {
           "kind": "OBJECT",
-          "name": "TaskStatus",
+          "name": "Task",
           "description": null,
           "fields": [
             {
@@ -4259,7 +4313,7 @@
               "args": [],
               "type": {
                 "kind": "ENUM",
-                "name": "Status",
+                "name": "TaskState",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -4329,69 +4383,6 @@
               },
               "isDeprecated": false,
               "deprecationReason": null
-            },
-            {
-              "name": "log",
-              "description": null,
-              "args": [
-                {
-                  "name": "newestFirst",
-                  "description": null,
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Boolean",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "before",
-                  "description": null,
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "after",
-                  "description": null,
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "first",
-                  "description": null,
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Int",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "last",
-                  "description": null,
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Int",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                }
-              ],
-              "type": {
-                "kind": "OBJECT",
-                "name": "StatusLogEntryConnection",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
             }
           ],
           "inputFields": null,
@@ -4408,13 +4399,13 @@
           "interfaces": null,
           "enumValues": [
             {
-              "name": "analysis",
+              "name": "ANALYSIS",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "postprocess",
+              "name": "POSTPROCESS",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -4424,38 +4415,38 @@
         },
         {
           "kind": "ENUM",
-          "name": "Status",
+          "name": "TaskState",
           "description": null,
           "fields": null,
           "inputFields": null,
           "interfaces": null,
           "enumValues": [
             {
-              "name": "created",
+              "name": "CREATED",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "pending",
+              "name": "QUEUED",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "running",
+              "name": "RUNNING",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "finished",
+              "name": "FINISHED",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "error",
+              "name": "FAILED",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -4633,6 +4624,69 @@
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "log",
+              "description": null,
+              "args": [
+                {
+                  "name": "newestFirst",
+                  "description": null,
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Boolean",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "before",
+                  "description": null,
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "after",
+                  "description": null,
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "first",
+                  "description": null,
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "last",
+                  "description": null,
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "StatusLogEntryConnection",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -5065,7 +5119,7 @@
         },
         {
           "kind": "OBJECT",
-          "name": "TaskStatusConnection",
+          "name": "TaskConnection",
           "description": null,
           "fields": [
             {
@@ -5096,7 +5150,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "OBJECT",
-                    "name": "TaskStatusEdge",
+                    "name": "TaskEdge",
                     "ofType": null
                   }
                 }
@@ -5112,7 +5166,7 @@
         },
         {
           "kind": "OBJECT",
-          "name": "TaskStatusEdge",
+          "name": "TaskEdge",
           "description": null,
           "fields": [
             {
@@ -5121,7 +5175,7 @@
               "args": [],
               "type": {
                 "kind": "OBJECT",
-                "name": "TaskStatus",
+                "name": "Task",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -6232,18 +6286,6 @@
               },
               "isDeprecated": false,
               "deprecationReason": null
-            },
-            {
-              "name": "ok",
-              "description": null,
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "Boolean",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
             }
           ],
           "inputFields": null,
@@ -6286,18 +6328,6 @@
               "type": {
                 "kind": "SCALAR",
                 "name": "ID",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "ok",
-              "description": null,
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "Boolean",
                 "ofType": null
               },
               "isDeprecated": false,

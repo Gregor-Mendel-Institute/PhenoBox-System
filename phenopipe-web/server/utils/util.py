@@ -45,7 +45,7 @@ def utc_to_local(utc):
     return utc.astimezone(to_zone)
 
 
-def _as_string(value):
+def as_string(value):
     if value is None:
         return None
     elif isinstance(value, str):

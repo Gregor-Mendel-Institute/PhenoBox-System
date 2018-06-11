@@ -5,6 +5,7 @@ from graphene import relay
 from graphene_sqlalchemy import SQLAlchemyConnectionField
 from graphql import GraphQLError
 from graphql_relay import from_global_id
+from rq.job import Job as RQJob
 from sqlalchemy import and_
 from sqlalchemy.orm import contains_eager
 
@@ -17,16 +18,20 @@ from server.api.graphql.plant_schema import Plant, CreatePlant, DeletePlant
 from server.api.graphql.postprocess_schema import Postprocess
 from server.api.graphql.postprocessing_stack_schema import PostprocessingStack, PostprocessingStackConnection, \
     PostprocessingScript
+from server.api.graphql.rq_job_schema import Job
 from server.api.graphql.sample_group_schema import SampleGroup, CreateSampleGroup, DeleteSampleGroup
 from server.api.graphql.snapshot_schema import CreateSnapshot, Snapshot, DeleteSnapshot, ChangeSnapshotExclusion
-from server.api.graphql.task_status_schema import TaskStatus, TaskStatusConnection, TaskType
+from server.api.graphql.task_schema import Task, TaskConnection
 from server.api.graphql.timestamp_schema import Timestamp, CompleteTimestamp
 from server.auth.authentication import is_admin
-from server.extensions import db, analyses_status_cache, postprocessing_status_cache
+from server.extensions import db, redis_db, get_analysis_task_scheduler, get_postprocess_task_scheduler, \
+    analysis_job_queue, postprocessing_job_queue
 from server.models import ExperimentModel, TimestampModel, SnapshotModel, SampleGroupModel, PlantModel, ImageModel, \
     AnalysisModel, PostprocessModel
-from server.modules.analysis.analysis import get_iap_pipelines
-from server.modules.postprocessing.postprocessing import get_postprocessing_stacks
+from server.modules.processing.analysis.analysis import get_iap_pipelines
+from server.modules.processing.analysis.analysis_task import AnalysisTask
+from server.modules.processing.postprocessing.postprocessing import get_postprocessing_stacks
+from server.modules.processing.postprocessing.postprocessing_task import PostprocessingTask
 from server.modules.processing.remote_exceptions import UnavailableError
 
 
@@ -41,8 +46,12 @@ class Query(graphene.ObjectType):
     image = relay.Node.Field(Image)
     analysis = relay.Node.Field(Analysis)
     postprocess = relay.Node.Field(Postprocess)
-    postprocessing_task_status = graphene.Field(TaskStatus, id=graphene.NonNull(graphene.ID))
-    analysis_task_status = graphene.Field(TaskStatus, id=graphene.NonNull(graphene.ID))
+    postprocessing_task = graphene.Field(Task, id=graphene.NonNull(graphene.ID))
+    analysis_task = graphene.Field(Task, id=graphene.NonNull(graphene.ID))
+
+    job = graphene.Field(Job, id=graphene.NonNull(graphene.ID))
+    analysis_job = graphene.Field(Job, id=graphene.NonNull(graphene.ID))
+    postprocessing_job = graphene.Field(Job, id=graphene.NonNull(graphene.ID))
 
     experiments = SQLAlchemyConnectionField(Experiment, with_name=graphene.String(), with_scientist=graphene.String())
     plants = SQLAlchemyConnectionField(Plant)
@@ -59,30 +68,33 @@ class Query(graphene.ObjectType):
 
     postprocessing_stacks = graphene.ConnectionField(PostprocessingStackConnection, unused_for_analysis=graphene.ID())
     pipelines = graphene.ConnectionField(PipelineConnection, unused_for_timestamp=graphene.ID())
-    analysis_task_statuses = graphene.ConnectionField(TaskStatusConnection)
-    postprocessing_task_statuses = graphene.ConnectionField(TaskStatusConnection)
+
+    analysis_tasks = graphene.ConnectionField(TaskConnection)
+    postprocessing_tasks = graphene.ConnectionField(TaskConnection)
 
     # TODO Use Exceptions all over the schema and adapt clients to use them
 
-    def resolve_postprocessing_task_status(self, args, context, info):
-        identity = get_jwt_identity()
-        username = identity.get('username')
-        if username is None and not current_app.config['PRODUCTION']:
-            username = 'a'
-        _,status_id=from_global_id(args.get('id'))
-        status_obj = postprocessing_status_cache.get(username, status_id)
-        task_status = TaskStatus.from_status_object('postprocessing', TaskType.postprocess, status_obj, status_id)
-        return task_status
+    def resolve_analysis_task(self, args, context, info):
+        _, key = from_global_id(args.get('id'))
+        task = AnalysisTask.from_key(redis_db, key)
+        return Task.from_task_object(task)
 
-    def resolve_analysis_task_status(self, args, context, info):
-        identity = get_jwt_identity()
-        username = identity.get('username')
-        if username is None and not current_app.config['PRODUCTION']:
-            username = 'a'
-        _, status_id = from_global_id(args.get('id'))
-        status_obj = analyses_status_cache.get(username, status_id)
-        task_status = TaskStatus.from_status_object('analysis', TaskType.analysis, status_obj, status_id)
-        return task_status
+    def resolve_postprocessing_task(self, args, context, info):
+        _, key = from_global_id(args.get('id'))
+        task = PostprocessingTask.from_key(redis_db, key)
+        return Task.from_task_object(task)
+
+    def resolve_job(self, args, context, info):
+        _, job_id = from_global_id(args.get('id'))
+        return Job.from_rq_job_instance(RQJob.fetch(job_id, redis_db))
+
+    def resolve_analysis_job(self, args, context, info):
+        _, job_id = from_global_id(args.get('id'))
+        return Job.from_rq_job_instance(analysis_job_queue.fetch_job(job_id))
+
+    def resolve_postprocessing_job(self, args, context, info):
+        _, job_id = from_global_id(args.get('id'))
+        return Job.from_rq_job_instance(postprocessing_job_queue.fetch_job(job_id))
 
     def resolve_experiments(self, args, context, info):
         conds = list()
@@ -228,9 +240,9 @@ class Query(graphene.ObjectType):
             if 'unused_for_analysis' in args:
                 analysis_id = args.get('unused_for_analysis')
                 _, analysis_db_id = from_global_id(analysis_id)
-                snapshots=db.session.query(SnapshotModel).join(TimestampModel)\
-                    .filter(SnapshotModel.excluded==False)\
-                    .filter(TimestampModel.analyses.any(AnalysisModel.id == analysis_db_id))\
+                snapshots = db.session.query(SnapshotModel).join(TimestampModel) \
+                    .filter(SnapshotModel.excluded == False) \
+                    .filter(TimestampModel.analyses.any(AnalysisModel.id == analysis_db_id)) \
                     .all()
                 snapshot_hash = PostprocessModel.calculate_snapshot_hash(snapshots)
 
@@ -270,29 +282,21 @@ class Query(graphene.ObjectType):
         except UnavailableError as e:
             raise
 
-    def resolve_analysis_task_statuses(self, args, context, info):
+    def resolve_analysis_tasks(self, args, context, info):
         identity = get_jwt_identity()
         username = identity.get('username')
         if username is None and not current_app.config['PRODUCTION']:
             username = 'a'
-        status_ids = analyses_status_cache.get_all(username)
-        ret = []
-        for status_id in status_ids:
-            status_object = analyses_status_cache.get(username, status_id)
-            ret.append(TaskStatus.from_status_object('analysis', TaskType.analysis, status_object, status_id))
-        return ret
+        tasks = get_analysis_task_scheduler().fetch_all_tasks(username)
+        return [Task.from_task_object(task) for task in tasks]
 
-    def resolve_postprocessing_task_statuses(self, args, context, info):
+    def resolve_postprocessing_tasks(self, args, context, info):
         identity = get_jwt_identity()
         username = identity.get('username')
         if username is None and not current_app.config['PRODUCTION']:
             username = 'a'
-        status_ids = postprocessing_status_cache.get_all(username)
-        ret = []
-        for status_id in status_ids:
-            status_object = postprocessing_status_cache.get(username, status_id)
-            ret.append(TaskStatus.from_status_object('postprocessing', TaskType.postprocess, status_object, status_id))
-        return ret
+        tasks = get_postprocess_task_scheduler().fetch_all_tasks(username)
+        return [Task.from_task_object(task) for task in tasks]
 
 
 class Mutation(graphene.ObjectType):
@@ -317,4 +321,4 @@ class Mutation(graphene.ObjectType):
 
 schema = graphene.Schema(query=Query, mutation=Mutation,
                          types=[Experiment, Plant, SampleGroup, Snapshot, Image, Timestamp, Analysis, Postprocess,
-                                PostprocessingStack, PostprocessingScript, TaskStatus])
+                                PostprocessingStack, PostprocessingScript, Task])

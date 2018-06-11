@@ -4,7 +4,6 @@ from flask_jwt_extended import get_jwt_identity
 from graphene import Node
 from graphene_sqlalchemy import SQLAlchemyObjectType, SQLAlchemyConnectionField
 from graphql_relay import from_global_id
-from sqlalchemy import and_
 from sqlalchemy.exc import DBAPIError
 from sqlalchemy.orm import contains_eager
 
@@ -12,9 +11,9 @@ from server.api.graphql.exceptions import UnknownDataError
 from server.api.graphql.pipeline_schema import Pipeline
 from server.api.graphql.sample_group_schema import SampleGroup
 from server.extensions import db
-from server.models import SampleGroupModel, PlantModel, SnapshotModel
+from server.models import SampleGroupModel, PlantModel, SnapshotModel, TimestampModel
 from server.models.analysis_model import AnalysisModel
-from server.modules.analysis.analysis import get_iap_pipeline
+from server.modules.processing.analysis.analysis import get_iap_pipeline
 from server.modules.processing.remote_exceptions import UnavailableError, NotFoundError
 
 
@@ -25,19 +24,17 @@ class Analysis(SQLAlchemyObjectType):
 
     sample_groups = SQLAlchemyConnectionField(SampleGroup)
     pipeline = graphene.Field(Pipeline)
+    snapshots = graphene.ConnectionField(lambda: Snapshot)
 
     def resolve_sample_groups(self, args, context, info):
         return db.session.query(SampleGroupModel) \
             .join(PlantModel) \
-            .join(SnapshotModel,
-                  and_(
-                      SnapshotModel.plant_id == PlantModel.id,
-                      SnapshotModel.analyses.any(AnalysisModel.id == self.id)
-                  )) \
+            .join(SnapshotModel, SnapshotModel.plant_id == PlantModel.id) \
+            .join(TimestampModel, SnapshotModel.timestamp_id == TimestampModel.id) \
             .options(
             contains_eager("plants"),
-            contains_eager("plants.snapshots"),
-        ).all()
+            contains_eager("plants.snapshots")
+        ).filter(TimestampModel.analyses.any(AnalysisModel.id == self.id))
 
     def resolve_pipeline(self, args, context, info):
         try:
@@ -48,6 +45,9 @@ class Analysis(SQLAlchemyObjectType):
             raise
         except UnavailableError as e:
             raise
+
+    def resolve_snapshots(self, args, context, info):
+        return db.session.query(SnapshotModel).filter(SnapshotModel.timestamp_id == self.timestamp_id).all()
 
 
 class DeleteAnalysis(graphene.Mutation):
@@ -68,3 +68,8 @@ class DeleteAnalysis(graphene.Mutation):
             raise UnknownDataError("An unexpected DB error occured")
 
         return DeleteAnalysis(id=ql_id)
+
+
+# noinspection PyPep8
+from server.api.graphql.snapshot_schema import Snapshot
+# noinspection PyPep8

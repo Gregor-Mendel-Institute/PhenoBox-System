@@ -8,9 +8,12 @@ declare namespace GQL {
   }
 
   interface IGraphQLResponseError {
-    message: string;            // Required for all errors
+    /** Required for all errors */
+    message: string;
     locations?: Array<IGraphQLResponseErrorLocation>;
-    [propName: string]: any;    // 7.2.2 says 'GraphQL servers may provide additional entries to error'
+
+    /** 7.2.2 says 'GraphQL servers may provide additional entries to error' */
+    [propName: string]: any;
   }
 
   interface IGraphQLResponseErrorLocation {
@@ -18,47 +21,57 @@ declare namespace GQL {
     column: number;
   }
 
-
   interface IQuery {
     __typename: "Query";
+
     /**
-    description: The ID of the object
-  */
+     * The ID of the object
+     */
     node: Node | null;
+
     /**
-    description: The ID of the object
-  */
+     * The ID of the object
+     */
     experiment: IExperiment | null;
+
     /**
-    description: The ID of the object
-  */
+     * The ID of the object
+     */
     plant: IPlant | null;
+
     /**
-    description: The ID of the object
-  */
+     * The ID of the object
+     */
     sampleGroup: ISampleGroup | null;
+
     /**
-    description: The ID of the object
-  */
+     * The ID of the object
+     */
     snapshot: ISnapshot | null;
+
     /**
-    description: The ID of the object
-  */
+     * The ID of the object
+     */
     timestamp: ITimestamp | null;
+
     /**
-    description: The ID of the object
-  */
+     * The ID of the object
+     */
     image: IImage | null;
+
     /**
-    description: The ID of the object
-  */
+     * The ID of the object
+     */
     analysis: IAnalysis | null;
+
     /**
-    description: The ID of the object
-  */
+     * The ID of the object
+     */
     postprocess: IPostprocess | null;
-    postprocessingTaskStatus: ITaskStatus | null;
-    analysisTaskStatus: ITaskStatus | null;
+    postprocessingTask: ITask | null;
+    analysisTask: ITask | null;
+    analysisJob: IJob | null;
+    postprocessingJob: IJob | null;
     experiments: IExperimentConnection | null;
     plants: IPlantConnection | null;
     sampleGroups: ISampleGroupConnection | null;
@@ -69,32 +82,186 @@ declare namespace GQL {
     postprocessings: IPostprocessConnection | null;
     postprocessingStacks: IPostprocessingStackConnection | null;
     pipelines: IPipelineConnection | null;
-    analysisTaskStatuses: ITaskStatusConnection | null;
-    postprocessingTaskStatuses: ITaskStatusConnection | null;
+    analysisTasks: ITaskConnection | null;
+    postprocessingTasks: ITaskConnection | null;
   }
 
-  /**
-    description: An object with an ID
-  */
-  type Node = IExperiment | ISampleGroup | IPlant | ISnapshot | ITimestamp | IAnalysis | IPostprocess | IImage;
-
-  /**
-    description: An object with an ID
-  */
-  interface INode {
-    __typename: "Node";
-    /**
-    description: The ID of the object.
-  */
+  interface INodeOnQueryArguments {
     id: string;
   }
 
+  interface IExperimentOnQueryArguments {
+    id: string;
+  }
+
+  interface IPlantOnQueryArguments {
+    id: string;
+  }
+
+  interface ISampleGroupOnQueryArguments {
+    id: string;
+  }
+
+  interface ISnapshotOnQueryArguments {
+    id: string;
+  }
+
+  interface ITimestampOnQueryArguments {
+    id: string;
+  }
+
+  interface IImageOnQueryArguments {
+    id: string;
+  }
+
+  interface IAnalysisOnQueryArguments {
+    id: string;
+  }
+
+  interface IPostprocessOnQueryArguments {
+    id: string;
+  }
+
+  interface IPostprocessingTaskOnQueryArguments {
+    id: string;
+  }
+
+  interface IAnalysisTaskOnQueryArguments {
+    id: string;
+  }
+
+  interface IAnalysisJobOnQueryArguments {
+    id: string;
+  }
+
+  interface IPostprocessingJobOnQueryArguments {
+    id: string;
+  }
+
+  interface IExperimentsOnQueryArguments {
+    withName?: string | null;
+    withScientist?: string | null;
+    before?: string | null;
+    after?: string | null;
+    first?: number | null;
+    last?: number | null;
+  }
+
+  interface IPlantsOnQueryArguments {
+    before?: string | null;
+    after?: string | null;
+    first?: number | null;
+    last?: number | null;
+  }
+
+  interface ISampleGroupsOnQueryArguments {
+    forTimestamp?: string | null;
+    forAnalysis?: string | null;
+    forPostprocess?: string | null;
+    before?: string | null;
+    after?: string | null;
+    first?: number | null;
+    last?: number | null;
+  }
+
+  interface ISnapshotsOnQueryArguments {
+    forTimestamp?: string | null;
+    withCameraPosition?: string | null;
+    withMeasurementTool?: string | null;
+    forOpenTimestamp?: boolean | null;
+    forPlant?: string | null;
+    before?: string | null;
+    after?: string | null;
+    first?: number | null;
+    last?: number | null;
+  }
+
+  interface ITimestampsOnQueryArguments {
+    forExperiment?: string | null;
+    ordered?: boolean | null;
+    before?: string | null;
+    after?: string | null;
+    first?: number | null;
+    last?: number | null;
+  }
+
+  interface IImagesOnQueryArguments {
+    forSnapshot?: string | null;
+    before?: string | null;
+    after?: string | null;
+    first?: number | null;
+    last?: number | null;
+  }
+
+  interface IAnalysesOnQueryArguments {
+    forTimestamp?: string | null;
+    before?: string | null;
+    after?: string | null;
+    first?: number | null;
+    last?: number | null;
+  }
+
+  interface IPostprocessingsOnQueryArguments {
+    forAnalysis?: string | null;
+    before?: string | null;
+    after?: string | null;
+    first?: number | null;
+    last?: number | null;
+  }
+
+  interface IPostprocessingStacksOnQueryArguments {
+    unusedForAnalysis?: string | null;
+    before?: string | null;
+    after?: string | null;
+    first?: number | null;
+    last?: number | null;
+  }
+
+  interface IPipelinesOnQueryArguments {
+    unusedForTimestamp?: string | null;
+    before?: string | null;
+    after?: string | null;
+    first?: number | null;
+    last?: number | null;
+  }
+
+  interface IAnalysisTasksOnQueryArguments {
+    before?: string | null;
+    after?: string | null;
+    first?: number | null;
+    last?: number | null;
+  }
+
+  interface IPostprocessingTasksOnQueryArguments {
+    before?: string | null;
+    after?: string | null;
+    first?: number | null;
+    last?: number | null;
+  }
+
+  /**
+   * An object with an ID
+   */
+  type Node = IExperiment | ISampleGroup | IPlant | ISnapshot | ITimestamp | IAnalysis | IPostprocess | IImage;
+
+  /**
+   * An object with an ID
+   */
+  interface INode {
+    __typename: "Node";
+
+    /**
+     * The ID of the object.
+     */
+    id: string;
+  }
 
   interface IExperiment {
     __typename: "Experiment";
+
     /**
-    description: The ID of the object.
-  */
+     * The ID of the object.
+     */
     id: string;
     createdAt: any | null;
     updatedAt: any | null;
@@ -108,6 +275,19 @@ declare namespace GQL {
     timestamps: ITimestampConnection | null;
   }
 
+  interface ISampleGroupsOnExperimentArguments {
+    before?: string | null;
+    after?: string | null;
+    first?: number | null;
+    last?: number | null;
+  }
+
+  interface ITimestampsOnExperimentArguments {
+    before?: string | null;
+    after?: string | null;
+    first?: number | null;
+    last?: number | null;
+  }
 
   interface ISampleGroupConnection {
     __typename: "SampleGroupConnection";
@@ -115,46 +295,50 @@ declare namespace GQL {
     edges: Array<ISampleGroupEdge>;
   }
 
-
   interface IPageInfo {
     __typename: "PageInfo";
+
     /**
-    description: When paginating forwards, are there more items?
-  */
+     * When paginating forwards, are there more items?
+     */
     hasNextPage: boolean;
+
     /**
-    description: When paginating backwards, are there more items?
-  */
+     * When paginating backwards, are there more items?
+     */
     hasPreviousPage: boolean;
+
     /**
-    description: When paginating backwards, the cursor to continue.
-  */
+     * When paginating backwards, the cursor to continue.
+     */
     startCursor: string | null;
+
     /**
-    description: When paginating forwards, the cursor to continue.
-  */
+     * When paginating forwards, the cursor to continue.
+     */
     endCursor: string | null;
   }
 
-
   interface ISampleGroupEdge {
     __typename: "SampleGroupEdge";
+
     /**
-    description: The item at the end of the edge
-  */
+     * The item at the end of the edge
+     */
     node: ISampleGroup | null;
+
     /**
-    description: A cursor for use in pagination
-  */
+     * A cursor for use in pagination
+     */
     cursor: string;
   }
 
-
   interface ISampleGroup {
     __typename: "SampleGroup";
+
     /**
-    description: The ID of the object.
-  */
+     * The ID of the object.
+     */
     id: string;
     createdAt: any | null;
     updatedAt: any | null;
@@ -171,6 +355,12 @@ declare namespace GQL {
     plants: IPlantConnection | null;
   }
 
+  interface IPlantsOnSampleGroupArguments {
+    before?: string | null;
+    after?: string | null;
+    first?: number | null;
+    last?: number | null;
+  }
 
   interface IPlantConnection {
     __typename: "PlantConnection";
@@ -178,25 +368,26 @@ declare namespace GQL {
     edges: Array<IPlantEdge>;
   }
 
-
   interface IPlantEdge {
     __typename: "PlantEdge";
+
     /**
-    description: The item at the end of the edge
-  */
+     * The item at the end of the edge
+     */
     node: IPlant | null;
+
     /**
-    description: A cursor for use in pagination
-  */
+     * A cursor for use in pagination
+     */
     cursor: string;
   }
 
-
   interface IPlant {
     __typename: "Plant";
+
     /**
-    description: The ID of the object.
-  */
+     * The ID of the object.
+     */
     id: string;
     createdAt: any | null;
     updatedAt: any | null;
@@ -208,6 +399,12 @@ declare namespace GQL {
     fullName: string | null;
   }
 
+  interface ISnapshotsOnPlantArguments {
+    before?: string | null;
+    after?: string | null;
+    first?: number | null;
+    last?: number | null;
+  }
 
   interface ISnapshotConnection {
     __typename: "SnapshotConnection";
@@ -215,25 +412,26 @@ declare namespace GQL {
     edges: Array<ISnapshotEdge>;
   }
 
-
   interface ISnapshotEdge {
     __typename: "SnapshotEdge";
+
     /**
-    description: The item at the end of the edge
-  */
+     * The item at the end of the edge
+     */
     node: ISnapshot | null;
+
     /**
-    description: A cursor for use in pagination
-  */
+     * A cursor for use in pagination
+     */
     cursor: string;
   }
 
-
   interface ISnapshot {
     __typename: "Snapshot";
+
     /**
-    description: The ID of the object.
-  */
+     * The ID of the object.
+     */
     id: string;
     createdAt: any | null;
     updatedAt: any | null;
@@ -245,17 +443,39 @@ declare namespace GQL {
     plantId: number;
     timestamp: ITimestamp | null;
     plant: IPlant | null;
-    analyses: IAnalysisConnection | null;
     postprocesses: IPostprocessConnection | null;
     images: IImageConnection | null;
+    analyses: IAnalysisConnection | null;
   }
 
+  interface IPostprocessesOnSnapshotArguments {
+    before?: string | null;
+    after?: string | null;
+    first?: number | null;
+    last?: number | null;
+  }
+
+  interface IImagesOnSnapshotArguments {
+    withType?: string | null;
+    before?: string | null;
+    after?: string | null;
+    first?: number | null;
+    last?: number | null;
+  }
+
+  interface IAnalysesOnSnapshotArguments {
+    before?: string | null;
+    after?: string | null;
+    first?: number | null;
+    last?: number | null;
+  }
 
   interface ITimestamp {
     __typename: "Timestamp";
+
     /**
-    description: The ID of the object.
-  */
+     * The ID of the object.
+     */
     id: string;
     createdAt: any | null;
     updatedAt: any | null;
@@ -267,6 +487,19 @@ declare namespace GQL {
     analyses: IAnalysisConnection | null;
   }
 
+  interface ISnapshotsOnTimestampArguments {
+    before?: string | null;
+    after?: string | null;
+    first?: number | null;
+    last?: number | null;
+  }
+
+  interface IAnalysesOnTimestampArguments {
+    before?: string | null;
+    after?: string | null;
+    first?: number | null;
+    last?: number | null;
+  }
 
   interface IAnalysisConnection {
     __typename: "AnalysisConnection";
@@ -274,25 +507,26 @@ declare namespace GQL {
     edges: Array<IAnalysisEdge>;
   }
 
-
   interface IAnalysisEdge {
     __typename: "AnalysisEdge";
+
     /**
-    description: The item at the end of the edge
-  */
+     * The item at the end of the edge
+     */
     node: IAnalysis | null;
+
     /**
-    description: A cursor for use in pagination
-  */
+     * A cursor for use in pagination
+     */
     cursor: string;
   }
 
-
   interface IAnalysis {
     __typename: "Analysis";
+
     /**
-    description: The ID of the object.
-  */
+     * The ID of the object.
+     */
     id: string;
     createdAt: any | null;
     updatedAt: any | null;
@@ -304,11 +538,31 @@ declare namespace GQL {
     timestampId: number;
     timestamp: ITimestamp | null;
     postprocessings: IPostprocessConnection | null;
-    snapshots: ISnapshotConnection | null;
     sampleGroups: ISampleGroupConnection | null;
     pipeline: IPipeline | null;
+    snapshots: ISnapshotConnection | null;
   }
 
+  interface IPostprocessingsOnAnalysisArguments {
+    before?: string | null;
+    after?: string | null;
+    first?: number | null;
+    last?: number | null;
+  }
+
+  interface ISampleGroupsOnAnalysisArguments {
+    before?: string | null;
+    after?: string | null;
+    first?: number | null;
+    last?: number | null;
+  }
+
+  interface ISnapshotsOnAnalysisArguments {
+    before?: string | null;
+    after?: string | null;
+    first?: number | null;
+    last?: number | null;
+  }
 
   interface IPostprocessConnection {
     __typename: "PostprocessConnection";
@@ -316,25 +570,26 @@ declare namespace GQL {
     edges: Array<IPostprocessEdge>;
   }
 
-
   interface IPostprocessEdge {
     __typename: "PostprocessEdge";
+
     /**
-    description: The item at the end of the edge
-  */
+     * The item at the end of the edge
+     */
     node: IPostprocess | null;
+
     /**
-    description: A cursor for use in pagination
-  */
+     * A cursor for use in pagination
+     */
     cursor: string;
   }
 
-
   interface IPostprocess {
     __typename: "Postprocess";
+
     /**
-    description: The ID of the object.
-  */
+     * The ID of the object.
+     */
     id: string;
     createdAt: any | null;
     updatedAt: any | null;
@@ -353,6 +608,19 @@ declare namespace GQL {
     postprocessingStack: IPostprocessingStack | null;
   }
 
+  interface ISnapshotsOnPostprocessArguments {
+    before?: string | null;
+    after?: string | null;
+    first?: number | null;
+    last?: number | null;
+  }
+
+  interface ISampleGroupsOnPostprocessArguments {
+    before?: string | null;
+    after?: string | null;
+    first?: number | null;
+    last?: number | null;
+  }
 
   interface IPostprocessingStack {
     __typename: "PostprocessingStack";
@@ -362,6 +630,12 @@ declare namespace GQL {
     scripts: IPostprocessingScriptConnection | null;
   }
 
+  interface IScriptsOnPostprocessingStackArguments {
+    before?: string | null;
+    after?: string | null;
+    first?: number | null;
+    last?: number | null;
+  }
 
   interface IPostprocessingScriptConnection {
     __typename: "PostprocessingScriptConnection";
@@ -369,19 +643,19 @@ declare namespace GQL {
     edges: Array<IPostprocessingScriptEdge>;
   }
 
-
   interface IPostprocessingScriptEdge {
     __typename: "PostprocessingScriptEdge";
+
     /**
-    description: The item at the end of the edge
-  */
+     * The item at the end of the edge
+     */
     node: IPostprocessingScript | null;
+
     /**
-    description: A cursor for use in pagination
-  */
+     * A cursor for use in pagination
+     */
     cursor: string;
   }
-
 
   interface IPostprocessingScript {
     __typename: "PostprocessingScript";
@@ -391,7 +665,6 @@ declare namespace GQL {
     description: string | null;
   }
 
-
   interface IPipeline {
     __typename: "Pipeline";
     id: string | null;
@@ -399,32 +672,32 @@ declare namespace GQL {
     description: string | null;
   }
 
-
   interface IImageConnection {
     __typename: "ImageConnection";
     pageInfo: IPageInfo;
     edges: Array<IImageEdge>;
   }
 
-
   interface IImageEdge {
     __typename: "ImageEdge";
+
     /**
-    description: The item at the end of the edge
-  */
+     * The item at the end of the edge
+     */
     node: IImage | null;
+
     /**
-    description: A cursor for use in pagination
-  */
+     * A cursor for use in pagination
+     */
     cursor: string;
   }
 
-
   interface IImage {
     __typename: "Image";
+
     /**
-    description: The ID of the object.
-  */
+     * The ID of the object.
+     */
     id: string;
     createdAt: any | null;
     updatedAt: any | null;
@@ -436,45 +709,56 @@ declare namespace GQL {
     snapshot: ISnapshot | null;
   }
 
-
   interface ITimestampConnection {
     __typename: "TimestampConnection";
     pageInfo: IPageInfo;
     edges: Array<ITimestampEdge>;
   }
 
-
   interface ITimestampEdge {
     __typename: "TimestampEdge";
+
     /**
-    description: The item at the end of the edge
-  */
+     * The item at the end of the edge
+     */
     node: ITimestamp | null;
+
     /**
-    description: A cursor for use in pagination
-  */
+     * A cursor for use in pagination
+     */
     cursor: string;
   }
 
-
-  interface ITaskStatus {
-    __typename: "TaskStatus";
+  interface ITask {
+    __typename: "Task";
     id: string | null;
     name: string | null;
     description: string | null;
-    taskType: ITaskTypeEnum | null;
-    currentStatus: IStatusEnum | null;
+    taskType: TaskType | null;
+    currentStatus: TaskState | null;
     currentMessage: string | null;
     jobs: IJobConnection | null;
-    log: IStatusLogEntryConnection | null;
   }
 
+  interface IJobsOnTaskArguments {
+    before?: string | null;
+    after?: string | null;
+    first?: number | null;
+    last?: number | null;
+  }
 
-  type ITaskTypeEnum = 'analysis' | 'postprocess';
+  enum TaskType {
+    ANALYSIS = 'ANALYSIS',
+    POSTPROCESS = 'POSTPROCESS'
+  }
 
-
-  type IStatusEnum = 'created' | 'pending' | 'running' | 'finished' | 'error';
-
+  enum TaskState {
+    CREATED = 'CREATED',
+    QUEUED = 'QUEUED',
+    RUNNING = 'RUNNING',
+    FINISHED = 'FINISHED',
+    FAILED = 'FAILED'
+  }
 
   interface IJobConnection {
     __typename: "JobConnection";
@@ -482,19 +766,19 @@ declare namespace GQL {
     edges: Array<IJobEdge>;
   }
 
-
   interface IJobEdge {
     __typename: "JobEdge";
+
     /**
-    description: The item at the end of the edge
-  */
+     * The item at the end of the edge
+     */
     node: IJob | null;
+
     /**
-    description: A cursor for use in pagination
-  */
+     * A cursor for use in pagination
+     */
     cursor: string;
   }
-
 
   interface IJob {
     __typename: "Job";
@@ -505,8 +789,16 @@ declare namespace GQL {
     enqueuedAt: string | null;
     startedAt: string | null;
     finishedAt: string | null;
+    log: IStatusLogEntryConnection | null;
   }
 
+  interface ILogOnJobArguments {
+    newestFirst?: boolean | null;
+    before?: string | null;
+    after?: string | null;
+    first?: number | null;
+    last?: number | null;
+  }
 
   interface IStatusLogEntryConnection {
     __typename: "StatusLogEntryConnection";
@@ -515,19 +807,19 @@ declare namespace GQL {
     totalCount: number;
   }
 
-
   interface IStatusLogEntryEdge {
     __typename: "StatusLogEntryEdge";
+
     /**
-    description: The item at the end of the edge
-  */
+     * The item at the end of the edge
+     */
     node: IStatusLogEntry | null;
+
     /**
-    description: A cursor for use in pagination
-  */
+     * A cursor for use in pagination
+     */
     cursor: string;
   }
-
 
   interface IStatusLogEntry {
     __typename: "StatusLogEntry";
@@ -537,26 +829,25 @@ declare namespace GQL {
     progress: number | null;
   }
 
-
   interface IExperimentConnection {
     __typename: "ExperimentConnection";
     pageInfo: IPageInfo;
     edges: Array<IExperimentEdge>;
   }
 
-
   interface IExperimentEdge {
     __typename: "ExperimentEdge";
+
     /**
-    description: The item at the end of the edge
-  */
+     * The item at the end of the edge
+     */
     node: IExperiment | null;
+
     /**
-    description: A cursor for use in pagination
-  */
+     * A cursor for use in pagination
+     */
     cursor: string;
   }
-
 
   interface IPostprocessingStackConnection {
     __typename: "PostprocessingStackConnection";
@@ -564,19 +855,19 @@ declare namespace GQL {
     edges: Array<IPostprocessingStackEdge>;
   }
 
-
   interface IPostprocessingStackEdge {
     __typename: "PostprocessingStackEdge";
+
     /**
-    description: The item at the end of the edge
-  */
+     * The item at the end of the edge
+     */
     node: IPostprocessingStack | null;
+
     /**
-    description: A cursor for use in pagination
-  */
+     * A cursor for use in pagination
+     */
     cursor: string;
   }
-
 
   interface IPipelineConnection {
     __typename: "PipelineConnection";
@@ -584,39 +875,39 @@ declare namespace GQL {
     edges: Array<IPipelineEdge>;
   }
 
-
   interface IPipelineEdge {
     __typename: "PipelineEdge";
+
     /**
-    description: The item at the end of the edge
-  */
+     * The item at the end of the edge
+     */
     node: IPipeline | null;
+
     /**
-    description: A cursor for use in pagination
-  */
+     * A cursor for use in pagination
+     */
     cursor: string;
   }
 
-
-  interface ITaskStatusConnection {
-    __typename: "TaskStatusConnection";
+  interface ITaskConnection {
+    __typename: "TaskConnection";
     pageInfo: IPageInfo;
-    edges: Array<ITaskStatusEdge>;
+    edges: Array<ITaskEdge>;
   }
 
+  interface ITaskEdge {
+    __typename: "TaskEdge";
 
-  interface ITaskStatusEdge {
-    __typename: "TaskStatusEdge";
     /**
-    description: The item at the end of the edge
-  */
-    node: ITaskStatus | null;
+     * The item at the end of the edge
+     */
+    node: ITask | null;
+
     /**
-    description: A cursor for use in pagination
-  */
+     * A cursor for use in pagination
+     */
     cursor: string;
   }
-
 
   interface IMutation {
     __typename: "Mutation";
@@ -635,6 +926,71 @@ declare namespace GQL {
     deleteSnapshot: IDeleteSnapshot | null;
   }
 
+  interface IConstructExperimentOnMutationArguments {
+    experimentData?: IExperimentInput | null;
+  }
+
+  interface ICreateExperimentOnMutationArguments {
+    description?: string | null;
+    scientist?: string | null;
+    name?: string | null;
+    groupName?: string | null;
+  }
+
+  interface ICreateSampleGroupOnMutationArguments {
+    groupData?: ISampleGroupInput | null;
+    experimentId: string;
+  }
+
+  interface ICreatePlantOnMutationArguments {
+    index?: number | null;
+    name?: string | null;
+    sampleGroupId?: number | null;
+  }
+
+  interface ICreateSnapshotOnMutationArguments {
+    measurementTool: string;
+    phenoboxId: string;
+    cameraPosition: string;
+    plantId: string;
+  }
+
+  interface ICompleteTimestampOnMutationArguments {
+    timestampId: string;
+  }
+
+  interface IAddImageOnMutationArguments {
+    path: string;
+    type?: string | null;
+    snapshotId: string;
+    angle: number;
+    filename: string;
+  }
+
+  interface IEditProjectOnMutationArguments {
+    projectData?: IEditProjectInput | null;
+  }
+
+  interface IChangeSnapshotExclusionOnMutationArguments {
+    exclude: boolean;
+    snapshotId: string;
+  }
+
+  interface IDeleteExperimentOnMutationArguments {
+    id?: string | null;
+  }
+
+  interface IDeletePlantOnMutationArguments {
+    id?: string | null;
+  }
+
+  interface IDeleteSampleGroupOnMutationArguments {
+    id?: string | null;
+  }
+
+  interface IDeleteSnapshotOnMutationArguments {
+    id?: string | null;
+  }
 
   interface IExperimentInput {
     name: string;
@@ -645,7 +1001,6 @@ declare namespace GQL {
     startOfExperimentation?: string | null;
     sampleGroupData?: Array<ISampleGroupInput> | null;
   }
-
 
   interface ISampleGroupInput {
     name: string;
@@ -659,18 +1014,15 @@ declare namespace GQL {
     plants?: Array<IPlantInput> | null;
   }
 
-
   interface IPlantInput {
     index: number;
     name: string;
   }
 
-
   interface IConstructExperiment {
     __typename: "ConstructExperiment";
     id: string | null;
   }
-
 
   interface ICreateExperiment {
     __typename: "CreateExperiment";
@@ -682,7 +1034,6 @@ declare namespace GQL {
     startDate: string | null;
     startOfExperimentation: string | null;
   }
-
 
   interface ICreateSampleGroup {
     __typename: "CreateSampleGroup";
@@ -698,7 +1049,6 @@ declare namespace GQL {
     experimentId: number | null;
   }
 
-
   interface ICreatePlant {
     __typename: "CreatePlant";
     id: number | null;
@@ -707,27 +1057,21 @@ declare namespace GQL {
     sampleGroupId: number | null;
   }
 
-
   interface ICreateSnapshot {
     __typename: "CreateSnapshot";
     id: string | null;
     timestampId: string | null;
-    ok: boolean | null;
   }
-
 
   interface ICompleteTimestamp {
     __typename: "CompleteTimestamp";
     id: string | null;
   }
 
-
   interface IAddImage {
     __typename: "AddImage";
     id: string | null;
-    ok: boolean | null;
   }
-
 
   interface IEditProjectInput {
     id: string;
@@ -739,7 +1083,6 @@ declare namespace GQL {
     startOfExperimentation?: string | null;
     sampleGroupData?: Array<IEditSampleGroupInput> | null;
   }
-
 
   interface IEditSampleGroupInput {
     id: string;
@@ -755,7 +1098,6 @@ declare namespace GQL {
     delete?: boolean | null;
   }
 
-
   interface IEditPlantInput {
     id: string;
     index?: number | null;
@@ -763,12 +1105,10 @@ declare namespace GQL {
     delete?: boolean | null;
   }
 
-
   interface IEditProject {
     __typename: "EditProject";
     experiment: IExperiment | null;
   }
-
 
   interface IChangeSnapshotExclusion {
     __typename: "ChangeSnapshotExclusion";
@@ -776,24 +1116,20 @@ declare namespace GQL {
     excluded: boolean | null;
   }
 
-
   interface IDeleteExperiment {
     __typename: "DeleteExperiment";
     id: string | null;
   }
-
 
   interface IDeletePlant {
     __typename: "DeletePlant";
     id: string | null;
   }
 
-
   interface IDeleteSampleGroup {
     __typename: "DeleteSampleGroup";
     id: string | null;
   }
-
 
   interface IDeleteSnapshot {
     __typename: "DeleteSnapshot";

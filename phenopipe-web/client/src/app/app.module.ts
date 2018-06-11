@@ -16,7 +16,6 @@ import {ProjectDetailComponent} from './project/containers/project-detail/projec
 import {appRoutes} from './app.routes';
 import {ExperimentResolve} from './project/containers/project-detail/experiment-resolve';
 import {ModalModule} from 'ngx-bootstrap/modal';
-import {TabsModule} from 'ngx-bootstrap/tabs';
 import {LoginComponent} from './login/login.component';
 import {AuthService} from './login/auth.service';
 import {AuthGuard} from './login/auth-guard.service';
@@ -83,9 +82,10 @@ import {onError} from 'apollo-link-error';
     RouterModule.forRoot(appRoutes),
     JwtModule.forRoot({
       config: {
-        tokenGetter: () => {
+        tokenGetter       : () => {
           return localStorage.getItem('id_token')
-        }
+        },
+        whitelistedDomains: [/^null$/]//TODO proper instantiation via environment variables
       }
     }),
     HttpLinkModule,
@@ -98,7 +98,6 @@ import {onError} from 'apollo-link-error';
     CollapseModule.forRoot(),
     AccordionModule.forRoot(),
     ModalModule.forRoot(),
-    TabsModule.forRoot(),
     TooltipModule.forRoot(),
     BsDatepickerModule.forRoot(),
     SharedModule,

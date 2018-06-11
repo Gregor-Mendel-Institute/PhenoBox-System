@@ -4,14 +4,15 @@ from flask import jsonify
 from flask import request
 from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import jwt_required
-from graphql_relay import from_global_id
+from graphql_relay import from_global_id, to_global_id
 from werkzeug.exceptions import UnsupportedMediaType
 
 from server.api.blueprints import api
 from server.extensions import db
 from server.gen.phenopipe_r_pb2 import PostprocessingStack, PostprocessingScript
 from server.models import AnalysisModel
-from server.modules.postprocessing.postprocessing import upload_stack, get_postprocessing_stacks, submit_postprocesses
+from server.modules.processing.postprocessing.postprocessing import upload_stack, get_postprocessing_stacks, \
+    submit_postprocesses
 
 
 @api.route('/upload-postprocessing-stack', methods=['POST'])
@@ -78,10 +79,12 @@ def postprocess_analysis():
         analysis = db.session.query(AnalysisModel).get(analysis_db_id)
 
         if postprocessing_ids is not None:
-            result = submit_postprocesses(analysis, postprocessing_ids, note, identity['username'])
-            # TODO throw error if one postprocess can't be started
-            return jsonify({'msg': 'Started Postprocesses', 'postprocess_ids': result['status_ids'],
-                            'already_finished': result['already_finished']}), 202
+            tasks, postprocesses, finished = submit_postprocesses(analysis, postprocessing_ids, note,
+                                                                  identity['username'])
+            # TODO throw error if one postprocess can't be started?
+            return jsonify({'msg': 'Started Postprocesses',
+                            'postprocessing_task_ids': [to_global_id('Task', t.key) for t in tasks],
+                            'already_finished': finished}), 202
         return jsonify({'msg': 'No postprocessing stack ids given'}), 422
     else:
         return jsonify({'msg': 'No analysis id given'}), 422

@@ -7,7 +7,7 @@ import {NgxDatatableModule} from '@swimlane/ngx-datatable';
 import {TaskStatusTableComponent} from './components/task-status-table/task-status-table.component';
 import {DownloadService} from './download-results-service/download-results.service';
 import {TemplateUtilsService} from './template-utils.service';
-import {AlertComponent, AlertModule} from 'ngx-bootstrap';
+import {AlertComponent, AlertModule, TabsModule} from 'ngx-bootstrap';
 import {RouterModule} from '@angular/router';
 
 @NgModule({
@@ -16,7 +16,8 @@ import {RouterModule} from '@angular/router';
     DndModule.forRoot(),
     AlertModule.forRoot(),
     NgxDatatableModule,
-    RouterModule.forChild([])
+    RouterModule.forChild([]),
+    TabsModule.forRoot()
   ],
   providers   : [DownloadService, TemplateUtilsService,],
   declarations: [TextareaAutosizeDirective, PostprocessingStacksTableComponent, TaskStatusTableComponent],
@@ -25,7 +26,8 @@ import {RouterModule} from '@angular/router';
     DndModule,
     AlertComponent,
     PostprocessingStacksTableComponent,
-    TaskStatusTableComponent
+    TaskStatusTableComponent,
+    TabsModule
   ]
 })
 export class SharedModule {

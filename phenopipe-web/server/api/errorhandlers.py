@@ -2,8 +2,6 @@ from flask import jsonify
 from graphql_relay import to_global_id
 
 from server.api.blueprints import api
-from server.api.graphql.analysis_schema import Analysis
-from server.models import AnalysisModel
 from server.modules.processing.exceptions import AlreadyRunningError, AlreadyFinishedError, InvalidPathError, \
     AnalysisDataNotPresentError
 from server.modules.processing.remote_exceptions import PipelineAlreadyExistsError, UnavailableError, \

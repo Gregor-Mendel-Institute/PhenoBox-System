@@ -14,11 +14,13 @@ import {TabsModule} from 'ngx-bootstrap';
 import {IapPipelineUploadFormComponent} from './containers/iap-pipeline-upload-form/iap-pipeline-upload-form.component';
 import {NgxDatatableModule} from '@swimlane/ngx-datatable';
 import {FileUploadService} from './file-upload.service';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   imports     : [
     CommonModule,
     ReactiveFormsModule,
+    HttpClientModule,
     SharedModule,
     RouterModule.forChild(modulesRoutes),
     TabsModule.forRoot(),
@@ -34,7 +36,9 @@ import {FileUploadService} from './file-upload.service';
     IapPipelineUploadFormComponent,
 
   ],
-  providers   : [FileUploadService],
+  providers   : [
+    FileUploadService
+  ],
   exports     : [ModulesDashboardComponent]
 })
 export class ModulesModule {

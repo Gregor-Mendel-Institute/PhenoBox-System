@@ -34,8 +34,6 @@ class SnapshotModel(BaseModel):
     #:SQLAlchemy relationship to all images belonging to this snapshot
     images = db.relationship("ImageModel", back_populates="snapshot", cascade="all, delete-orphan", lazy='dynamic')
     #:SQLAlchemy relationship to all analyses performed on this snapshot
-    analyses = db.relationship("AnalysisModel", secondary='analysis_snapshot', back_populates='snapshots')
-    #:SQLAlchemy relationship to all analyses performed on this snapshot
     postprocesses = db.relationship("PostprocessModel", secondary='postprocess_snapshot', back_populates='snapshots')
 
     db.UniqueConstraint(plant_id, timestamp_id, name=u'uq_snapshot_plant_id_timestamp_id')

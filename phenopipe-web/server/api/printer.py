@@ -5,7 +5,6 @@ from flask_jwt_extended import jwt_required
 from graphql_relay import from_global_id, to_global_id
 
 from server.api.blueprints import api
-from server.api.graphql.plant_schema import Plant
 from server.api.graphql.sample_group_schema import SampleGroup
 from server.extensions import db, print_queue
 from server.modules.printer import PrintJobBundle, PrintJob

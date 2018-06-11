@@ -23,7 +23,6 @@ class AnalysisModel(BaseModel):
     started_at = db.Column(db.DateTime, nullable=True)
     #:Timestamp to indicate the end time of the analysis
     finished_at = db.Column(db.DateTime, nullable=True)
-    # TODO add exported at time?
     #:Foreign key to the corresponding Timestamp
     timestamp_id = db.Column(db.Integer, db.ForeignKey('timestamp.id'), nullable=False)
     #:SQLAlchemy relationship to the corresponding Timestamp
@@ -31,7 +30,6 @@ class AnalysisModel(BaseModel):
     #:SQLAlchemy relationship to all Postprocessings which have been applied to this analysis
     postprocessings = db.relationship("PostprocessModel", back_populates="analysis", cascade="all, delete-orphan")
     #:SQLAlchemy relationship to all Snapshots processed by this analysis
-    snapshots = db.relationship("SnapshotModel", secondary='analysis_snapshot', back_populates='analyses')
     db.UniqueConstraint(timestamp_id, pipeline_id)
 
     @staticmethod

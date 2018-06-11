@@ -14,7 +14,7 @@ from server.api.graphql.sample_group_schema import SampleGroup
 from server.extensions import db
 from server.models import SampleGroupModel, PlantModel, SnapshotModel
 from server.models.postprocess_model import PostprocessModel
-from server.modules.postprocessing.postprocessing import get_postprocessing_stack
+from server.modules.processing.postprocessing.postprocessing import get_postprocessing_stack
 from server.modules.processing.remote_exceptions import UnavailableError
 
 
@@ -42,7 +42,7 @@ class Postprocess(SQLAlchemyObjectType):
     def resolve_postprocessing_stack(self, args, context, info):
         try:
             identity = get_jwt_identity()
-            stack = get_postprocessing_stack(self.postprocessing_stack_id, identity.get('username'))
+            stack = get_postprocessing_stack(identity.get('username'), self.postprocessing_stack_id)
             return PostprocessingStack.from_grpc_type(stack)
         except UnavailableError as e:
             raise

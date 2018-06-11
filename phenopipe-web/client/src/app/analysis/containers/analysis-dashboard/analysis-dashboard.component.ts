@@ -3,9 +3,9 @@ import gql from 'graphql-tag';
 import {Apollo} from 'apollo-angular';
 import {Observable} from 'rxjs/Observable';
 
-const fetchAnalysisStatuses = gql`
-  query fetchAnalysisStatuses{
-    analysisTaskStatuses {
+const fetchAnalysisTasks = gql`
+  query fetchAnalysisTasks{
+    analysisTasks {
       edges {
         node {
           id
@@ -39,16 +39,16 @@ const fetchAnalysisStatuses = gql`
 })
 export class AnalysisDashboardComponent implements OnInit {
 
-  analysisStatu$: Observable<GQL.ITaskStatusConnection>;
+  analysisTask$: Observable<GQL.ITaskConnection>;
 
   constructor(private apollo: Apollo) {
   }
 
   ngOnInit() {
-    this.analysisStatu$ = this.apollo.watchQuery<GQL.IGraphQLResponseRoot>({
-      query: fetchAnalysisStatuses,
+    this.analysisTask$ = this.apollo.watchQuery<GQL.IGraphQLResponseRoot>({
+      query: fetchAnalysisTasks,
     }).valueChanges.map((resp) => {
-        return resp['data']['analysisTaskStatuses'];
+      return resp['data']['analysisTasks'];
       }
     );
 

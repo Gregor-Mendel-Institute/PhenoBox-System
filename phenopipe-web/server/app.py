@@ -14,7 +14,6 @@ from server.auth.box_authenticator import BoxAuthenticator
 from server.auth.dummy_authenticator import DummyAuthenticator
 from server.auth.endpoints import auth
 from server.auth.gmi_authenticator import GMIAuthenticator
-from server.modules.analysis.result_handler import ResultHandler
 from server.modules.printer.printer import Printer
 from .api import schema
 

@@ -5,7 +5,7 @@ import grpc
 from flask_sqlalchemy import SQLAlchemy
 from rq import Queue
 
-from server.utils.redis_status_cache.redis_status_cache import StatusCache
+from server.utils.redis_log_store import LogStore
 from server.utils.util import static_vars
 
 db = SQLAlchemy()
@@ -23,8 +23,22 @@ print_queue = PrintQueue(redis_db)
 
 analysis_job_queue = Queue('analysis', connection=redis_db)
 postprocessing_job_queue = Queue('postprocessing', connection=redis_db)
-analyses_status_cache = StatusCache(redis_db, 'analysis')
-postprocessing_status_cache = StatusCache(redis_db, 'postprocessing')
+
+from server.modules.processing.analysis.analysis_task_scheduler import AnalysisTaskScheduler
+from server.modules.processing.postprocessing.postprocess_task_scheduler import PostprocessTaskScheduler
+
+log_store = LogStore(redis_db, 'tasks:logs')
+
+analysis_task_scheduler = AnalysisTaskScheduler(redis_db, 'ana_tasks', analysis_job_queue, log_store)
+postprocess_task_scheduler = PostprocessTaskScheduler(redis_db, 'post_tasks', postprocessing_job_queue, log_store)
+
+
+def get_analysis_task_scheduler():
+    return analysis_task_scheduler
+
+
+def get_postprocess_task_scheduler():
+    return postprocess_task_scheduler
 
 
 @static_vars(channel=None)

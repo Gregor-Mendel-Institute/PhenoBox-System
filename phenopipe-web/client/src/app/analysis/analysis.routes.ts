@@ -5,8 +5,7 @@ import {TimestampAnalysisComponent} from './containers/timestamp-analysis/timest
 import {AnalysisDashboardComponent} from './containers/analysis-dashboard/analysis-dashboard.component';
 import {PostprocessingDashboardComponent} from './containers/postprocessing-dashboard/postprocessing-dashboard.component';
 import {AnalysisPostprocessingComponent} from './containers/analysis-postprocessing/analysis-postprocessing.component';
-import {PostprocessingLogViewComponent} from './containers/postprocessing-log-view/postprocessing-log-view.component';
-import {AnalysisLogViewComponent} from './containers/analysis-log-view/analysis-log-view.component';
+import {LogViewComponent} from './containers/log-view/log-view.component';
 
 export const analysisRoutes: Routes = [
   {
@@ -20,8 +19,8 @@ export const analysisRoutes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path       : 'postprocessing/log/:status_id',
-    component  : PostprocessingLogViewComponent,
+    path       : 'postprocessing/log/:task_id',
+    component  : LogViewComponent,
     canActivate: [AuthGuard]
   },
   {
@@ -35,8 +34,8 @@ export const analysisRoutes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path       : 'analysis/log/:status_id',
-    component  : AnalysisLogViewComponent,
+    path       : 'analysis/log/:task_id',
+    component  : LogViewComponent,
     canActivate: [AuthGuard]
   },
   {

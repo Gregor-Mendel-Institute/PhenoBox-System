@@ -4,7 +4,8 @@ from server.auth.base_authenticator import BaseAuthenticator
 class DummyAuthenticator(BaseAuthenticator):
     passwords = {'a': 'a',
                  'b' : 'b',
-                 'c': 'c'}
+                 'c': 'c',
+                 'sebastian.seitner': '1234'}
 
     def authenticate(self, username=None, password=None):
         if self.passwords.get(username) == password:
@@ -19,6 +20,12 @@ class DummyAuthenticator(BaseAuthenticator):
                         'name': 'SyT',
                         'surname': 'TyS',
                         'email': 'syt@bar.com',
+                        'groups': ['djamei']}
+            elif username == 'sebastian.seitner':
+                return {'username': username,
+                        'name': 'Sebastian',
+                        'surname': 'Seitner',
+                        'email': 'sebastian_seitner@gmi.oeaw.ac.at',
                         'groups': ['djamei']}
             if username == 'c':
                 return {'username': 'angelika.czedik',

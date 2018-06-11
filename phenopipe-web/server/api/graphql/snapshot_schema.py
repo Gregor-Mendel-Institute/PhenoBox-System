@@ -5,10 +5,10 @@ from graphene_sqlalchemy import SQLAlchemyObjectType, SQLAlchemyConnectionField
 from graphql_relay import from_global_id, to_global_id
 from sqlalchemy.exc import IntegrityError, DBAPIError
 
-from server.api.graphql.exceptions import UnknownDataError, ConstraintViolationError, ConflictingDataError
+from server.api.graphql.exceptions import UnknownDataError, ConflictingDataError
 from server.api.graphql.image_schema import Image
 from server.extensions import db
-from server.models import SnapshotModel, TimestampModel, PlantModel, ImageModel
+from server.models import SnapshotModel, TimestampModel, PlantModel, ImageModel, AnalysisModel
 
 
 class Snapshot(SQLAlchemyObjectType):
@@ -17,17 +17,20 @@ class Snapshot(SQLAlchemyObjectType):
         interfaces = (Node,)
 
     images = SQLAlchemyConnectionField(Image, with_type=graphene.String())
+    analyses = graphene.ConnectionField(lambda: Analysis)
 
     def resolve_images(self, args, context, info):
         conds = list()
-        query = db.session.query(ImageModel)
+        query = db.session.query(ImageModel).filter(ImageModel.snapshot_id == self.id)
         if 'with_type' in args:
-            conds.append(ImageModel.snapshot_id == self.id)
             conds.append(ImageModel.type == args.get('with_type'))
 
         for cond in conds:
             query = query.filter(cond)
         return query.all()
+
+    def resolve_analyses(self, args, context, info):
+        return db.session.query(AnalysisModel).filter(AnalysisModel.timestamp_id == self.timestamp_id).all()
 
 
 class SnapshotInput(graphene.InputObjectType):
@@ -125,3 +128,8 @@ class DeleteSnapshot(graphene.Mutation):
             raise UnknownDataError("An unexpected DB error occured")
 
         return DeleteSnapshot(id=ql_id)
+
+
+# noinspection PyPep8
+from server.api.graphql.analysis_schema import Analysis
+# noinspection PyPep8

@@ -3,7 +3,6 @@ from server.models.base_model import BaseModel
 #Base = BaseModel
 # Base = db.Model  # TODO make it work with declarative base ?? (Issue: was unable to create tables)
 
-import analysis_snapshot
 import postprocess_snapshot
 from image_model import ImageModel
 from analysis_model import AnalysisModel

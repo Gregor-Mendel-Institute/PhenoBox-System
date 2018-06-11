@@ -6,7 +6,7 @@ from flask import Config
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from server.utils.redis_status_cache.redis_status_cache import StatusCache
+from server.utils.redis_log_store import LogStore
 from server.utils.util import static_vars
 
 """
@@ -35,13 +35,13 @@ def get_config(path=None, filename=None):
 @static_vars(channel=None)
 def get_grpc_channel():
     """
-    Lazily initialized GRPC channel to the Postprocessing Server
+    Lazily initialized GRPC channel to the Analysis/IAP Server
 
     :return: Instance of a :class:`grpc.Channel`
     """
     if get_grpc_channel.channel is None:
-        grpc_ip = get_config()['POSTPROCESS_SERVER_IP']
-        grpc_port = get_config()['POSTPROCESS_SERVER_GRPC_PORT']
+        grpc_ip = get_config()['ANALYSIS_SERVER_IP']
+        grpc_port = get_config()['ANALYSIS_SERVER_GRPC_PORT']
         get_grpc_channel.channel = grpc.insecure_channel('{}:{}'.format(grpc_ip, str(grpc_port)))
     return get_grpc_channel.channel
 
@@ -59,16 +59,16 @@ def get_redis_connection():
     return get_redis_connection.connection
 
 
-@static_vars(cache=None)
-def get_status_cache():
+@static_vars(log_store=None)
+def get_log_store():
     """
-    Lazily initialized instance of :class:`~server.utils.redis_status_cache.redis_status_cache.StatusCache` for postprocessing jobs
+    Lazily initialized instance of :class:`~server.utils.redis_status_log.LogStore` for analysis jobs
 
-    :return: Instance of :class:`~server.utils.redis_status_cache.redis_status_cache.StatusCache`
+    :return: Instance of :class:`~server.utils.redis_status_log.LogStore`
     """
-    if get_status_cache.cache is None:
-        get_status_cache.cache = StatusCache(connection=get_redis_connection(), namespace='postprocessing', ttl=-1)
-    return get_status_cache.cache
+    if get_log_store.log_store is None:
+        get_log_store.log_store = LogStore(connection=get_redis_connection(), namespace='tasks:logs')
+    return get_log_store.log_store
 
 
 @static_vars(Session=None)

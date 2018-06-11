@@ -9,7 +9,7 @@ from graphql_relay import from_global_id
 from server.api.blueprints import api
 from server.extensions import db
 from server.models import AnalysisModel, SnapshotModel, ImageModel, TimestampModel
-from server.modules.analysis.analysis import get_iap_pipeline
+from server.modules.processing.analysis.analysis import get_iap_pipeline
 from server.modules.processing.exceptions import InvalidPathError
 from server.utils.util import get_local_path_from_smb
 

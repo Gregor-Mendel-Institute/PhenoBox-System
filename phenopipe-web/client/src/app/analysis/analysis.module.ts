@@ -13,9 +13,8 @@ import {StackSelectorComponent} from './components/stack-selector/stack-selector
 import {AnalysisPostprocessingComponent} from './containers/analysis-postprocessing/analysis-postprocessing.component';
 import {ProcessingService} from './services/processingService/processing.service';
 import {ViewBlocksModule} from '../view-blocks/view-blocks.module';
-import { StatusLogViewerComponent } from './components/status-log-viewer/status-log-viewer.component';
-import { PostprocessingLogViewComponent } from './containers/postprocessing-log-view/postprocessing-log-view.component';
-import { AnalysisLogViewComponent } from './containers/analysis-log-view/analysis-log-view.component';
+import {StatusLogViewerComponent} from './components/status-log-viewer/status-log-viewer.component';
+import {LogViewComponent} from './containers/log-view/log-view.component';
 
 @NgModule({
   imports     : [
@@ -35,8 +34,7 @@ import { AnalysisLogViewComponent } from './containers/analysis-log-view/analysi
     StackSelectorComponent,
     AnalysisPostprocessingComponent,
     StatusLogViewerComponent,
-    PostprocessingLogViewComponent,
-    AnalysisLogViewComponent,
+    LogViewComponent,
   ]
 })
 export class AnalysisModule {

@@ -1,4 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector   : 'app-task-status-table',
@@ -8,7 +9,7 @@ import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angula
 export class TaskStatusTableComponent implements OnInit {
 
   @Input()
-  taskStatus: GQL.ITaskStatusEdge[];
+  taskStatus: GQL.ITaskEdge[];
   @Output()
   detailToggled: EventEmitter<any> = new EventEmitter();//TODO type this
   @ViewChild('statusTable') table: any;
@@ -39,7 +40,7 @@ export class TaskStatusTableComponent implements OnInit {
     }
   ];
 
-  constructor() {
+  constructor(private activatedRoute: ActivatedRoute, private router: Router) {
   }
 
   ngOnInit() {
@@ -51,5 +52,11 @@ export class TaskStatusTableComponent implements OnInit {
 
   onDetailToggle(event) {
     this.detailToggled.emit(event);
+  }
+
+  openLog(task) {
+    console.log(task);
+    this.router.navigate(['log', task.id],
+      {relativeTo: this.activatedRoute, queryParams: {'job_ids': task.jobs.edges.map(job => job.node.id)}})
   }
 }

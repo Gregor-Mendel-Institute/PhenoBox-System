@@ -37,7 +37,7 @@ def _get_image_paths_for_analysis(analysis, shared_folder_map):
     """
     raw_images = list()
     segmented_images = list()
-    snapshots = analysis.snapshots
+    snapshots = analysis.timestamp.snapshots
 
     for snapshot in snapshots:
         raw_image_path = None
@@ -194,6 +194,7 @@ def download_results():
     analysis = db.session.query(AnalysisModel).get(analysis_db_id)
     shared_folder_map = current_app.config['SHARED_FOLDER_MAP']
     try:
+        # TODO check if analysis.export_path is not None
         local_path = get_local_path_from_smb(analysis.export_path, shared_folder_map)
 
         if local_path is not None:

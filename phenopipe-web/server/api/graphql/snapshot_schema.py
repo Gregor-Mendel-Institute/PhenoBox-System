@@ -73,20 +73,14 @@ class CreateSnapshot(graphene.Mutation):
 
     id = graphene.ID()
     timestamp_id = graphene.ID()
+    new_timestamp = graphene.Boolean()
 
     def mutate(self, args, context, info):
         plant_id = args.get('plant_id')
         _, plant_db_id = from_global_id(plant_id)
         plant = db.session.query(PlantModel).get(plant_db_id)
         experiment_id = plant.sample_group.experiment_id
-        timestamp = db.session.query(TimestampModel).filter(
-            TimestampModel.completed.is_(False),
-            TimestampModel.experiment_id == experiment_id
-        ).first()
-        if timestamp is None:
-            timestamp = TimestampModel(experiment_id)
-            db.session.add(timestamp)
-            db.session.flush()
+        timestamp, created = TimestampModel.get_or_create(experiment_id)
         snapshot = SnapshotModel(plant_id=plant_db_id, timestamp_id=timestamp.id,
                                  camera_position=args.get('camera_position'),
                                  measurement_tool=args.get('measurement_tool'), phenobox_id=args.get('phenobox_id'))
@@ -105,7 +99,7 @@ class CreateSnapshot(graphene.Mutation):
         db.session.commit()
 
         return CreateSnapshot(id=to_global_id('Snapshot', snapshot.id),
-                              timestamp_id=to_global_id('Timestamp', timestamp.id))
+                              timestamp_id=to_global_id('Timestamp', timestamp.id), new_timestamp=created)
 
 
 class DeleteSnapshot(graphene.Mutation):

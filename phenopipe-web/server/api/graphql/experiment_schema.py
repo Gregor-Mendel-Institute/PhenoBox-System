@@ -47,7 +47,7 @@ class EditSampleGroupInput(graphene.InputObjectType):
     id = graphene.NonNull(graphene.ID)
     name = graphene.String()
     description = graphene.String()
-    isControl = graphene.Boolean()
+    is_control = graphene.Boolean()
     treatment = graphene.NonNull(graphene.String)
     species = graphene.String()
     genotype = graphene.String()

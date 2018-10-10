@@ -22,6 +22,7 @@ def get_local_path_from_smb(smb_url, path_map):
     url, local_path = next(((smb, path) for smb, path in path_map.items() if smb_url.startswith(smb)),(None, None))
     if local_path is not None:
         local_path = os.path.join(local_path, remove_prefix(smb_url, url))
+    # TODO Throw error if local_path is none --> no mapping found
     return local_path
 
 

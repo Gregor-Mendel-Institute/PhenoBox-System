@@ -1,4 +1,6 @@
 from sqlalchemy import Index, Column
+from sqlalchemy.exc import IntegrityError
+from sqlalchemy.orm.exc import NoResultFound
 
 from server.extensions import db
 from server.models import BaseModel
@@ -26,6 +28,28 @@ class TimestampModel(BaseModel):
     __table_args__ = (
         Index('idx_unique_open_timestamp', 'experiment_id', 'completed', unique=True,
               postgresql_where=Column('completed') == False),)
+
+    @staticmethod
+    def get_or_create(experiment_id, session=None):
+        if session is None:
+            session = db.session
+        try:
+            return session.query(TimestampModel).filter(
+                TimestampModel.completed.is_(False),
+                TimestampModel.experiment_id == experiment_id
+            ).one(), False
+        except NoResultFound:
+            entry = TimestampModel(experiment_id)
+            try:
+                session.add(entry)
+                session.flush()
+                return entry, True
+            except IntegrityError:
+                session.rollback()
+                return session.query(TimestampModel).filter(
+                    TimestampModel.completed.is_(False),
+                    TimestampModel.experiment_id == experiment_id
+                ).one(), False
 
     def __init__(self, experiment_id):
         self.experiment_id = experiment_id

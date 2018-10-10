@@ -1,7 +1,7 @@
 import shutil
 
 from flask import current_app
-from psycopg2._psycopg import IntegrityError
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm.exc import NoResultFound
 
 from server.extensions import db

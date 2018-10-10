@@ -140,8 +140,6 @@ def invoke_iap_import(timestamp_id, experiment_name, coordinator, scientist, loc
     try:
         log_store.put(job.id, 'Import data into IAP')
         task.update_message('Import data into IAP')
-        import time
-        time.sleep(30)
         response = iap_stub.ImportExperiment(
             phenopipe_iap_pb2.ImportRequest(path=path, experiment_name=experiment_name,
                                             coordinator_name=coordinator,

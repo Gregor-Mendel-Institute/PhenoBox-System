@@ -168,7 +168,7 @@ public class PhenopipeRService extends PhenopipeRGrpc.PhenopipeRImplBase{
 			Path reportPath = PathUtil.getLocalPathFromSmbUrl(request.getPathToReport());
 			if(reportPath!=null){
 				final Path targetPath =reportPath
-						.resolve("../postprocess_result_"+stack.getObjectId("_id")+"_"+request.getSnapshotHash()).normalize();	
+						.resolve("../postprocess_result_"+stack.getString("name")+"_"+request.getSnapshotHash()).normalize();	
 				if(!Files.exists(targetPath)){
 					try {
 						Files.createDirectory(targetPath);

@@ -23,6 +23,12 @@ class InvalidPathError(ProcessingError):
         self.path = path
 
 
+class NoPathMappingFoundError(ProcessingError):
+    def __init__(self, smb_url, message, *args):
+        super(NoPathMappingFoundError, self).__init__(message, *args)
+        self.smb_url = smb_url
+
+
 class AnalysisDataNotPresentError(ProcessingError):
     def __init__(self, analysis_db_id, message, *args):
         super(AnalysisDataNotPresentError, self).__init__(message, *args)

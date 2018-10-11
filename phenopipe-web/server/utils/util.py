@@ -1,9 +1,10 @@
+import operator
+import os
 from functools import reduce
 
-import operator
-
-import os
 from dateutil import tz
+
+from server.modules.processing.exceptions import NoPathMappingFoundError
 
 
 def getFromDict(dataDict, mapList):
@@ -19,11 +20,10 @@ def get_local_path_from_smb(smb_url, path_map):
 
     :return: The local path which corresponds to the SMB URL
     """
-    url, local_path = next(((smb, path) for smb, path in path_map.items() if smb_url.startswith(smb)),(None, None))
+    url, local_path = next(((smb, path) for smb, path in path_map.items() if smb_url.startswith(smb)), (None, None))
     if local_path is not None:
-        local_path = os.path.join(local_path, remove_prefix(smb_url, url))
-    # TODO Throw error if local_path is none --> no mapping found
-    return local_path
+        return os.path.join(local_path, remove_prefix(smb_url, url))
+    raise NoPathMappingFoundError(url, 'No local path was found for the given URL')
 
 
 def remove_prefix(string, prefix):

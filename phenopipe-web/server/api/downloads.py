@@ -2,15 +2,16 @@ import os
 import string
 
 import zipstream
-from flask import jsonify, current_app, Response, request
+from flask import current_app, Response, request
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from graphql_relay import from_global_id
 
 from server.api.blueprints import api
+from server.api.exceptions import ForbiddenActionError
 from server.extensions import db
 from server.models import AnalysisModel, SnapshotModel, ImageModel, TimestampModel
 from server.modules.processing.analysis.analysis import get_iap_pipeline
-from server.modules.processing.exceptions import InvalidPathError
+from server.modules.processing.exceptions import InvalidPathError, AnalysisDataNotPresentError
 from server.utils.util import get_local_path_from_smb
 
 
@@ -71,13 +72,13 @@ def _get_postproccessing_result_paths(analysis, shared_folder_map):
     """
     paths = list()
     for postprocess in analysis.postprocessings:
-        local_path = get_local_path_from_smb(postprocess.result_path, shared_folder_map)
-        if local_path is not None:
-            paths.append(local_path)
-        else:
-            raise InvalidPathError(postprocess.result_path,
-                                   'The path to the postprocessing results could not be resolved')
-
+        if postprocess.result_path is not None:
+            local_path = get_local_path_from_smb(postprocess.result_path, shared_folder_map)
+            if local_path is not None:
+                paths.append(local_path)
+            else:
+                raise InvalidPathError(postprocess.result_path,
+                                       'The path to the postprocessing results could not be resolved')
     return paths
 
 
@@ -147,82 +148,76 @@ def download_results():
     all corresponding images should be downloaded or not
     """
 
-    def generator(name, local_paths, raw_image_paths=None, segmented_image_paths=None):
+    def generator(name, analysis, postprocessings, raw_image_paths=list(), segmented_image_paths=list()):
         """
         Creates a generator which yields chunks of a zip file containing the relevant result files.
 
         :param name: The name of the zip file
-        :param local_paths: A list of paths to directories which should be included
-        :param raw_image_paths: A list of raw image paths which should be included (Optional. Defaults to None)
-        :param segmented_image_paths: A list of segmented image paths which should be included (Optional. Defaults to None)
+        :param analysis: The analysis instance which results should be provided
 
         :return: A generator which yields chunks of the resulting zip file
         """
-        z = zipstream.ZipFile(mode='w', compression=zipstream.ZIP_DEFLATED)
-        for path in local_paths:
-            for root, dirs, files in os.walk(path):
-                for filename in files:
-                    file_path = os.path.join(root, filename)
-                    if root == path:
-                        arcpath = os.path.join(name,
-                                               os.path.relpath(file_path, os.path.dirname(os.path.dirname(file_path))))
-                    else:
-                        arcpath = os.path.join(name,
-                                               os.path.relpath(file_path, os.path.dirname(os.path.dirname(root))))
 
-                    z.write(file_path, arcpath)
+        def _traverse_and_write(path, root, arcname):
+            for traversal_root, dirs, files in os.walk(path):
+                for filename in files:
+                    file_path = os.path.join(traversal_root, filename)
+                    z.write(file_path, os.path.join(arcname, os.path.relpath(file_path, root)))
+
+        z = zipstream.ZipFile(mode='w', compression=zipstream.ZIP_DEFLATED)
+        analysis_result_root = get_local_path_from_smb(analysis.export_path, shared_folder_map)
+        root = os.path.abspath(os.path.join(analysis_result_root, os.pardir))
+        _traverse_and_write(analysis_result_root, root, name)
+
+        for postprocess in postprocessings:
+            if postprocess.result_path is not None:
+                local_path = get_local_path_from_smb(postprocess.result_path, shared_folder_map)
+                arcpath = os.path.join(name, os.path.relpath(local_path, root))
+                z.writestr(os.path.join(arcpath, 'note.txt'), postprocess.note)
+                _traverse_and_write(local_path, root, name)
+
         image_basepath = os.path.join(name, 'images')
-        if raw_image_paths is not None:
-            for image_path in raw_image_paths:
-                arcpath = os.path.join(image_basepath, 'original', os.path.basename(image_path))
-                z.write(image_path, arcpath)
-        if segmented_image_paths is not None:
-            for image_path in segmented_image_paths:
-                arcpath = os.path.join(image_basepath, 'segmented', os.path.basename(image_path))
-                z.write(image_path, arcpath)
+        for image_path in raw_image_paths:
+            arcpath = os.path.join(image_basepath, 'original', os.path.basename(image_path))
+            z.write(image_path, arcpath)
+        for image_path in segmented_image_paths:
+            arcpath = os.path.join(image_basepath, 'segmented', os.path.basename(image_path))
+            z.write(image_path, arcpath)
 
         for chunk in z:
             yield chunk
 
     identity = get_jwt_identity()
-    # TODO check if user has permission to download
     analysis_id = request.get_json()['analysis_id']
     with_pictures = request.get_json()['with_pictures']
     if with_pictures is None:
         with_pictures = False
     _, analysis_db_id = from_global_id(analysis_id)
     analysis = db.session.query(AnalysisModel).get(analysis_db_id)
-    shared_folder_map = current_app.config['SHARED_FOLDER_MAP']
-    try:
-        # TODO check if analysis.export_path is not None
-        local_path = get_local_path_from_smb(analysis.export_path, shared_folder_map)
+    if identity['username'] == analysis.timestamp.experiment.scientist:
+        shared_folder_map = current_app.config['SHARED_FOLDER_MAP']
+        if analysis.export_path is None:
+            raise AnalysisDataNotPresentError(analysis.id, 'No Exported data available')
+        raw_image_paths = list()
+        segmented_image_paths = list()
+        if with_pictures:
+            raw_image_paths, segmented_image_paths = _get_image_paths_for_analysis(analysis, shared_folder_map)
 
-        if local_path is not None:
-            local_paths = list()
-            local_paths.append(local_path)
-            local_paths.extend(_get_postproccessing_result_paths(analysis, shared_folder_map))
-            raw_image_paths, segmented_image_paths = None, None
-            if with_pictures:
-                raw_image_paths, segmented_image_paths = _get_image_paths_for_analysis(analysis, shared_folder_map)
+        pipeline = get_iap_pipeline(username=identity.get('username'), pipeline_id=analysis.pipeline_id)
+        pipeline_name_safe = sanitize_string(pipeline.name)
+        experiment_name_safe = sanitize_string(analysis.timestamp.experiment.name)
+        name = '{}_{}_{}'.format('results',
+                                 experiment_name_safe,
+                                 pipeline_name_safe)
 
-            # TODO handle error
-            pipeline = get_iap_pipeline(username=identity.get('username'), pipeline_id=analysis.pipeline_id)
-            pipeline_name_safe = sanitize_string(pipeline.name)
-            experiment_name_safe = sanitize_string(analysis.timestamp.experiment.name)
-            name = '{}_{}_{}'.format('results',
-                                     experiment_name_safe,
-                                     pipeline_name_safe)
-            response = Response(generator(name, local_paths, raw_image_paths, segmented_image_paths),
-                                mimetype='application/zip')
+        response = Response(generator(name, analysis, analysis.postprocessings, raw_image_paths, segmented_image_paths),
+                            mimetype='application/zip')
 
-            response.headers['Content-Disposition'] = 'attachment; filename={}_{}{}'.format(name,
-                                                                                            analysis.timestamp.created_at,
-                                                                                            '.zip')
-            response.headers['Access-Control-Expose-Headers'] = 'Content-Disposition'
-            return response
-        else:
-            raise InvalidPathError(analysis.export_path,
-                                   'The path to the analysis results could not be resolved')
-    except InvalidPathError as e:
+        response.headers['Content-Disposition'] = 'attachment; filename={}_{}{}'.format(name,
+                                                                                        analysis.timestamp.created_at,
+                                                                                        '.zip')
+        response.headers['Access-Control-Expose-Headers'] = 'Content-Disposition'
+        return response
+    else:
         # TODO inform admin?
-        return jsonify({'msg': e.message}), 500
+        raise ForbiddenActionError('You can only download your own data.', identity['username'])

@@ -1,3 +1,5 @@
+from sqlalchemy import Index, Column
+
 from server.extensions import db
 from server.models import BaseModel
 
@@ -29,8 +31,14 @@ class SampleGroupModel(BaseModel):
     #:SQLAlchemy relationship to all plants belonging to this sample group
     plants = db.relationship("PlantModel", back_populates="sample_group", cascade="all, delete-orphan")
 
-    db.UniqueConstraint(name, experiment_id)
-    db.UniqueConstraint(treatment, experiment_id)
+    __table_args__ = (
+        Index('idx_unique_control_group', 'experiment_id', 'is_control', unique=True,
+              postgresql_where=Column('is_control') == False),)
+
+    db.UniqueConstraint(name, experiment_id, name=u'uq_sample_group_name_experiment_id')
+    db.UniqueConstraint(treatment, experiment_id, name=u'uq_sample_group_treatment_experiment_id')
+
+    # TODO add constraint to ensure that there is only one control group
 
     def __init__(self, name, treatment, description, species, genotype, variety, growth_conditions, experiment_id,
                  is_control=False):

@@ -22,7 +22,9 @@ class ImageModel(BaseModel):
     #:SQLAlchemy relationship to the corresponding Snapshot
     snapshot = db.relationship("SnapshotModel", back_populates="images", single_parent=True)
 
-    # TODO add unique constraint for snapshot_id and path+filename
+    db.UniqueConstraint(snapshot_id, type, angle, name=u'uq_image_snapshot_id_type_angle')
+    db.UniqueConstraint(path, filename, name=u'uq_image_path_filename')
+
     def __init__(self, snapshot_id, path, filename, angle, image_type):
         self.snapshot_id = snapshot_id
         self.path = path

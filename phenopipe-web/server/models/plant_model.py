@@ -19,7 +19,7 @@ class PlantModel(BaseModel):
     #:SQLAlchemy relationship to all Snapshots that belong to this plant
     snapshots = db.relationship("SnapshotModel", back_populates="plant", cascade="all, delete-orphan")
 
-    db.UniqueConstraint(index, sample_group_id)
+    db.UniqueConstraint(index, sample_group_id, name=u'uq_plant_index_sample_group_id')
 
     @hybrid_property
     def full_name(self):

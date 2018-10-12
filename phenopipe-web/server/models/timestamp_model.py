@@ -11,7 +11,7 @@ class TimestampModel(BaseModel):
 
     #:Primary key of the Model
     id = db.Column(db.Integer, primary_key=True)
-    #:The IAP ID of the correspond File Import in IAP
+    #:The IAP ID of the corresponding File Import in IAP
     iap_exp_id = db.Column(db.String, unique=True)
     #: Indicates whether this timestamp is completed and a new one should created for future snapshots
     completed = db.Column(db.Boolean, server_default='f', default=False, nullable=False)

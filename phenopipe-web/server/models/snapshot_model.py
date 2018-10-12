@@ -21,7 +21,7 @@ class SnapshotModel(BaseModel):
         ENUM('vis.side', 'vis.top', 'fluo.top', 'fluo.side', 'nir.top', 'nir.side', 'ir.top', 'ir.side',
              name='camera_position_enum'), nullable=False,
         server_default='vis.side')
-    #:Flag used to exclude this snapshot from analysis
+    #:Flag used to exclude this snapshot from postprocessing
     excluded = db.Column(db.Boolean, server_default='f', default=False, nullable=False)
     #:Foreign key to the corresponding Timestamp
     timestamp_id = db.Column(db.Integer, db.ForeignKey('timestamp.id'), nullable=False)
@@ -36,7 +36,8 @@ class SnapshotModel(BaseModel):
     #:SQLAlchemy relationship to all analyses performed on this snapshot
     postprocesses = db.relationship("PostprocessModel", secondary='postprocess_snapshot', back_populates='snapshots')
 
-    db.UniqueConstraint(plant_id, timestamp_id, name=u'uq_snapshot_plant_id_timestamp_id')
+    db.UniqueConstraint(plant_id, timestamp_id, measurement_tool, camera_position,
+                        name=u'uq_snapshot_plant_id_timestamp_id_measurement_tool_camera_position')
 
     def purge(self):
         # Only allow to delete a snapshot from an uncompleted timestamp

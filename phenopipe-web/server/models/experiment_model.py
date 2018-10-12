@@ -7,7 +7,7 @@ class ExperimentModel(BaseModel):
     #:Primary key of the Model
     id = db.Column(db.Integer, primary_key=True)
     #:The name of the experiment
-    name = db.Column(db.String(80), unique=True)  # TODO combine unique constraint with scientist name
+    name = db.Column(db.String(80))
     #:A detailed description of the experiment
     description = db.Column(db.Text)
     #:The username of the scientist conducting this experiment
@@ -25,6 +25,8 @@ class ExperimentModel(BaseModel):
     #:SQLAlchemy relationship to all Timestamps which belong to this experiment
     timestamps = db.relationship("TimestampModel", order_by="TimestampModel.created_at",
                                  back_populates="experiment", cascade="all, delete-orphan")
+
+    db.UniqueConstraint(name, scientist, name=u'uq_experiment_name_scientist')
 
     # def purge(self):
     #     # check for running analysis or postprocessing tasks
@@ -68,8 +70,8 @@ class ExperimentModel(BaseModel):
         self.description = description
         self.scientist = scientist
         self.group_name = group_name
-        self.start_date=start_date,
-        self.start_of_experimentation=start_of_experimentation
+        self.start_date = start_date
+        self.start_of_experimentation = start_of_experimentation
 
     def __repr__(self):
         return '<Experiment %r>' % self.name

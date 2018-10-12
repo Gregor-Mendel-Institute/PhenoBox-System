@@ -30,7 +30,7 @@ class AnalysisModel(BaseModel):
     #:SQLAlchemy relationship to all Postprocessings which have been applied to this analysis
     postprocessings = db.relationship("PostprocessModel", back_populates="analysis", cascade="all, delete-orphan")
     #:SQLAlchemy relationship to all Snapshots processed by this analysis
-    db.UniqueConstraint(timestamp_id, pipeline_id)
+    db.UniqueConstraint(timestamp_id, pipeline_id, name=u'uq_analysis_timestamp_id_pipeline_id')
 
     @staticmethod
     def get_or_create(timestamp_id, pipeline_id, session=None):

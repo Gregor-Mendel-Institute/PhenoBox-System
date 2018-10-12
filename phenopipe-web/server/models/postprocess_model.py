@@ -35,7 +35,8 @@ class PostprocessModel(BaseModel):
     #:SQLAlchemy relationship to the sample group used as control group
     control_group = db.relationship("SampleGroupModel")
 
-    db.UniqueConstraint(snapshot_hash, postprocessing_stack_id, analysis_id, control_group_id)
+    db.UniqueConstraint(snapshot_hash, postprocessing_stack_id, analysis_id, control_group_id,
+                        name=u'uq_postprocess_snapshot_hash_postprocessing_stack_id_analysis_id_control_group_id')
 
     def purge(self):
         shared_folder_map = current_app.config['SHARED_FOLDER_MAP']

@@ -1,44 +1,53 @@
 <fieldset
-        [formGroup]="parent">
-        <accordion [closeOthers]="true">
-            <accordion-group #agroup
-                             *ngFor="let group of self.controls; let i = index;"
-                             class="form-group">
-                <div accordion-heading
-                     [ngClass]="{'has-error': group.invalid}">
-                    <span *ngIf="!group.get('sampleGroupName').errors && !group.get('treatment').errors">{{ group.value.sampleGroupName }}</span>
+  [formGroup]="parent">
+  <accordion [closeOthers]="true">
+    <accordion-group #agroup
+                     *ngFor="let group of self.controls; let i = index;"
+                     class="form-group">
+      <div accordion-heading
+           [ngClass]="{'has-error': group.invalid}">
+        <span
+          *ngIf="!group.get('isControl').errors && !group.get('sampleGroupName').errors && !group.get('treatment').errors">{{ group.value.sampleGroupName }}</span>
 
-                    <span class="help-block" style="display: inline;"
-                          *ngIf="group.get('sampleGroupName').hasError('notUnique') &&
+        <span class="help-block" style="display: inline;"
+              *ngIf="group.get('isControl').hasError('multipleControlGroups') &&
+                                        !group.get('sampleGroupName').hasError('notUnique') &&
+                                        !group.get('sampleGroupName').hasError('required') &&
+                                        !group.get('sampleGroupName').hasError('maxlength')">
+                            There can be only one control group!
+                            </span>
+        <span class="help-block" style="display: inline;"
+              *ngIf="group.get('sampleGroupName').hasError('notUnique') &&
                                         !group.get('sampleGroupName').hasError('required') &&
                                         !group.get('sampleGroupName').hasError('maxlength')">
                             Name must be unique!
                             </span>
-                    <span class="help-block" style="display: inline;"
-                          *ngIf="group.get('sampleGroupName').hasError('required')">
+        <span class="help-block" style="display: inline;"
+              *ngIf="group.get('sampleGroupName').hasError('required')">
                             Name is required!
                             </span>
-                    <span class="help-block" style="display: inline;"
-                          *ngIf="group.get('sampleGroupName').hasError('maxlength')">
+        <span class="help-block" style="display: inline;"
+              *ngIf="group.get('sampleGroupName').hasError('maxlength')">
                             Name is too long!
                             </span>
-                    <span class="help-block" style="display: inline;"
-                          *ngIf="group.get('treatment').hasError('required')">
+        <span class="help-block" style="display: inline;"
+              *ngIf="group.get('treatment').hasError('required')">
                             A treatment must be specified!
                             </span>
-                    <span *ngIf="!group.get('sampleGroupName').errors && !group.get('treatment').errors"
-                          class="small"># of plants: {{ group.value.plants.length }}</span>
-                    <i *ngIf="!restricted" class="pull-right float-md-right fa fa-trash-o"
-                       (click)="onRemoveSampleGroup(i)"></i>
-                    <i class="pull-right float-md-right fa"
-                       [ngClass]="{'fa-chevron-down': agroup?._isOpen, 'fa-chevron-right': !agroup?._isOpen}"></i>
-                </div>
-                <sample-group
-                        [parent]="self"
-                        [formGrName]="i"
-                        [restricted]="restricted"
-                        (plantCountChanged)="onPlantCountChanged($event)"
-                ></sample-group>
-            </accordion-group>
-        </accordion>
+        <span
+          *ngIf="!group.get('isControl').errors && !group.get('sampleGroupName').errors && !group.get('treatment').errors"
+          class="small"># of plants: {{ group.value.plants.length }}</span>
+        <i *ngIf="!restricted" class="pull-right float-md-right fa fa-trash-o"
+           (click)="onRemoveSampleGroup(i)"></i>
+        <i class="pull-right float-md-right fa"
+           [ngClass]="{'fa-chevron-down': agroup?._isOpen, 'fa-chevron-right': !agroup?._isOpen}"></i>
+      </div>
+      <sample-group
+        [parent]="self"
+        [formGrName]="i"
+        [restricted]="restricted"
+        (plantCountChanged)="onPlantCountChanged($event)"
+      ></sample-group>
+    </accordion-group>
+  </accordion>
 </fieldset>

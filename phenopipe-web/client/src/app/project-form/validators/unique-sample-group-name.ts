@@ -1,7 +1,8 @@
 import {FormArray, FormControl} from '@angular/forms';
 import * as _ from 'lodash';
-export const uniqueSampleGroupName = (formArray: FormArray): {[key: string]: boolean} => {
-  let invalidControlPairs: Array<{c1: FormControl; c2: FormControl}> = [];
+
+export const uniqueSampleGroupName = (formArray: FormArray): { [key: string]: boolean } => {
+  let invalidControlPairs: Array<{ c1: FormControl; c2: FormControl }> = [];
   let uniq = _.uniqWith(formArray.controls, (c1: FormControl, c2: FormControl) => {
     let ret = c1.get('sampleGroupName').value === c2.get('sampleGroupName').value;
     if (ret) {

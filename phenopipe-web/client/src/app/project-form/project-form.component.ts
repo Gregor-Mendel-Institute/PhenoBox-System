@@ -13,6 +13,7 @@ import {validateDates} from './validators/validate-dates.validator';
 import * as moment from 'moment';
 import {AddSampleGroupEvent} from './sample-group-input/sample-group-input.component';
 import {AuthService} from '../login/auth.service';
+import {singleControlGroup} from './validators/single-control-group.validator';
 
 const getExperimentByName = gql`
   query getExperimentByName($name: String!){
@@ -109,7 +110,8 @@ export class ProjectFormComponent implements OnInit {
         isControlGroupInput : [false],
         treatmentInput      : [''],
       }),
-      sampleGroups      : this.fb.array(groups,Validators.compose([uniqueSampleGroupName, Validators.required]))
+      sampleGroups      : this.fb.array(groups,
+        Validators.compose([singleControlGroup, uniqueSampleGroupName, Validators.required]))
     }, {validator: uniqueSampleGroupNameInput});
     this.numberOfPlants = this.totalNumberOfPlants();
   }

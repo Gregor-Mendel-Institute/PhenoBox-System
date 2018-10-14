@@ -8,7 +8,6 @@ export const uniqueSampleGroupNameInput = (group: FormGroup): {[key: string]: bo
   console.log(name);
   console.log((group.get('sampleGroups')));
   let index = _.findIndex((group.get('sampleGroups') as FormArray).controls, (c: FormControl) => {
-
     return c.get('sampleGroupName').value === name;
   });
   console.log(index);

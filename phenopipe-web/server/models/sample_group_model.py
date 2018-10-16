@@ -33,7 +33,7 @@ class SampleGroupModel(BaseModel):
 
     __table_args__ = (
         Index('idx_unique_control_group', 'experiment_id', 'is_control', unique=True,
-              postgresql_where=Column('is_control') == False),)
+              postgresql_where=Column('is_control') == True),)
 
     db.UniqueConstraint(name, experiment_id, name=u'uq_sample_group_name_experiment_id')
     db.UniqueConstraint(treatment, experiment_id, name=u'uq_sample_group_treatment_experiment_id')

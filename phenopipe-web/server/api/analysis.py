@@ -6,6 +6,7 @@ from graphql_relay import from_global_id, to_global_id
 from werkzeug.exceptions import UnsupportedMediaType
 
 from server.api.blueprints import api
+from server.api.exceptions import ForbiddenActionError
 from server.extensions import db, analysis_task_scheduler
 from server.models import ImageModel, SnapshotModel, TimestampModel
 from server.modules.processing.analysis.analysis import upload_pipeline, submit_iap_jobs
@@ -34,21 +35,23 @@ def analyse_timestamp_data_iap():
 
     ql_type, db_id = from_global_id(parsed_request['timestamp_id'])
     timestamp = db.session.query(TimestampModel).get(db_id)
-    img = db.session.query(ImageModel).join(SnapshotModel).filter(
-        SnapshotModel.timestamp_id == timestamp.id).filter(ImageModel.type == 'raw').first()
-    if pipeline_id is not None:
-        # TODO pass full name as scientist name instead of username
-        task, analysis = submit_iap_jobs(timestamp, timestamp.experiment.name, timestamp.experiment.scientist,
-                                         timestamp.experiment.scientist,
-                                         img.path, img.path, pipeline_id, identity['username'])
-        if len(postprocessing_ids) > 0:
-            tasks, postprocesses, finished = submit_postprocesses(analysis, postprocessing_ids, note,
-                                                                  identity['username'], task)
-            return jsonify({'msg': 'Enqueued analysis', 'analysis_task_id': to_global_id('Task', task.key),
-                            'postprocessing_task_ids': [to_global_id('Task', t.key) for t in tasks],
-                            'already_finished': finished}), 202
-            # TODO return Analyis/Postprocess ids too?
-        return jsonify({'msg': 'Enqueued analysis', 'analysis_task_id': to_global_id('Task', task.key)}), 202
+    if identity['username'] == timestamp.experiment.scientist:
+        img = db.session.query(ImageModel).join(SnapshotModel).filter(
+            SnapshotModel.timestamp_id == timestamp.id).filter(ImageModel.type == 'raw').first()
+        if pipeline_id is not None:
+            task, analysis = submit_iap_jobs(timestamp, timestamp.experiment.name, timestamp.experiment.scientist,
+                                             timestamp.experiment.scientist,
+                                             img.path, img.path, pipeline_id, identity['username'])
+            if len(postprocessing_ids) > 0:
+                tasks, postprocesses, finished = submit_postprocesses(analysis, postprocessing_ids, note,
+                                                                      identity['username'], task)
+                return jsonify({'msg': 'Enqueued analysis', 'analysis_task_id': to_global_id('Task', task.key),
+                                'postprocessing_task_ids': [to_global_id('Task', t.key) for t in tasks],
+                                'already_finished': finished}), 202
+                # TODO return Analysis/Postprocess ids too?
+            return jsonify({'msg': 'Enqueued analysis', 'analysis_task_id': to_global_id('Task', task.key)}), 202
+    else:
+        raise ForbiddenActionError('You are not allowed to analyse this experiment', identity['username'])
 
 
 @api.route('/upload-iap-pipeline', methods=['POST'])
@@ -83,11 +86,3 @@ def delete_iap_pipeline():
     # success = delete_pipeline(pipeline_name)
     ## TODO check return value/catch errors
     # return jsonify({'msg': 'Deleted Pipeline Successfully'})
-
-
-@api.route('/testing', methods=['GET'])
-# @cross_origin(origin='*', headers=['Content-Type', 'Authorization'])
-# @jwt_required
-def test():
-    analysis_task_scheduler.submit_dummies('1', '1234', 'a')
-    return jsonify({'msg': 'Testing'})

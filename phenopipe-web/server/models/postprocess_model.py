@@ -48,7 +48,7 @@ class PostprocessModel(BaseModel):
         return hash(frozenset([snapshot.id for snapshot in snapshots]))
 
     @staticmethod
-    def get_or_create(analysis_id, postprocessing_stack_id, control_group_id, snapshots, session=None):
+    def get_or_create(analysis_id, postprocessing_stack_id, control_group_id, snapshots, note=None, session=None):
         snap_hash = PostprocessModel.calculate_snapshot_hash(snapshots)
         if session is None:
             session = db.session
@@ -57,7 +57,7 @@ class PostprocessModel(BaseModel):
                                                              postprocessing_stack_id=postprocessing_stack_id,
                                                              snapshot_hash=snap_hash).one(), False
         except NoResultFound:
-            entry = PostprocessModel(analysis_id, postprocessing_stack_id, control_group_id, snapshots, snap_hash)
+            entry = PostprocessModel(analysis_id, postprocessing_stack_id, control_group_id, snapshots, note, snap_hash)
             try:
                 session.add(entry)
                 session.flush()
@@ -68,11 +68,13 @@ class PostprocessModel(BaseModel):
                                                                  postprocessing_stack_id=postprocessing_stack_id,
                                                                  snapshot_hash=snap_hash).one(), False
 
-    def __init__(self, analysis_id, postprocessing_stack_id, control_group_id, snapshots, snapshot_hash=None):
+    def __init__(self, analysis_id, postprocessing_stack_id, control_group_id, snapshots, note=None,
+                 snapshot_hash=None):
         self.analysis_id = analysis_id
         self.postprocessing_stack_id = postprocessing_stack_id
         self.control_group_id = control_group_id
         self.snapshots = snapshots
+        self.note = note
         # TODO always calculate snapshot hash to prevent incorrect hashes?
         if snapshot_hash is not None:
             self.snapshot_hash = snapshot_hash

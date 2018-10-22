@@ -34,7 +34,7 @@ def submit_postprocesses(analysis, postprocessing_stack_ids, note, username, dep
             .join(SampleGroupModel) \
             .filter(SampleGroupModel.is_control == True) \
             .first().plant.sample_group
-
+        # TODO check if control group exists (maybe utilize sqlalchemy .one() operator)
         tasks = []
         finished = []
         postprocesses = []

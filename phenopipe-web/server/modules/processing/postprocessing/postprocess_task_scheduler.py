@@ -4,6 +4,7 @@ from graphql_relay import to_global_id
 
 from server.extensions import db
 from server.models import PostprocessModel, SnapshotModel
+from server.modules.processing.analysis.analysis import get_iap_pipeline
 from server.modules.processing.exceptions import AlreadyFinishedError
 from server.modules.processing.postprocessing.postprocessing_jobs import invoke_r_postprocess
 from server.modules.processing.postprocessing.postprocessing_task import PostprocessingTask
@@ -61,18 +62,16 @@ class PostprocessTaskScheduler:
 
        :return: A Tuple containing the created :class:`~server.modules.postprocessing.postprocessing_task.PostprocessingTask` and the :class:`~server.models.analysis_model.PostprocessModel` instance
        """
-        postprocess, created = PostprocessModel.get_or_create(analysis.id, stack.id, control_group.id, snapshots)
+        postprocess, created = PostprocessModel.get_or_create(analysis.id, stack.id, control_group.id, snapshots, note)
         if created:
-            postprocess.note = note
-
             db.session.commit()
 
             task_name = 'Postprocess IAP analysis'
-            # TODO use the pipeline name
+            pipeline = get_iap_pipeline(username, analysis.pipeline_id)
             # TODO think about a way to link to the according analysis page on the frontend
             task_description = 'Apply postprocessing stack "{}" to results of analysis for experiment "{}" at timestamp({}) with pipeline "{}".'.format(
                 stack.name, experiment.name,
-                analysis.timestamp.created_at.strftime("%a %b %d %H:%M:%S UTC %Y"), analysis.pipeline_id)
+                analysis.timestamp.created_at.strftime("%a %b %d %H:%M:%S UTC %Y"), pipeline.name)
             task = PostprocessingTask(self._connection, analysis.id, stack.id, self._rq_queue.name, task_name,
                                       task_description)
             task.update_message("Postprocessing Task Enqueued")

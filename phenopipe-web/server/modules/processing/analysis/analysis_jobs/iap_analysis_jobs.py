@@ -147,14 +147,12 @@ def invoke_iap_import(timestamp_id, experiment_name, coordinator, scientist, loc
         )
 
         remote_job_id = response.job_id
-        print(remote_job_id)
         request = phenopipe_pb2.WatchJobRequest(
             job_id=remote_job_id
         )
         status = pipe_stub.WatchJob(request)
 
         for msg in status:
-            print(msg.message.decode('string-escape'))
             log_store.put(job.id, msg.message.decode('string-escape'), msg.progress)
 
         response = iap_stub.FetchImportResult(
@@ -166,35 +164,36 @@ def invoke_iap_import(timestamp_id, experiment_name, coordinator, scientist, loc
         session.commit()
         log_store.put(job.id, 'Finished Import Job', 100)
         task.update_message('Finished Import Job')
-        return create_return_object(JobType.iap_import, timestamp_id, {'experiment_id': response.experiment_id})
+        return create_return_object(JobType.iap_import, timestamp_id, {'experiment_iap_id': response.experiment_id})
     except grpc.RpcError as e:
         if e.code() == grpc.StatusCode.ALREADY_EXISTS:
             session = get_session()
             timestamp = session.query(TimestampModel).get(timestamp_id)
             timestamp.iap_exp_id = e.initial_metadata()[0][1]
             session.commit()
-            return create_return_object(JobType.iap_import, timestamp_id, {'experiment_id': timestamp.iap_exp_id})
+            return create_return_object(JobType.iap_import, timestamp_id, {'experiment_iap_id': timestamp.iap_exp_id})
         else:
             task.update_message('Import Job Failed')
             log_store.put(job.id, e.details(), 0)
-            print(e.details())
             raise
 
 
 # @job('analysis', connection=redis_db)
 def invoke_iap_analysis(analysis_id, timestamp_id, username, task_key,
-                        experiment_id=None):
+                        experiment_iap_id=None):
     """
     This Methods represents an RQ Job workload. It should be enqueued into the RQ Analysis Queue and processed by an according worker
 
     Handles the invocation of data analysis in IAP on the IAP server and fetches the result information afterwards.
     The received information is then entered into the database accordingly
 
+    The experiment_id has to be either passed directly or has to be stored in the result
+    of a job that this one depends on. The key under which it must be stored from the previous job is 'response.experiment_iap_id'
+
     :param analysis_id: The ID of the :class:`~server.models.analysis_model.AnalysisModel`
     :param timestamp_id: The ID of the :class:`~server.models.timestamp_model.TimestampModel` instance which should be analyzed
     :param username: The username of the user invoking this job
-    :param analysis_status_id: The ID of the :class:`~server.utils.redis_status_cache.status_object.StatusObject` to which this job belongs
-    :param experiment_id: The IAP ID of this experiment. If this is None the job will assume that the job it depended on
+    :param experiment_iap_id: The IAP ID of this experiment. If this is None the job will assume that the job it depended on
         has returned the experiment id in its response object with the key 'experiment_id'
 
     :return: A dict containing the 'result_id' from IAP, the used 'pipeline_id', 'started_at' and 'finished_at' timestamps.
@@ -207,11 +206,9 @@ def invoke_iap_analysis(analysis_id, timestamp_id, username, task_key,
     channel = get_grpc_channel()
     iap_stub = phenopipe_iap_pb2_grpc.PhenopipeIapStub(channel)
     pipe_stub = phenopipe_pb2_grpc.PhenopipeStub(channel)
-    if experiment_id is None:
-        experiment_iap_id = job.dependency.result['response'][
-            'experiment_id']  # TODO rename experiment_id to experiment_iap_id
-    else:
-        experiment_iap_id = experiment_id
+    if experiment_iap_id is None:
+        experiment_iap_id = job.dependency.result['response']['experiment_iap_id']
+
     log_store.put(job.id, 'Started Analysis Job', 0)
     task.update_message('Started Analysis Job')
     session = get_session()
@@ -230,7 +227,6 @@ def invoke_iap_analysis(analysis_id, timestamp_id, username, task_key,
         )
         status = pipe_stub.WatchJob(request)
         for msg in status:
-            print(msg.message.decode('string-escape'))
             log_store.put(job.id, msg.message.decode('string-escape'), msg.progress)
 
         response = iap_stub.FetchAnalyzeResult(
@@ -251,7 +247,6 @@ def invoke_iap_analysis(analysis_id, timestamp_id, username, task_key,
         session.commit()
         log_store.put(job.id, e.details(), 0)
         task.update_message('Analysis Job Failed')
-        print(e.details())
         raise
 
 
@@ -260,13 +255,16 @@ def invoke_iap_export(timestamp_id, output_path, username, shared_folder_map, ta
     """
     This Methods represents an RQ Job workload. It should be enqueued into the RQ Analysis Queue and processed by an according worker
 
-    Handles the invokation of data export of an IAP analysis on the IAP server and fetches the result information afterwards.
-    The received information is then entered into the database accordingly
+    Handles the invocation of data export of an IAP analysis on the IAP server and fetches the resulting information afterwards.
+    The received information is then entered into the database accordingly.
+
+    The analysis_iap_id has to be either passed directly or has to be stored in the result
+    of a job that this one depends on. The key under which it must be stored from the previous job is 'response.result_id'
 
     :param timestamp_id: The ID of the :class:`~server.models.timestamp_model.TimestampModel` instance to which the data belongs
     :param output_path: The path, as SMB URL, where the data should be exported to
     :param username: The username of the user invoking this job
-    :param analysis_status_id: The ID of the :class:`~server.utils.redis_status_cache.status_object.StatusObject` to which this job belongs
+    :param task_key: The ID of the :class:`~server.modules.processing.analysis.analysis_task.AnalysisTask` to which this job belongs
     :param shared_folder_map: A dict containing a mapping between SMB URLs and local paths representing the corresponding mount points
     :param analysis_iap_id: The IAP ID of the analysis on the IAP server
 
@@ -283,8 +281,7 @@ def invoke_iap_export(timestamp_id, output_path, username, shared_folder_map, ta
 
     if analysis_iap_id is None:
         analysis_iap_id = job.dependency.result['response']['result_id']
-    else:
-        analysis_iap_id = analysis_iap_id
+
     log_store.put(job.id, 'Started Export Job', 0)
     task.update_message('Started Export Job')
     try:
@@ -312,42 +309,25 @@ def invoke_iap_export(timestamp_id, output_path, username, shared_folder_map, ta
         log_store.put(job.id, 'Received Results. Started to parse and add information', 90)
         task.update_message('Received Results. Started to parse and add information')
         image_path = get_local_path_from_smb(response.image_path, shared_folder_map)
-        print('Image Path: {}'.format(image_path))
         # TODO handle DB errors
         for image_name in os.listdir(image_path):
-            print('Image Name: {}'.format(image_name))
             # Extract information from filename
             snapshot_id, _, new_filename = image_name.partition('_')
             _, _, angle = os.path.splitext(image_name)[0].rpartition('_')
 
             img = ImageModel(snapshot_id, response.image_path, new_filename, angle, 'segmented')
             session.add(img)
-            # rename file and remove the snapshot id
+            # rename file and remove the sniapshot id
             os.rename(os.path.join(image_path, image_name), os.path.join(image_path, new_filename))
         analysis.export_path = response.path
-        analysis.exported_at = datetime.utcnow()
+        exported_at = datetime.utcnow()
+        analysis.exported_at = exported_at
         session.commit()
         log_store.put(job.id, 'Finished Export Job', 100)
         task.update_message('Finished Export Job')
         return create_return_object(JobType.iap_export, timestamp_id,
-                                    {'analysis_id': analysis.id, 'path': response.path})
+                                    {'analysis_id': analysis.id, 'path': response.path, 'exported_at': exported_at})
     except grpc.RpcError as e:
         log_store.put(job.id, e.details(), 0)
         task.update_message('Export Job Failed')
-        print(e.details())
         raise
-
-
-def dummy_job(name, task_key):
-    print('EXECUTE DUMMY')
-    job = get_current_job()
-    log_store = get_log_store()
-    task = AnalysisTask.from_key(get_redis_connection(), task_key)
-    log_store.put(job.id, 'Started Dummy Job ({})'.format(name), 0)
-    task.update_message('Started Dummy Job ({})'.format(name))
-    status = [('{} {}'.format('Status', str(i)), i) for i in range(0, 10)]
-    for msg, progress in status:
-        log_store.put(job.id, msg, progress)
-    log_store.put(job.id, 'Finished Dummy Job ({})'.format(name), 100)
-    task.update_message('Finished Dummy Job ({})'.format(name))
-    return 'whuiii'

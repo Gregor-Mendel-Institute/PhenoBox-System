@@ -5,7 +5,6 @@ from flask import current_app
 from server.extensions import db
 from server.models import AnalysisModel
 from server.modules.processing.analysis import invoke_iap_import, invoke_iap_analysis, invoke_iap_export
-from server.modules.processing.analysis.analysis_jobs.iap_analysis_jobs import dummy_job
 from server.modules.processing.analysis.analysis_task import AnalysisTask
 from server.modules.processing.exceptions import AlreadyFinishedError
 

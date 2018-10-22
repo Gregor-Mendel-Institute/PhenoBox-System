@@ -182,7 +182,7 @@ class EditProject(graphene.Mutation):
                                     .one()
                                 db.session.delete(group)
                             except NoResultFound as e:
-                                raise InvalidMutationRequestError("The given sampple group to delete was not found")
+                                raise InvalidMutationRequestError("The given sample group to delete was not found")
                         else:
                             raise UnableToDeleteError(
                                 "Unable to delete sample group because there already exists at least one timestamp")
@@ -211,7 +211,7 @@ class EditProject(graphene.Mutation):
                     EditProject._edit_experiment(proj_data, experiment)
                 else:
                     raise ForbiddenActionError(
-                        "Unable to edit experiment {} by user {}. Insufficient priviliges.".format(
+                        "Unable to edit experiment {} by user {}. Insufficient privileges.".format(
                             experiment.name, identity.get('username'))
                         , identity.get('username'))
                     # User is not allowed to edit this project

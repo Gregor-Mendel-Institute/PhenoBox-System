@@ -8,6 +8,7 @@ from graphql_relay import from_global_id, to_global_id
 from werkzeug.exceptions import UnsupportedMediaType
 
 from server.api.blueprints import api
+from server.api.exceptions import ForbiddenActionError
 from server.extensions import db
 from server.gen.phenopipe_r_pb2 import PostprocessingStack, PostprocessingScript
 from server.models import AnalysisModel
@@ -77,22 +78,17 @@ def postprocess_analysis():
         ql_type, analysis_db_id = from_global_id(analysis_id)
 
         analysis = db.session.query(AnalysisModel).get(analysis_db_id)
+        if analysis.timestamp.experiment.scientist == identity['username']:
 
-        if postprocessing_ids is not None:
-            tasks, postprocesses, finished = submit_postprocesses(analysis, postprocessing_ids, note,
-                                                                  identity['username'])
-            # TODO throw error if one postprocess can't be started?
-            return jsonify({'msg': 'Started Postprocesses',
-                            'postprocessing_task_ids': [to_global_id('Task', t.key) for t in tasks],
-                            'already_finished': finished}), 202
-        return jsonify({'msg': 'No postprocessing stack ids given'}), 422
+            if postprocessing_ids is not None:
+                tasks, postprocesses, finished = submit_postprocesses(analysis, postprocessing_ids, note,
+                                                                      identity['username'])
+                # TODO throw error if one postprocess can't be started?
+                return jsonify({'msg': 'Started Postprocesses',
+                                'postprocessing_task_ids': [to_global_id('Task', t.key) for t in tasks],
+                                'already_finished': finished}), 202
+            return jsonify({'msg': 'No postprocessing stack ids given'}), 422
+        else:
+            raise ForbiddenActionError('You are not allowed to postprocess this analysis', identity['username'])
     else:
         return jsonify({'msg': 'No analysis id given'}), 422
-
-
-@api.route('/test_r', methods=['GET'])
-# @cross_origin(origin='*', headers=['Content-Type', 'Authorization'])
-# @jwt_required
-def test_r():
-    get_postprocessing_stacks()
-    return jsonify({'msg': 'Testing'})

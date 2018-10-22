@@ -3,7 +3,6 @@ import os
 import grpc
 from flask import current_app
 
-from server.extensions import analysis_task_scheduler
 from server.gen import phenopipe_iap_pb2_grpc, phenopipe_iap_pb2
 from server.modules.processing.exceptions import InvalidPathError, AlreadyFinishedError
 from server.modules.processing.remote_exceptions import UnavailableError, PipelineAlreadyExistsError, \
@@ -64,6 +63,7 @@ def submit_iap_jobs(timestamp, experiment_name, coordinator, scientist, input_pa
             raise
 
         try:
+            from server.extensions import analysis_task_scheduler
             task, analysis = analysis_task_scheduler.submit_task(timestamp, experiment_name, coordinator, scientist,
                                                                  input_path,
                                                                  output_path, pipeline, username, local_path)
@@ -151,7 +151,6 @@ def get_iap_pipeline(username, pipeline_id):
     """
     grpc_ip = current_app.config['ANALYSIS_SERVER_IP']
     grpc_port = current_app.config['ANALYSIS_SERVER_GRPC_PORT']
-
     channel = grpc.insecure_channel('{}:{}'.format(grpc_ip, str(grpc_port)))
     iap_stub = phenopipe_iap_pb2_grpc.PhenopipeIapStub(channel)
     try:

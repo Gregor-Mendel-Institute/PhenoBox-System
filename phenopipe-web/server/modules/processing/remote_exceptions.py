@@ -5,7 +5,7 @@ class RemoteError(Exception):
 
 class UnavailableError(RemoteError):
     def __init__(self, service_name, *args):
-        message = "The requested service({}) is currently unavailable".format(service_name)
+        message = "The requested service ({}) is currently unavailable".format(service_name)
         super(UnavailableError, self).__init__(message, *args)
 
 

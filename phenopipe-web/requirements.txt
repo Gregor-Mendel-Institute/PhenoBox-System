@@ -51,7 +51,7 @@ python-editor==1.0.3
 python-ldap==2.4.30
 pytz==2017.2
 redis==2.10.5
-requests==2.18.4
+requests==2.20.0
 rq==0.8.2
 simplekv==0.10.0
 singledispatch==3.4.0.3
